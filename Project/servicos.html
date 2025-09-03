@@ -207,6 +207,45 @@
         <div class="logo">Mower</div>
       </div>
         </section>
+        <!-- ================== PORTFÓLIO ================== -->
+    <section id="portfolio" class="portfolio">
+      <h2>Portfólio</h2>
+
+      <div class="portfolio-filters">
+        <button class="pf-btn is-active" data-filter="all">Todos</button>
+        <button class="pf-btn" data-filter="foto">Fotos</button>
+        <button class="pf-btn" data-filter="video">Vídeos</button>
+      </div>
+
+      <div class="portfolio-grid">
+        <figure class="pf-item" data-type="foto">
+          <a href="assets/portfolio/teatro-1.jpg" class="pf-lightbox">
+          <img src="https://dus6dayednven.cloudfront.net/app/uploads/2021/05/3.Nico-Ferreyra.jpg" alt="Thumb vídeo de exemplo" />
+          <figcaption>Teatro — Cena 1</figcaption>
+          </a>
+        </figure>
+
+        <figure class="pf-item" data-type="video">
+          <button class="pf-video" data-src="https://www.youtube.com/embed/dkdZIf479-E?rel=0">
+            <img src="https://dus6dayednven.cloudfront.net/app/uploads/2021/05/3.Nico-Ferreyra.jpg" alt="Thumb vídeo" />
+            <span class="pf-play"></span>
+            <figcaption>Projeto Documental</figcaption>
+          </button>
+        </figure>
+      </div>
+    </section>
+
+<!-- Modais -->
+        <div id="pf-image-modal" class="pf-modal" aria-hidden="true">
+          <button class="pf-close">&times;</button>
+          <img src="" alt="" />
+          <p class="pf-caption"></p>
+        </div>
+
+        <div id="pf-video-modal" class="pf-modal" aria-hidden="true">
+          <button class="pf-close">&times;</button>
+          <div class="pf-video-wrap"></div>
+        </div>
       </div>
     </div>
   </main>
