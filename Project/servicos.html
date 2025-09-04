@@ -43,7 +43,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="preconnect" href="https://plausible.io">
-  <link rel="stylesheet" href="style.css" />
+  
+  <!-- CSS Modular -->
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/servico.css" />
+  
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet"></noscript>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all'" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous">
@@ -158,7 +162,7 @@
       <div class="panel-right">
         <!-- Título em faixa preta como no modelo -->
         <section class="header-banner">
-          <h2>Serviços</h2>
+          <h1>Serviços</h1>
         </section>
 
     <section class="servicos-cards">
@@ -196,55 +200,55 @@
       </article>
     </section>
 
-    <section class="clientes">
-      <h2>Clientes e Parceiros</h2>
-      <div class="logos">
-        <div class="logo">Valkyria Filmes</div>
-        <div class="logo">Pipoca Cultural</div>
-        <div class="logo">Instituto Criativo</div>
-        <div class="logo">P J X</div>
-        <div class="logo">Pan Tiles</div>
-        <div class="logo">Mower</div>
+    <section class="clientes" aria-labelledby="clientes-title">
+      <h2 id="clientes-title">Clientes e Parceiros</h2>
+      <div class="logos" role="list" aria-label="Lista de clientes e parceiros">
+        <div class="logo" role="listitem" aria-label="Cliente: Valkyria Filmes">Valkyria Filmes</div>
+        <div class="logo" role="listitem" aria-label="Cliente: Pipoca Cultural">Pipoca Cultural</div>
+        <div class="logo" role="listitem" aria-label="Cliente: Instituto Criativo">Instituto Criativo</div>
+        <div class="logo" role="listitem" aria-label="Cliente: P J X">P J X</div>
+        <div class="logo" role="listitem" aria-label="Cliente: Pan Tiles">Pan Tiles</div>
+        <div class="logo" role="listitem" aria-label="Cliente: Mower">Mower</div>
       </div>
         </section>
         <!-- ================== PORTFÓLIO ================== -->
-    <section id="portfolio" class="portfolio">
-      <h2>Portfólio</h2>
+    <section id="portfolio" class="portfolio" aria-labelledby="portfolio-title">
+      <h2 id="portfolio-title">Portfólio</h2>
 
-      <div class="portfolio-filters">
-        <button class="pf-btn is-active" data-filter="all">Todos</button>
-        <button class="pf-btn" data-filter="foto">Fotos</button>
-        <button class="pf-btn" data-filter="video">Vídeos</button>
+      <div class="portfolio-filters" role="tablist" aria-label="Filtros de portfólio">
+        <button class="pf-btn is-active" data-filter="all" role="tab" aria-selected="true" aria-controls="portfolio-grid">Todos</button>
+        <button class="pf-btn" data-filter="foto" role="tab" aria-selected="false" aria-controls="portfolio-grid">Fotos</button>
+        <button class="pf-btn" data-filter="video" role="tab" aria-selected="false" aria-controls="portfolio-grid">Vídeos</button>
       </div>
 
-      <div class="portfolio-grid">
+      <div class="portfolio-grid" id="portfolio-grid" role="tabpanel">
         <figure class="pf-item" data-type="foto">
-          <a href="assets/portfolio/teatro-1.jpg" class="pf-lightbox">
-          <img src="https://dus6dayednven.cloudfront.net/app/uploads/2021/05/3.Nico-Ferreyra.jpg" alt="Thumb vídeo de exemplo" />
+          <a href="assets/portfolio/teatro-1.jpg" class="pf-lightbox" aria-label="Abrir imagem: Teatro — Cena 1">
+          <img src="https://dus6dayednven.cloudfront.net/app/uploads/2021/05/3.Nico-Ferreyra.jpg" alt="Cena teatral com ator em performance" loading="lazy" />
           <figcaption>Teatro — Cena 1</figcaption>
           </a>
         </figure>
 
         <figure class="pf-item" data-type="video">
-          <button class="pf-video" data-src="https://www.youtube.com/embed/dkdZIf479-E?rel=0">
-            <img src="https://dus6dayednven.cloudfront.net/app/uploads/2021/05/3.Nico-Ferreyra.jpg" alt="Thumb vídeo" />
-            <span class="pf-play"></span>
+          <button class="pf-video" data-src="https://www.youtube.com/embed/dkdZIf479-E?rel=0" aria-label="Reproduzir vídeo: Projeto Documental">
+            <img src="https://dus6dayednven.cloudfront.net/app/uploads/2021/05/3.Nico-Ferreyra.jpg" alt="Miniatura do vídeo documental" loading="lazy" />
+            <span class="pf-play" aria-hidden="true"></span>
             <figcaption>Projeto Documental</figcaption>
           </button>
         </figure>
       </div>
     </section>
 
-<!-- Modais -->
-        <div id="pf-image-modal" class="pf-modal" aria-hidden="true">
-          <button class="pf-close">&times;</button>
-          <img src="" alt="" />
-          <p class="pf-caption"></p>
+<!-- Modais com melhor acessibilidade -->
+        <div id="pf-image-modal" class="pf-modal" aria-hidden="true" role="dialog" aria-labelledby="modal-image-title">
+          <button class="pf-close" aria-label="Fechar modal">&times;</button>
+          <img src="" alt="" id="modal-image" />
+          <p class="pf-caption" id="modal-image-title"></p>
         </div>
 
-        <div id="pf-video-modal" class="pf-modal" aria-hidden="true">
-          <button class="pf-close">&times;</button>
-          <div class="pf-video-wrap"></div>
+        <div id="pf-video-modal" class="pf-modal" aria-hidden="true" role="dialog" aria-labelledby="modal-video-title">
+          <button class="pf-close" aria-label="Fechar modal">&times;</button>
+          <div class="pf-video-wrap" id="modal-video-title"></div>
         </div>
       </div>
     </div>

@@ -1,0 +1,159 @@
+/* ================================
+   SERVICO.CSS - ESTILOS DA SEÇÃO SERVIÇOS
+   ================================ */
+
+/* Banner "Serviços" */
+.header-banner{
+  background:#000; color:#fff; text-align:center; 
+  padding:34px 0;
+  width:100%;
+  margin:0;
+  animation: slideInDown 0.6s ease-out;
+}
+.header-banner h1{margin:0; font-size: clamp(28px,4vw,44px)}
+
+.servicos-cards{
+  background:var(--orange); 
+  padding:28px clamp(18px,4vw,48px); 
+  display:grid; grid-template-columns: repeat(3,minmax(240px,1fr)); gap:20px;
+  animation: fadeInUp 0.8s ease-out;
+  animation-delay: 0.3s;
+  animation-fill-mode: both;
+  width:100%;
+  margin:0;
+}
+
+.card{
+  background:#fff; border-radius:var(--radius); border:1px solid rgba(0,0,0,.06); 
+  box-shadow:var(--shadow); padding:22px 18px; display:flex; flex-direction:column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: scaleIn 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.card:nth-child(1) { animation-delay: 0.5s; }
+.card:nth-child(2) { animation-delay: 0.7s; }
+.card:nth-child(3) { animation-delay: 0.9s; }
+
+.card:hover{
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.badge{
+  width:44px; height:44px; border-radius:50%; display:grid; place-items:center; 
+  background:#000; color:#fff; font-weight:800; margin-bottom:8px;
+  transition: all 0.8s ease;
+}
+
+.card:hover .badge{
+  transform: rotate(360deg);
+  background: var(--red);
+}
+
+/* Força a animação mesmo com preferência por movimento reduzido */
+.servicos-cards .card:hover .badge {
+  transform: rotate(360deg) !important;
+  background: var(--red) !important;
+  transition: all 0.8s ease !important;
+}
+
+.card h3{margin:0 0 6px; font-size:19px}
+.card ul{margin:8px 0 0 20px}
+
+.cta{
+  margin-top:auto; align-self:flex-start; text-decoration:none; 
+  background:var(--red); color:#fff; border-radius:12px; padding:10px 14px; 
+  font-weight:700;
+  transition: all 0.3s ease;
+}
+
+.cta:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(228, 75, 51, 0.4);
+  background: #f55539;
+}
+
+.clientes{
+  padding:48px clamp(18px,4vw,48px);
+  animation: fadeInUp 0.8s ease-out;
+  animation-delay: 0.4s;
+  animation-fill-mode: both;
+  width:100%;
+  margin:0;
+}
+.clientes h2{margin:0 0 18px}
+.logos{display:grid; grid-template-columns: repeat(6, minmax(120px,1fr)); gap:16px}
+.logo{
+  background:var(--muted); border:1px dashed #e1e1e1; border-radius:14px; 
+  aspect-ratio: 1.6/1; display:grid; place-items:center; color:#888; font-weight:600;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.logo:nth-child(1) { animation-delay: 0.6s; }
+.logo:nth-child(2) { animation-delay: 0.7s; }
+.logo:nth-child(3) { animation-delay: 0.8s; }
+.logo:nth-child(4) { animation-delay: 0.9s; }
+.logo:nth-child(5) { animation-delay: 1.0s; }
+.logo:nth-child(6) { animation-delay: 1.1s; }
+
+.logo:hover{
+  transform: translateY(-3px);
+  background: #fff;
+  border-color: var(--orange);
+  color: var(--black);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Responsividade dos serviços */
+@media (max-width:1024px){
+  .servicos-cards{grid-template-columns:repeat(2,minmax(220px,1fr))}
+  .logos{grid-template-columns:repeat(3,minmax(120px,1fr))}
+  
+  /* Melhorias para página de serviços em tablets */
+  .servicos-cards {
+    padding: 24px clamp(18px,4vw,36px);
+    gap: 18px;
+  }
+  
+  .card {
+    padding: 20px 16px;
+  }
+  
+  .clientes {
+    padding: 40px clamp(18px,4vw,36px);
+  }
+  
+  .logos {
+    gap: 14px;
+  }
+}
+
+@media (max-width:560px){
+  .servicos-cards{grid-template-columns:1fr}
+  .logos{grid-template-columns:repeat(2,minmax(110px,1fr))}
+  
+  /* Ajustes específicos para página de serviços */
+  .servicos-cards {
+    padding: 20px 18px;
+    gap: 16px;
+  }
+  
+  .card {
+    padding: 18px 16px;
+  }
+  
+  .card h3 {
+    font-size: 17px;
+  }
+  
+  .clientes {
+    padding: 32px 18px;
+  }
+  
+  .header-banner {
+    padding: 28px 16px;
+  }
+}
