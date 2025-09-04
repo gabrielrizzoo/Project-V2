@@ -590,17 +590,50 @@ function releaseFocusTrap() {
 // ================================
 // PORTFÓLIO (Filtros, Lightbox e Vídeo)
 // ================================
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM loaded, initializing portfolio...'); // Debug
+  
 (function portfolioInit(){
+  console.log('Portfolio initialization started...'); // Debug
+  
   const filterButtons = document.querySelectorAll('.pf-btn');
   const items = document.querySelectorAll('.pf-item');
 
+  // Filtros do portfólio com animação melhorada
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      filterButtons.forEach(b => b.classList.remove('is-active'));
+      // Remove active de todos os botões
+      filterButtons.forEach(b => {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      
+      // Ativa o botão clicado
       btn.classList.add('is-active');
+      btn.setAttribute('aria-selected', 'true');
+      
       const filter = btn.dataset.filter;
-      items.forEach(it => {
-        it.style.display = filter === 'all' || it.dataset.type === filter ? '' : 'none';
+      console.log('Filter selected:', filter); // Debug
+      
+      // Aplica filtros com animação suave
+      items.forEach((it, index) => {
+        const shouldShow = filter === 'all' || it.dataset.type === filter;
+        
+        // Animação de saída
+        it.style.opacity = '0';
+        it.style.transform = 'translateY(20px) scale(0.95)';
+        
+        setTimeout(() => {
+          it.style.display = shouldShow ? '' : 'none';
+          
+          if (shouldShow) {
+            // Animação de entrada escalonada
+            setTimeout(() => {
+              it.style.opacity = '1';
+              it.style.transform = 'translateY(0) scale(1)';
+            }, index * 100);
+          }
+        }, 200);
       });
     });
   });
@@ -609,78 +642,162 @@ function releaseFocusTrap() {
   const imgModal = document.getElementById('pf-image-modal');
   const imgEl = imgModal?.querySelector('img');
   const capEl = imgModal?.querySelector('.pf-caption');
-  document.querySelectorAll('.pf-lightbox').forEach(link=>{
-    link.addEventListener('click', e=>{
-      e.preventDefault();
-      imgEl.src = link.href;
-      capEl.textContent = link.querySelector('figcaption')?.textContent || '';
-      imgModal.setAttribute('aria-hidden','false');
-    });
-  });
-
-  // Vídeos
-  const vidModal = document.getElementById('pf-video-modal');
-  const vidWrap = vidModal?.querySelector('.pf-video-wrap');
-  document.querySelectorAll('.pf-video').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const src = btn.dataset.src;
-      vidWrap.innerHTML = `<iframe src=\"${src}\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>`;
-      vidModal.setAttribute('aria-hidden','false');
-    });
-  });
-
-  // Fechar modais
-  document.querySelectorAll('.pf-close').forEach(btn=>btn.addEventListener('click', closeAll));
-  [imgModal,vidModal].forEach(m=>m?.addEventListener('click',e=>{ if(e.target===m) closeAll(); }));
-  function closeAll(){
-    imgModal?.setAttribute('aria-hidden','true');
-    vidModal?.setAttribute('aria-hidden','true');
-    if(vidWrap) vidWrap.innerHTML = '';
-  }
-})();
-
-(function portfolioInit(){
-  const filterButtons = document.querySelectorAll('.pf-btn');
-  const items = document.querySelectorAll('.pf-item');
-
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterButtons.forEach(b => b.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      const filter = btn.dataset.filter;
-      items.forEach(it => {
-        it.style.display = (filter === 'all' || it.dataset.type === filter) ? '' : 'none';
+  
+  console.log('Image modal elements:', { imgModal: !!imgModal, imgEl: !!imgEl, capEl: !!capEl }); // Debug
+  
+  if (imgModal && imgEl && capEl) {
+    document.querySelectorAll('.pf-lightbox').forEach((link, index)=>{
+      console.log(`Image lightbox ${index} setup`); // Debug
+      link.addEventListener('click', e=>{
+        e.preventDefault();
+        console.log('Image clicked'); // Debug
+        imgEl.src = link.href;
+        imgEl.alt = link.querySelector('img')?.alt || '';
+        capEl.textContent = link.querySelector('figcaption')?.textContent || '';
+        imgModal.setAttribute('aria-hidden','false');
+        imgModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
       });
     });
-  });
+  }
 
-  const imgModal = document.getElementById('pf-image-modal');
-  const imgEl = imgModal?.querySelector('img');
-  const capEl = imgModal?.querySelector('.pf-caption');
-  document.querySelectorAll('.pf-lightbox').forEach(link=>{
-    link.addEventListener('click', e=>{
-      e.preventDefault();
-      imgEl.src = link.href;
-      capEl.textContent = link.querySelector('figcaption')?.textContent || '';
-      imgModal.setAttribute('aria-hidden','false');
-    });
-  });
-
+  // Sistema de vídeos melhorado
   const vidModal = document.getElementById('pf-video-modal');
   const vidWrap = vidModal?.querySelector('.pf-video-wrap');
-  document.querySelectorAll('.pf-video').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
+  
+  console.log('Video modal elements:', { vidModal: !!vidModal, vidWrap: !!vidWrap }); // Debug
+  
+  if (vidModal && vidWrap) {
+    const videoButtons = document.querySelectorAll('.pf-video');
+    console.log(`Found ${videoButtons.length} video buttons`); // Debug
+    
+    videoButtons.forEach((btn, index) => {
       const src = btn.dataset.src;
-      vidWrap.innerHTML = `<iframe src="${src}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-      vidModal.setAttribute('aria-hidden','false');
+      console.log(`Setting up video button ${index}:`, src); // Debug
+      
+      // Remove listeners anteriores para evitar duplicação
+      btn.replaceWith(btn.cloneNode(true));
+      const newBtn = document.querySelectorAll('.pf-video')[index];
+      
+      // Adiciona evento de clique no botão
+      newBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const videoSrc = this.dataset.src;
+        console.log('Video button clicked! Source:', videoSrc); // Debug
+        
+        // Verifica se é um vídeo válido (não exemplo)
+        if (videoSrc && !videoSrc.includes('example')) {
+          console.log('Opening video modal...'); // Debug
+          
+          // Limpa o conteúdo anterior
+          vidWrap.innerHTML = '';
+          
+          // Cria o iframe do YouTube
+          const iframe = document.createElement('iframe');
+          iframe.src = videoSrc;
+          iframe.allow = 'autoplay; encrypted-media; fullscreen';
+          iframe.allowFullscreen = true;
+          iframe.style.width = '100%';
+          iframe.style.height = '100%';
+          iframe.style.border = '0';
+          iframe.style.borderRadius = '20px';
+          iframe.title = 'Video Player';
+          
+          vidWrap.appendChild(iframe);
+          
+          // Abre o modal
+          vidModal.setAttribute('aria-hidden', 'false');
+          vidModal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+          
+          console.log('Video modal opened successfully!'); // Debug
+        } else {
+          console.log('Invalid video source or example video'); // Debug
+          alert('Este vídeo ainda não está disponível. Tente outro vídeo do portfólio.');
+        }
+      });
+      
+      // Adiciona hover effect melhorado
+      newBtn.addEventListener('mouseenter', function() {
+        const playBtn = this.querySelector('.pf-play');
+        if (playBtn) {
+          playBtn.style.transform = 'translate(-50%, -50%) scale(1.3)';
+          console.log('Mouse enter on video button'); // Debug
+        }
+      });
+      
+      newBtn.addEventListener('mouseleave', function() {
+        const playBtn = this.querySelector('.pf-play');
+        if (playBtn) {
+          playBtn.style.transform = 'translate(-50%, -50%) scale(1)';
+        }
+      });
+      
+      // Adiciona evento de clique também no span do play
+      const playSpan = newBtn.querySelector('.pf-play');
+      if (playSpan) {
+        playSpan.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          newBtn.click(); // Dispara o clique do botão pai
+        });
+      }
     });
+  } else {
+    console.error('Video modal elements not found!'); // Debug
+  }
+
+  // Fechar modais com melhor UX
+  const closeButtons = document.querySelectorAll('.pf-close');
+  closeButtons.forEach(btn => {
+    btn.addEventListener('click', closeAll);
+  });
+  
+  // Clique fora do modal para fechar
+  [imgModal, vidModal].forEach(modal => {
+    if (modal) {
+      modal.addEventListener('click', e => {
+        if (e.target === modal) {
+          closeAll();
+        }
+      });
+    }
+  });
+  
+  // ESC key para fechar modais
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeAll();
+    }
   });
 
   function closeAll(){
-    imgModal?.setAttribute('aria-hidden','true');
-    vidModal?.setAttribute('aria-hidden','true');
-    if(vidWrap) vidWrap.innerHTML = '';
+    console.log('Closing all modals...'); // Debug
+    
+    // Fecha modal de imagem
+    if (imgModal) {
+      imgModal.setAttribute('aria-hidden','true');
+      imgModal.style.display = 'none';
+    }
+    
+    // Fecha modal de vídeo e para o vídeo
+    if (vidModal) {
+      vidModal.setAttribute('aria-hidden','true');
+      vidModal.style.display = 'none';
+    }
+    
+    // Limpa o conteúdo do vídeo para parar a reprodução
+    if (vidWrap) {
+      vidWrap.innerHTML = '';
+    }
+    
+    // Restaura o scroll da página
+    document.body.style.overflow = '';
   }
-  document.querySelectorAll('.pf-close').forEach(b=>b.addEventListener('click', closeAll));
-  [imgModal,vidModal].forEach(m=>m?.addEventListener('click',e=>{ if(e.target===m) closeAll(); }));
+  
+  console.log('Portfolio initialization completed.'); // Debug
 })();
+
+}); // Fim do DOMContentLoaded
