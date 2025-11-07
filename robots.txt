@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://incentivart.com.br/sitemap.xml
+
+# Crawl delay for better server performance
+Crawl-delay: 1
+
+# Disallow specific files if needed
+# Disallow: /assets/
+# Disallow: /*.json$
