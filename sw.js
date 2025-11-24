@@ -7,15 +7,11 @@ const NOME_CACHE = 'incentivart-v1.0.0';
 const RECURSOS_ESTATICOS = [
   './',
   './index.html',
-  './sobre.html',
   './contato.html',
   './servicos.html',
-  './404.html',
   './style.css',
   './script.js',
-  './manifest.json',
-  './assets/icon-192x192.png',
-  './assets/icon-512x512.png'
+  './manifest.json'
 ];
 
 // Evento de instalação - armazena recursos estáticos em cache
@@ -65,10 +61,8 @@ self.addEventListener('fetch', (event) => {
     './style.css',
     './script.js',
     './index.html',
-    './sobre.html',
     './contato.html',
-    './servicos.html',
-    './404.html'
+    './servicos.html'
   ];
   
   event.respondWith(
@@ -114,7 +108,7 @@ self.addEventListener('fetch', (event) => {
           .catch(() => {
             // Se offline e sem cache, retorna página de erro
             if (event.request.destination === 'document') {
-              return caches.match('./404.html');
+              return caches.match('/404.html');
             }
           });
       })
