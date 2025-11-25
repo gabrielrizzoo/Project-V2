@@ -746,7 +746,7 @@ textarea:focus {
   left: -100%;
   width: 40%;
   height: 100px;
-  animation: flowRight1 18s ease-in-out infinite;
+  animation: flowRight1 25s ease-in-out infinite;
 }
 
 /* Line 2 - Vertical/Diagonal curva sinuosa */
@@ -755,7 +755,7 @@ textarea:focus {
   right: 10%;
   width: 100px;
   height: 60%;
-  animation: flowDown1 22s ease-in-out infinite;
+  animation: flowDown1 35s ease-in-out infinite;
 }
 
 /* Line 3 - Horizontal middle curva invertida */
@@ -764,7 +764,7 @@ textarea:focus {
   right: -100%;
   width: 50%;
   height: 100px;
-  animation: flowLeft1 20s ease-in-out infinite;
+  animation: flowLeft1 35s ease-in-out infinite;
 }
 
 /* Line 4 - Vertical left curva pulsante */
@@ -773,7 +773,7 @@ textarea:focus {
   left: 8%;
   width: 100px;
   height: 40%;
-  animation: pulse1 15s ease-in-out infinite;
+  animation: pulse1 35s ease-in-out infinite;
 }
 
 /* Line 5 - Horizontal bottom curva complexa */
@@ -782,7 +782,7 @@ textarea:focus {
   left: -50%;
   width: 70%;
   height: 100px;
-  animation: flowRight2 25s ease-in-out infinite;
+  animation: flowRight2 45s ease-in-out infinite;
 }
 
 /* Animations - Dança Sinfônica com Curvas Reais */
