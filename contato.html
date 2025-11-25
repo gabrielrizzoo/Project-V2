@@ -40,9 +40,9 @@
   <link rel="stylesheet" href="css/global.css" />
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-  <!-- Plausible Analytics -->
-  <script defer data-domain="incentivart.com.br" src="https://plausible.io/js/script.js"></script>
+  
+  <!-- Main Script -->
+  <script defer src="script.js"></script>
 </head>
 
 <body data-page="contato">
@@ -157,7 +157,7 @@
 
           <!-- Contact Form -->
           <div class="card" data-animate="fade-left" class="delay-100">
-            <form id="contatoForm" action="https://formspree.io/f/meoqeknv" method="POST">
+            <form id="contatoForm" action="enviar.php" method="POST">
               <h3 style="margin-bottom: 2rem;">Envie uma mensagem</h3>
 
               <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
@@ -181,7 +181,7 @@
                 <input type="tel" id="telefone" name="telefone" class="input" placeholder="(00) 90000-0000" required>
               </div>
 
-              <div class="field">
+              <div class="field textarea-wrapper">
                 <label for="mensagem" class="label">Mensagem *</label>
                 <textarea id="mensagem" name="mensagem" rows="5" maxlength="800" required
                   placeholder="Conte-nos sobre seu projeto..."></textarea>
@@ -194,22 +194,29 @@
                 <label class="label" style="margin-bottom: 1rem;">Segmento de Interesse</label>
                 <div class="flex" style="flex-wrap: wrap; gap: 0.75rem;">
                   <label class="choice-chip">
-                    <input type="checkbox" name="segmento" value="teatro">
+                    <input type="checkbox" name="segmento[]" value="teatro">
                     <span>Teatro</span>
                   </label>
                   <label class="choice-chip">
-                    <input type="checkbox" name="segmento" value="musica">
+                    <input type="checkbox" name="segmento[]" value="musica">
                     <span>Música</span>
                   </label>
                   <label class="choice-chip">
-                    <input type="checkbox" name="segmento" value="audiovisual">
+                    <input type="checkbox" name="segmento[]" value="audiovisual">
                     <span>Audiovisual</span>
                   </label>
                   <label class="choice-chip">
-                    <input type="checkbox" name="segmento" value="outros">
+                    <input type="checkbox" name="segmento[]" value="outros">
                     <span>Outros</span>
                   </label>
                 </div>
+              </div>
+
+              <div class="field" style="margin-top: 1.5rem;">
+                <label style="display: flex; align-items: flex-start; gap: 0.5rem; font-weight: 400; font-size: 0.9rem; cursor: pointer;">
+                  <input type="checkbox" name="consentimento" required style="width: 18px; height: 18px; margin-top: 2px; accent-color: var(--primary);">
+                  <span>Concordo com a <a href="politica-de-privacidade.html" target="_blank" style="color: var(--primary); text-decoration: underline;">Política de Privacidade</a> e autorizo o uso dos meus dados para contato.</span>
+                </label>
               </div>
 
               <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Enviar
@@ -270,12 +277,10 @@
       </div>
 
       <div class="footer-bottom">
-        <p>© <span id="year"></span> Incentivart - Todos os direitos reservados</p>
+        <p>© <span id="year"></span> Incentivart - Todos os direitos reservados | <a href="politica-de-privacidade.html" style="color: inherit; text-decoration: none;">Política de Privacidade</a></p>
       </div>
     </div>
   </footer>
-
-  <script src="script.js"></script>
 </body>
 
 </html>

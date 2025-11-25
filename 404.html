@@ -2,125 +2,139 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Página não encontrada — Incentivart</title>
-  <meta name="theme-color" content="#0c0c0c" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Página não encontrada - Incentivart</title>
+  <meta name="theme-color" content="#050505" />
   
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192x192.png" />
   <link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512x512.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-  <meta name="msapplication-TileColor" content="#0c0c0c" />
-  <meta name="msapplication-config" content="browserconfig.xml" />
   
-  <!-- Script de inicialização para preload -->
-  <script>document.documentElement.className+=" is-preload no-js";</script>
-  
-  <!-- Preconnects para carregamento mais rápido de recursos externos -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-  <link rel="preconnect" href="https://plausible.io">
-  
-  <!-- CSS Modular -->
+  <!-- CSS -->
   <link rel="stylesheet" href="css/global.css" />
   <link rel="stylesheet" href="404.css" />
-  
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  <script defer data-domain="incentivart.com.br" src="https://plausible.io/js/script.js"></script>
 </head>
 <body data-page="404">
+  <!-- Linhas Decorativas Animadas -->
+  <div class="decorative-lines" aria-hidden="true">
+    <svg class="line line-1" viewBox="0 0 1000 100" preserveAspectRatio="none">
+      <path d="M0,50 Q250,10 500,50 T1000,50" stroke="#de7f56" stroke-width="2" fill="none" />
+    </svg>
+    <svg class="line line-2" viewBox="0 0 100 1000" preserveAspectRatio="none">
+      <path d="M50,0 Q10,250 50,500 T50,1000" stroke="#de7f56" stroke-width="2" fill="none" />
+    </svg>
+  </div>
+
   <header class="topbar">
-    <a class="brand" href="index.html" aria-label="Incentivart">
-      <div class="logo-container">
-        <div class="main-text">
-          <span class="text-before-clip">Incent</span>
-          <div class="paperclip"></div>
-          <span class="text-after-clip">vart</span>
+    <div class="brand">
+      <a href="index.html" aria-label="Incentivart" style="display:flex; align-items:center; text-decoration:none;">
+        <div class="logo-container">
+          <div class="main-text">
+            <span>Incent</span>
+            <div class="paperclip"></div>
+            <span>vart</span>
+          </div>
+          <div class="subtitle-banner">
+            PROJETOS CULTURAIS
+          </div>
         </div>
-        <div class="subtitle-banner">
-          PROJETOS CULTURAIS PARA LEIS DE INCENTIVO E EDITAIS
-        </div>
-      </div>
-    </a>
-    <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="main-nav">
-      <span class="sr-only">Menu</span>
-      <span class="hamburger"></span>
-    </button>
-    <nav class="nav" id="main-nav">
+      </a>
+    </div>
+
+    <nav id="primary-nav" class="nav" role="navigation" aria-label="Navegação principal">
       <a href="index.html">Home</a>
+      <a href="sobre.html">Sobre Nós</a>
       <a href="servicos.html">Serviços</a>
       <a href="contato.html">Contato</a>
     </nav>
+
+    <button class="mobile-menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+      <div class="hamburger"></div>
+    </button>
   </header>
 
-  <main>
-    <section class="split">
-      <aside class="panel-left">
-        <div class="hero-copy">
-          <div class="error-code">
-            <span class="digit">4</span>
-            <div class="orbit">
-              <div class="planet"></div>
+  <main id="main">
+    <section class="section error-section">
+      <div class="container">
+        <div class="error-content">
+          <div class="error-visual">
+            <div class="error-code">
+              <span class="digit">4</span>
+              <div class="orbit">
+                <div class="planet"></div>
+              </div>
+              <span class="digit">4</span>
             </div>
-            <span class="digit">4</span>
           </div>
-          <p class="muted">Ops, a página que você procura não existe ou foi movida.</p>
-          <div class="social">
-            <a href="https://wa.me/5521967255471" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          
+          <div class="error-text">
+            <h1 class="text-gradient">Página não encontrada</h1>
+            <p>A página que você está procurando pode ter sido removida, renomeada ou está temporariamente indisponível.</p>
+            
+            <div class="error-actions">
+              <a href="index.html" class="btn btn-primary">
+                <i class="fa-solid fa-home"></i> Voltar para Home
+              </a>
+              <a href="contato.html" class="btn btn-outline">
+                <i class="fa-solid fa-envelope"></i> Fale Conosco
+              </a>
+            </div>
           </div>
         </div>
-      </aside>
-
-      <section class="panel-right">
-        <article class="welcome">
-          <h2>Página não encontrada</h2>
-          <p>A página que você está procurando pode ter sido removida, renomeada ou está temporariamente indisponível.</p>
-          
-          <div class="error-suggestions">
-            <h3>Tente uma destas opções:</h3>
-            <ul class="suggestion-links">
-              <li>
-                <a href="index.html" class="contact-item">
-                  <i class="fa fa-home"></i>
-                  <span>Voltar para a página inicial</span>
-                </a>
-              </li>
-              <li>
-                <a href="servicos.html" class="contact-item">
-                  <i class="fa fa-briefcase"></i>
-                  <span>Explorar nossos serviços</span>
-                </a>
-              </li>
-              <li>
-                <a href="contato.html" class="contact-item">
-                  <i class="fa fa-envelope"></i>
-                  <span>Entrar em contato conosco</span>
-                </a>
-              </li>
-              <li>
-                <a href="javascript:history.back()" class="contact-item">
-                  <i class="fa fa-arrow-left"></i>
-                  <span>Voltar para a página anterior</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </article>
-      </section>
+      </div>
     </section>
   </main>
 
-  <footer>© <span id="year"></span> Incentivart </footer>
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <div class="footer-brand">
+          <h3>Incentivart</h3>
+          <p>Projetos culturais para leis de incentivo e editais</p>
+        </div>
+
+        <div class="footer-contact">
+          <h4>Contato</h4>
+          <div class="contact-item-footer">
+            <i class="fa-solid fa-map-marker-alt"></i>
+            <span>Brasil</span>
+          </div>
+          <div class="contact-item-footer">
+            <i class="fa-solid fa-phone"></i>
+            <a href="tel:+5521967255471">(21) 96725-5471</a>
+          </div>
+          <div class="contact-item-footer">
+            <i class="fa-solid fa-envelope"></i>
+            <a href="mailto:contato@incentivart.com.br">contato@incentivart.com.br</a>
+          </div>
+        </div>
+
+        <div class="footer-social">
+          <h4>Redes Sociais</h4>
+          <div class="social-links-footer">
+            <a href="https://wa.me/5521967255471" aria-label="WhatsApp">
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="year"></span> Incentivart - Todos os direitos reservados | <a href="politica-de-privacidade.html" style="color: inherit; text-decoration: none;">Política de Privacidade</a></p>
+      </div>
+    </div>
+  </footer>
   
-  <!-- Sobreposição para transições de página -->
-  <div class="page-transition"></div>
-  
-  <!-- Scripts carregados ao final para melhor performance -->
   <script src="script.js" defer></script>
 </body>
 </html>

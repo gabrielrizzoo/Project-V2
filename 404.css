@@ -1,36 +1,52 @@
 /* =================================================================
-   PÁGINA 404 REDESENHADA - MANTENDO O ESTILO DO SITE
+   PÁGINA 404 - ESTILO PREMIUM
    ================================================================= */
+
+.error-section {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+}
+
+.error-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+}
 
 /* Container do código de erro 404 animado */
 .error-code {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 2rem;
   height: 140px;
   position: relative;
+  margin-bottom: 1rem;
 }
 
 /* Dígitos do 404 */
 .digit {
-  font-size: 6rem;
+  font-size: 8rem;
   font-weight: 800;
-  color: white;
-  text-shadow: 0 0 15px rgba(222, 127, 86, 0.5);
+  color: var(--text-main);
+  text-shadow: 0 0 30px rgba(222, 127, 86, 0.3);
   line-height: 1;
-  animation: pulse 2s infinite alternate;
+  animation: pulse 3s infinite alternate;
 }
 
 /* Órbita entre os números */
 .orbit {
-  width: 80px;
-  height: 80px;
-  margin: 0 0.5rem;
-  border: 2px dashed rgba(255, 255, 255, 0.3);
+  width: 100px;
+  height: 100px;
+  margin: 0 1rem;
+  border: 2px dashed rgba(255, 255, 255, 0.15);
   border-radius: 50%;
   position: relative;
-  animation: rotate 8s linear infinite;
+  animation: rotate 10s linear infinite;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,63 +56,60 @@
 .planet {
   width: 24px;
   height: 24px;
-  background: var(--orange);
+  background: var(--primary);
   border-radius: 50%;
   position: absolute;
   top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  box-shadow: 0 0 20px rgba(222, 127, 86, 0.7);
+  box-shadow: 0 0 20px var(--primary);
   animation: glow 3s infinite alternate;
 }
 
-/* Estilos para as sugestões de links */
-.error-suggestions {
-  margin-top: 2rem;
-  animation: fadeInUp 0.6s ease-out;
-  animation-delay: 0.6s;
-  animation-fill-mode: both;
-}
-
-.error-suggestions h3 {
-  margin-bottom: 1rem;
+.error-text p {
   font-size: 1.2rem;
-  color: var(--black);
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 2rem;
 }
 
-.suggestion-links {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  gap: 0.75rem;
-}
-
-/* Usando o estilo dos contact-item já existentes */
-.suggestion-links .contact-item {
+.error-actions {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  background: white;
-  border-radius: 12px;
-  text-decoration: none;
-  color: var(--black);
-  border: 1px solid rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  font-weight: 500;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.suggestion-links .contact-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-  border-color: var(--black);
+/* Animações */
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-.suggestion-links .contact-item i {
-  font-size: 18px;
-  width: 20px;
-  text-align: center;
-  color: var(--orange);
+@keyframes pulse {
+  from { opacity: 0.8; transform: scale(1); }
+  to { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 10px var(--primary); }
+  to { box-shadow: 0 0 30px var(--primary), 0 0 10px white; }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .digit {
+    font-size: 5rem;
+  }
+  
+  .orbit {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .error-section {
+    min-height: 60vh;
+  }
 }
 
 /* Animações para a página 404 */

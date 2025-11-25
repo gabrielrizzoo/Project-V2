@@ -1,3 +1,6 @@
+# Options
+Options -MultiViews
+
 # Security Headers
 <IfModule mod_headers.c>
     Header always set X-Content-Type-Options nosniff
@@ -40,7 +43,7 @@
 </IfModule>
 
 # Error Pages
-ErrorDocument 404 404.html
+ErrorDocument 404 /404.html
 
 # URL Rewriting
 <IfModule mod_rewrite.c>

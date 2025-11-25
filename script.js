@@ -65,28 +65,38 @@ function debounce(func, wait) {
 
   // Mobile Menu
   if (mobileToggle && nav) {
+    const closeMenu = () => {
+      nav.classList.remove('active');
+      document.body.classList.remove('menu-open');
+      mobileToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      mobileToggle.focus();
+    };
+
     mobileToggle.addEventListener('click', () => {
-      nav.classList.toggle('active');
+      const isExpanded = nav.classList.toggle('active');
       document.body.classList.toggle('menu-open');
-
-      const isExpanded = nav.classList.contains('active');
       mobileToggle.setAttribute('aria-expanded', isExpanded);
-
-      if (isExpanded) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = '';
-      }
+      document.body.style.overflow = isExpanded ? 'hidden' : '';
     });
 
     // Fechar menu ao clicar em link
     nav.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
-        nav.classList.remove('active');
-        document.body.classList.remove('menu-open');
-        document.body.style.overflow = '';
-        mobileToggle.setAttribute('aria-expanded', 'false');
+        if (nav.classList.contains('active')) {
+          nav.classList.remove('active');
+          document.body.classList.remove('menu-open');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
       });
+    });
+
+    // Acessibilidade: Fechar com ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && nav.classList.contains('active')) {
+        closeMenu();
+      }
     });
   }
 
@@ -265,3 +275,141 @@ function debounce(func, wait) {
     yearEl.textContent = new Date().getFullYear();
   }
 })();
+
+// ================================
+// PRIVACY POLICY MODAL
+// ================================
+const PrivacyModal = {
+  triggerCheckbox: null,
+  content: `
+    <p>A sua privacidade é importante para nós. É política da Incentivart respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site Incentivart.</p>
+
+    <h3>1. Coleta de Dados</h3>
+    <p>Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço. Fazemo-lo por meios justos e legais, com o seu conhecimento e consentimento. Também informamos por que estamos coletando e como será usado.</p>
+    <p>Os dados coletados em nosso formulário de contato (Nome, E-mail, Telefone) são utilizados exclusivamente para responder às suas solicitações e dúvidas.</p>
+
+    <h3>2. Retenção de Dados</h3>
+    <p>Apenas retemos as informações coletadas pelo tempo necessário para fornecer o serviço solicitado. Quando armazenamos dados, protegemos dentro de meios comercialmente aceitáveis ​​para evitar perdas e roubos, bem como acesso, divulgação, cópia, uso ou modificação não autorizados.</p>
+
+    <h3>3. Compartilhamento de Dados</h3>
+    <p>Não compartilhamos informações de identificação pessoal publicamente ou com terceiros, exceto quando exigido por lei.</p>
+
+    <h3>4. Cookies e Analytics</h3>
+    <p>Não utilizamos cookies de rastreamento ou ferramentas de analytics que coletam dados pessoais identificáveis.</p>
+
+    <h3>5. Consentimento</h3>
+    <p>O uso continuado de nosso site será considerado como aceitação de nossas práticas em torno de privacidade e informações pessoais. Se você tiver alguma dúvida sobre como lidamos com dados do usuário e informações pessoais, entre em contacto conosco.</p>
+
+    <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.7;">Esta política é efetiva a partir de Novembro/2025.</p>
+  `,
+
+  init() {
+    // Find all privacy policy links
+    const links = document.querySelectorAll('a[href="politica-de-privacidade.html"]');
+    
+    if (links.length > 0) {
+      this.createModal();
+      
+      links.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.open();
+        });
+      });
+    }
+
+    // Find the consent checkbox
+    const consentCheckbox = document.querySelector('input[name="consentimento"]');
+    if (consentCheckbox) {
+      this.createModal();
+      
+      consentCheckbox.addEventListener('click', (e) => {
+        // If the user is trying to check the box (it is currently unchecked)
+        if (consentCheckbox.checked) {
+          e.preventDefault(); // Prevent checking immediately
+          consentCheckbox.checked = false; // Ensure it stays unchecked
+          this.open(consentCheckbox);
+        }
+      });
+    }
+  },
+
+  createModal() {
+    if (document.getElementById('privacy-modal')) return;
+
+    const modalHTML = `
+      <div id="privacy-modal" class="modal-backdrop" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+          <div class="modal-header">
+            <h2 id="privacy-title" class="modal-title">Política de Privacidade</h2>
+            <button class="modal-close" aria-label="Fechar modal">
+              <i class="fa-solid fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            ${this.content}
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary modal-confirm-btn">Entendi</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // Bind events
+    this.modal = document.getElementById('privacy-modal');
+    
+    // Close buttons (X)
+    const closeBtns = this.modal.querySelectorAll('.modal-close');
+    closeBtns.forEach(btn => {
+      btn.addEventListener('click', () => this.close(false));
+    });
+
+    // Confirm button (Entendi)
+    const confirmBtn = this.modal.querySelector('.modal-confirm-btn');
+    if (confirmBtn) {
+      confirmBtn.addEventListener('click', () => this.close(true));
+    }
+
+    // Backdrop click
+    this.modal.addEventListener('click', (e) => {
+      if (e.target === this.modal) this.close(false);
+    });
+
+    // Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.isOpen) this.close(false);
+    });
+  },
+
+  open(checkbox = null) {
+    this.triggerCheckbox = checkbox;
+    this.modal.classList.add('active');
+    this.modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    this.isOpen = true;
+  },
+
+  close(confirmed = false) {
+    this.modal.classList.remove('active');
+    this.modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    this.isOpen = false;
+
+    if (confirmed && this.triggerCheckbox) {
+      this.triggerCheckbox.checked = true;
+    }
+    
+    // Reset trigger after a short delay to ensure no double-triggering
+    setTimeout(() => {
+      this.triggerCheckbox = null;
+    }, 100);
+  }
+};
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  PrivacyModal.init();
+});
