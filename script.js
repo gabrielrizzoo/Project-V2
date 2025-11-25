@@ -230,38 +230,111 @@ function debounce(func, wait) {
     });
   }
 
-  // Lightbox Simples
-  const lightboxLinks = document.querySelectorAll('.pf-lightbox');
+  // Lightbox Avançado
+  const lightboxLinks = Array.from(document.querySelectorAll('.pf-lightbox'));
   const modal = document.getElementById('pf-image-modal');
 
   if (modal && lightboxLinks.length > 0) {
     const modalImg = modal.querySelector('img');
+    const modalIframe = modal.querySelector('iframe');
     const modalClose = modal.querySelector('.pf-close');
+    const btnPrev = modal.querySelector('.pf-prev');
+    const btnNext = modal.querySelector('.pf-next');
+    
+    let currentIndex = 0;
 
-    lightboxLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const imgSrc = link.getAttribute('href');
-        modalImg.src = imgSrc;
-        modal.style.display = 'flex';
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-      });
-    });
+    const isVisible = (element) => {
+        const item = element.closest('.pf-item');
+        return item && item.style.display !== 'none';
+    };
+
+    const updateModal = (index) => {
+      const link = lightboxLinks[index];
+      const href = link.getAttribute('href');
+      const isVideo = link.getAttribute('data-video') === 'true';
+
+      if (isVideo) {
+        modalImg.style.display = 'none';
+        modalImg.src = '';
+        modalIframe.src = href;
+        modalIframe.style.display = 'block';
+      } else {
+        modalIframe.style.display = 'none';
+        modalIframe.src = '';
+        modalImg.src = href;
+        modalImg.style.display = 'block';
+      }
+      currentIndex = index;
+    };
+
+    const openModal = (index) => {
+      updateModal(index);
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
 
     const closeModal = () => {
       modal.style.display = 'none';
       modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
       modalImg.src = '';
+      modalIframe.src = '';
     };
 
-    if (modalClose) modalClose.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
+    const nextItem = (e) => {
+        if(e) e.stopPropagation();
+        let nextIndex = currentIndex + 1;
+        if (nextIndex >= lightboxLinks.length) nextIndex = 0;
+        
+        let attempts = 0;
+        while(!isVisible(lightboxLinks[nextIndex]) && attempts < lightboxLinks.length) {
+             nextIndex++;
+             if (nextIndex >= lightboxLinks.length) nextIndex = 0;
+             attempts++;
+        }
+        if (isVisible(lightboxLinks[nextIndex])) {
+            updateModal(nextIndex);
+        }
+    };
+
+    const prevItem = (e) => {
+        if(e) e.stopPropagation();
+        let prevIndex = currentIndex - 1;
+        if (prevIndex < 0) prevIndex = lightboxLinks.length - 1;
+        
+        let attempts = 0;
+        while(!isVisible(lightboxLinks[prevIndex]) && attempts < lightboxLinks.length) {
+             prevIndex--;
+             if (prevIndex < 0) prevIndex = lightboxLinks.length - 1;
+             attempts++;
+        }
+        if (isVisible(lightboxLinks[prevIndex])) {
+            updateModal(prevIndex);
+        }
+    };
+
+    lightboxLinks.forEach((link, index) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal(index);
+      });
     });
+
+    if (modalClose) modalClose.addEventListener('click', closeModal);
+    if (btnNext) btnNext.addEventListener('click', nextItem);
+    if (btnPrev) btnPrev.addEventListener('click', prevItem);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal || e.target.classList.contains('pf-content-container')) closeModal();
+    });
+
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.style.display === 'flex') closeModal();
+      if (modal.style.display === 'flex') {
+        if (e.key === 'Escape') closeModal();
+        if (e.key === 'ArrowRight') nextItem();
+        if (e.key === 'ArrowLeft') prevItem();
+      }
     });
   }
 })();
