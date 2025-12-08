@@ -1088,15 +1088,198 @@ textarea:focus {
 }
 
 /* ================================
+   FOUNDER SECTION - SOBRE PAGE
+   ================================ */
+.founder-grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.founder-image-wrapper {
+  position: sticky;
+  top: 100px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.founder-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius-lg);
+}
+
+.hero-contact-flex {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.founder-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Formation Timeline */
+.formation-timeline {
+  margin: 1.5rem 0;
+  padding-left: 0;
+  border-left: 2px solid var(--primary);
+  margin-left: 0.5rem;
+}
+
+.formation-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.75rem 0 0.75rem 1.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.formation-item::before {
+  content: '';
+  position: absolute;
+  left: -7px;
+  top: 1rem;
+  width: 12px;
+  height: 12px;
+  background: var(--bg-surface);
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.formation-item:hover::before {
+  background: var(--primary);
+  box-shadow: 0 0 10px var(--primary);
+}
+
+.formation-year {
+  min-width: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.formation-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.formation-content strong {
+  color: var(--text-main);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.formation-content span {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.oab-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+  margin: 1.5rem 0;
+  box-shadow: var(--shadow-md);
+}
+
+.oab-badge i {
+  font-size: 1.1rem;
+}
+
+/* ================================
    RESPONSIVE
    ================================ */
+
+@media (max-width: 1200px) {
+  .founder-grid {
+    grid-template-columns: 320px 1fr;
+    gap: 2.5rem;
+  }
+}
+
 @media (max-width: 1024px) {
   :root {
     --container-width: 100%;
   }
+  
+  .founder-grid {
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+  }
+  
+  .founder-image-wrapper {
+    position: relative;
+    top: 0;
+  }
 }
 
 @media (max-width: 768px) {
+  .founder-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .founder-image-wrapper {
+    position: relative;
+    top: 0;
+    max-width: 320px;
+    margin: 0 auto 1rem;
+  }
+  
+  .founder-image {
+    max-height: 400px;
+    object-fit: cover;
+    object-position: top center;
+  }
+  
+  .hero-contact-flex {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .founder-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .formation-item {
+    padding: 0.5rem 0 0.5rem 1rem;
+  }
+  
+  .formation-year {
+    min-width: 45px;
+    font-size: 0.8rem;
+  }
+  
+  .formation-content strong {
+    font-size: 0.9rem;
+  }
+  
+  .formation-content span {
+    font-size: 0.8rem;
+  }
+  
+  .oab-badge {
+    font-size: 0.85rem;
+    padding: 0.6rem 1rem;
+  }
+
   .mobile-menu-toggle {
     display: block;
     z-index: 1002;
@@ -1182,5 +1365,32 @@ textarea:focus {
   
   .decorative-lines .line-5 {
     width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .founder-image-wrapper {
+    max-width: 100%;
+  }
+  
+  .founder-image {
+    max-height: 350px;
+  }
+  
+  .founder-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .founder-stats-grid .card {
+    padding: 1rem;
+  }
+  
+  .founder-stats-grid h5 {
+    font-size: 1rem;
+  }
+  
+  .founder-stats-grid p {
+    font-size: 0.75rem;
   }
 }
