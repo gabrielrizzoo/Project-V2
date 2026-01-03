@@ -121,59 +121,9 @@
     <!-- Services Grid -->
     <section class="section" style="background: var(--bg-surface);">
       <div class="container">
-        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-
-          <article class="card" data-animate="fade-up">
-            <div class="rotate-360"
-              style="position: absolute; top: 1rem; right: 1rem; font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.03);">
-              1</div>
-            <h3 style="color: var(--primary);">Projetos Culturais</h3>
-            <h5 style="color: var(--text-muted);">Leis de Incentivo e Editais</h5>
-            <ul style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
-              <li><i class="fa-solid fa-check" style="color: var(--success); margin-right: 0.5rem;"></i> Identificação
-                de oportunidades</li>
-              <li><i class="fa-solid fa-check" style="color: var(--success); margin-right: 0.5rem;"></i> Análise de
-                viabilidade</li>
-              <li><i class="fa-solid fa-check" style="color: var(--success); margin-right: 0.5rem;"></i> Elaboração
-                conforme legislação</li>
-            </ul>
-            <a href="contato.html" class="btn btn-contact" style="margin-top: 2rem; width: 100%;">ENTRE EM CONTATO</a>
-          </article>
-
-          <article class="card" data-animate="fade-up" class="delay-100">
-            <div class="rotate-360"
-              style="position: absolute; top: 1rem; right: 1rem; font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.03);">
-              2</div>
-            <h3 style="color: var(--primary);">Projetos Audiovisuais</h3>
-            <h5 style="color: var(--text-muted);">ANCINE e Editais</h5>
-            <ul style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
-              <li><i class="fa-solid fa-check" style="color: var(--success); margin-right: 0.5rem;"></i> Mapeamento de
-                linhas</li>
-              <li><i class="fa-solid fa-check" style="color: var(--success); margin-right: 0.5rem;"></i> Estratégia e
-                orçamento</li>
-              <li><i class="fa-solid fa-check" style="color: var(--success); margin-right: 0.5rem;"></i> Submissão e
-                acompanhamento</li>
-            </ul>
-            <a href="contato.html" class="btn btn-contact" style="margin-top: 2rem; width: 100%;">ENTRE EM CONTATO</a>
-          </article>
-
-          <article class="card" data-animate="fade-up" class="delay-200">
-            <div class="rotate-360"
-              style="position: absolute; top: 1rem; right: 1rem; font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.03);">
-              3</div>
-            <h3 style="color: var(--primary);">Terceiro Setor</h3>
-            <h5 style="color: var(--text-muted);">Aprovação em Incentivo</h5>
-            <ul style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
-              <li><i class="fa-solid fa-check" style="color: var(--success); margin-right: 0.5rem;"></i> Saúde, Educação
-                e Cultura</li>
-              <li><i class="fa-solid fa-check" style="color: var(--success); margin-right: 0.5rem;"></i> Esporte e Meio
-                Ambiente</li>
-              <li><i class="fa-solid fa-check" style="color: var(--success); margin-right: 0.5rem;"></i> Ação Social
-              </li>
-            </ul>
-            <a href="contato.html" class="btn btn-contact" style="margin-top: 2rem; width: 100%;">ENTRE EM CONTATO</a>
-          </article>
-
+        <!-- Container para serviços - renderizado dinamicamente pelo JavaScript -->
+        <div id="servicos-container" class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+          <!-- Os serviços são carregados automaticamente do array SERVICOS_DATA em script.js -->
         </div>
       </div>
     </section>
@@ -182,20 +132,9 @@
     <section class="section">
       <div class="container">
         <h2 style="text-align: center; margin-bottom: 3rem;" data-animate="fade-up">Clientes e Parceiros</h2>
-        <div class="flex" style="flex-wrap: wrap; justify-content: center; gap: 2rem;" data-animate="fade-up"
-          class="delay-100">
-          <div class="card" style="padding: 1rem 2rem; min-width: 150px; text-align: center; font-weight: 600;">Valkyria
-            Filmes</div>
-          <div class="card" style="padding: 1rem 2rem; min-width: 150px; text-align: center; font-weight: 600;">Pipoca
-            Cultural</div>
-          <div class="card" style="padding: 1rem 2rem; min-width: 150px; text-align: center; font-weight: 600;">
-            Instituto Criativo</div>
-          <div class="card" style="padding: 1rem 2rem; min-width: 150px; text-align: center; font-weight: 600;">P J X
-          </div>
-          <div class="card" style="padding: 1rem 2rem; min-width: 150px; text-align: center; font-weight: 600;">Pan
-            Tiles</div>
-          <div class="card" style="padding: 1rem 2rem; min-width: 150px; text-align: center; font-weight: 600;">Mower
-          </div>
+        <!-- Container para clientes - renderizado dinamicamente pelo JavaScript -->
+        <div id="clientes-container" class="flex" style="flex-wrap: wrap; justify-content: center; gap: 2rem;" data-animate="fade-up">
+          <!-- Os clientes são carregados automaticamente do array CLIENTES_DATA em script.js -->
         </div>
       </div>
     </section>
@@ -205,97 +144,56 @@
       <div class="container">
         <div class="flex-between" style="margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem;" data-animate="fade-up">
           <h2>Portfólio</h2>
-          <div class="flex" style="gap: 0.5rem;">
+          <div class="flex" style="gap: 0.5rem; flex-wrap: wrap;">
             <button class="btn btn-outline pf-btn is-active" data-filter="all"
               style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Todos</button>
             <button class="btn btn-outline pf-btn" data-filter="foto"
               style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Fotos</button>
             <button class="btn btn-outline pf-btn" data-filter="video"
               style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Vídeos</button>
+            <button class="btn btn-outline pf-btn" data-filter="longa"
+              style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Longa Metragens</button>
+            <button class="btn btn-outline pf-btn" data-filter="ellen"
+              style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Ellen Jabour</button>
+            <button class="btn btn-outline pf-btn" data-filter="ellen-mundo"
+              style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Ellen Jabour Descobrindo o Mundo</button>
           </div>
         </div>
 
-        <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
-          <!-- Portfolio Items -->
-          <figure class="pf-item card" style="padding: 0; border: none;" data-type="foto" data-animate="scale-in">
-            <a href="https://dus6dayednven.cloudfront.net/app/uploads/2021/05/3.Nico-Ferreyra.jpg" class="pf-lightbox"
-              style="display: block; position: relative; overflow: hidden; aspect-ratio: 16/9;">
-              <img src="https://dus6dayednven.cloudfront.net/app/uploads/2021/05/3.Nico-Ferreyra.jpg" alt="Teatro"
-                style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
-              <div
-                style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 1rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);">
-                <figcaption style="color: white; font-weight: 600;">Teatro — Performance</figcaption>
-              </div>
-            </a>
-          </figure>
-
-          <figure class="pf-item card" style="padding: 0; border: none;" data-type="foto" data-animate="scale-in"
-            class="delay-100">
-            <a href="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=250&fit=crop&crop=center"
-              class="pf-lightbox" style="display: block; position: relative; overflow: hidden; aspect-ratio: 16/9;">
-              <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=250&fit=crop&crop=center"
-                alt="Evento" style="width: 100%; height: 100%; object-fit: cover;">
-              <div
-                style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 1rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);">
-                <figcaption style="color: white; font-weight: 600;">Evento Cultural</figcaption>
-              </div>
-            </a>
-          </figure>
-
-          <figure class="pf-item card" style="padding: 0; border: none;" data-type="video" data-animate="scale-in"
-            class="delay-200">
-            <div style="position: relative; aspect-ratio: 16/9; overflow: hidden;">
-              <img src="https://img.youtube.com/vi/MhD0-86qpVo/maxresdefault.jpg" alt="Video Loop"
-                style="width: 100%; height: 100%; object-fit: cover;"
-                onerror="this.src='https://img.youtube.com/vi/MhD0-86qpVo/hqdefault.jpg'">
-              <a href="https://www.youtube.com/watch?v=MhD0-86qpVo" target="_blank" rel="noopener noreferrer"
-                style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3);">
-                <i class="fa-solid fa-play-circle" style="font-size: 4rem; color: white; opacity: 0.8;"></i>
-              </a>
-              <div
-                style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 1rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);">
-                <figcaption style="color: white; font-weight: 600;">Produção Ludmila</figcaption>
-              </div>
-            </div>
-          </figure>
-
-          <figure class="pf-item card" style="padding: 0; border: none;" data-type="video" data-animate="scale-in"
-            class="delay-300">
-            <div style="position: relative; aspect-ratio: 16/9; overflow: hidden;">
-              <img src="https://img.youtube.com/vi/N6IvO5mRb_I/maxresdefault.jpg" alt="Video Incentivart"
-                style="width: 100%; height: 100%; object-fit: cover;"
-                onerror="this.src='https://img.youtube.com/vi/N6IvO5mRb_I/hqdefault.jpg'">
-              <a href="https://www.youtube.com/watch?v=N6IvO5mRb_I" target="_blank" rel="noopener noreferrer"
-                style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3);">
-                <i class="fa-solid fa-play-circle" style="font-size: 4rem; color: white; opacity: 0.8;"></i>
-              </a>
-              <div
-                style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 1rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);">
-                <figcaption style="color: white; font-weight: 600;">Produção Ludmila</figcaption>
-              </div>
-            </div>
-          </figure>
-
-          <!-- More items can be added here following the same pattern -->
+        <!-- Container para portfólio - renderizado dinamicamente pelo JavaScript -->
+        <div id="portfolio-container" class="grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+          <!-- Os itens do portfólio são carregados automaticamente do array PORTFOLIO_DATA em script.js -->
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Lightbox Modal -->
+  <!-- Lightbox Modal - Com suporte a título e descrição -->
   <div id="pf-image-modal"
-    style="display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; padding: 2rem;"
+    style="display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; padding: 3rem 2rem; flex-direction: column;"
     aria-hidden="true">
     
     <button class="pf-close"
       style="position: absolute; top: 2rem; right: 2rem; background: none; border: none; color: var(--primary); font-size: 2rem; cursor: pointer; z-index: 10001;">&times;</button>
     
-    <button class="pf-prev" style="position: absolute; left: 2rem; background: none; border: none; color: var(--primary); font-size: 3rem; cursor: pointer; z-index: 10001; padding: 1rem;">&#10094;</button>
-    <button class="pf-next" style="position: absolute; right: 2rem; background: none; border: none; color: var(--primary); font-size: 3rem; cursor: pointer; z-index: 10001; padding: 1rem;">&#10095;</button>
+    <button class="pf-prev" style="position: absolute; left: 2rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--primary); font-size: 3rem; cursor: pointer; z-index: 10001; padding: 1rem;">&#10094;</button>
+    <button class="pf-next" style="position: absolute; right: 2rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--primary); font-size: 3rem; cursor: pointer; z-index: 10001; padding: 1rem;">&#10095;</button>
 
-    <div class="pf-content-container" style="position: relative; max-width: 90vw; max-height: 90vh; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-        <img src="" alt="" style="max-width: 100%; max-height: 90vh; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); display: none;">
-        <iframe src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width: 80vw; height: 45vw; max-width: 1280px; max-height: 720px; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); display: none;"></iframe>
+    <div class="pf-content-container" style="position: relative; max-width: 90vw; max-height: calc(100vh - 250px); width: 100%; display: flex; align-items: center; justify-content: center; margin: auto;">
+        <img class="pf-modal-img" src="" alt="" style="max-width: 100%; max-height: calc(100vh - 250px); border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); display: none;">
+        <div style="position: relative; width: 80vw; height: 45vw; max-width: 1280px; max-height: calc(100vh - 250px);">
+          <iframe class="pf-modal-iframe" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width: 100%; height: 100%; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); display: none;"></iframe>
+          <!-- Shield para cobrir o botão do Google Drive -->
+          <div class="drive-shield" style="position: absolute; top: 8px; right: 8px; width: 70px; height: 70px; background: rgba(5, 5, 5, 0.95); border-radius: 12px; cursor: default; z-index: 10002; display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.7); backdrop-filter: blur(10px); border: 2px solid rgba(222, 127, 86, 0.3);">
+            <img src="assets/shield-icon.svg" alt="" style="width: 100%; height: 100%; object-fit: contain; padding: 12px;">
+          </div>
+        </div>
+    </div>
+    
+    <!-- Área de informações do projeto -->
+    <div class="pf-info-container" style="width: 100%; max-width: 800px; text-align: center; padding: 1.5rem 1rem; margin-top: 1rem;">
+      <h3 class="pf-modal-titulo" style="color: var(--primary); font-size: 1.5rem; margin-bottom: 0.5rem;"></h3>
+      <p class="pf-modal-descricao" style="color: var(--text-muted); font-size: 1rem; line-height: 1.6;"></p>
     </div>
   </div>
 
