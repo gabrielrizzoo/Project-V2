@@ -181,14 +181,14 @@
 
   <main id="main">
     <!-- Hero Section -->
-    <section class="section" style="padding-top: 140px; padding-bottom: 4rem;">
+    <section class="section hero-servicos">
       <div class="container">
-        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+        <div class="grid hero-grid">
           <div data-animate="fade-right">
             <h1 class="text-gradient">Nossos Serviços</h1>
-            <p style="font-size: 1.2rem;">Soluções especializadas para transformar suas ideias em projetos culturais
+            <p class="hero-lead">Soluções especializadas para transformar suas ideias em projetos culturais
               aprovados.</p>
-            <div class="flex" style="gap: 1rem; margin-top: 2rem;">
+            <div class="flex hero-contact-info">
               <div class="contact-item-footer">
                 <i class="fa-solid fa-phone"></i> (21) 96725-5471
               </div>
@@ -208,7 +208,7 @@
     <section class="section" style="background: var(--bg-surface);">
       <div class="container">
         <!-- Container para serviços - renderizado dinamicamente pelo JavaScript -->
-        <div id="servicos-container" class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <div id="servicos-container" class="grid services-grid">
           <!-- Os serviços são carregados automaticamente do array SERVICOS_DATA em script.js -->
         </div>
       </div>
@@ -219,7 +219,7 @@
       <div class="container">
         <h2 style="text-align: center; margin-bottom: 3rem;" data-animate="fade-up">Clientes e Parceiros</h2>
         <!-- Container para clientes - renderizado dinamicamente pelo JavaScript -->
-        <div id="clientes-container" class="flex" style="flex-wrap: wrap; justify-content: center; gap: 2rem;" data-animate="fade-up">
+        <div id="clientes-container" class="flex clients-grid" data-animate="fade-up">
           <!-- Os clientes são carregados automaticamente do array CLIENTES_DATA em script.js -->
         </div>
       </div>
@@ -228,28 +228,21 @@
     <!-- Portfolio Section -->
     <section id="portfolio" class="section" style="background: var(--bg-surface);">
       <div class="container">
-        <div class="flex-between" style="margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem;" data-animate="fade-up">
+        <div class="flex-between pf-header" data-animate="fade-up">
           <h2>Portfólio</h2>
-          <div class="flex" style="gap: 0.5rem; flex-wrap: wrap;">
-            <button class="btn btn-outline pf-btn is-active" data-filter="all"
-              style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Todos</button>
-            <button class="btn btn-outline pf-btn" data-filter="foto"
-              style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Fotos</button>
-            <button class="btn btn-outline pf-btn" data-filter="video"
-              style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Vídeos</button>
-            <button class="btn btn-outline pf-btn" data-filter="longa"
-              style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Longa Metragens</button>
-            <button class="btn btn-outline pf-btn" data-filter="projetos"
-              style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Projetos</button>
-            <button class="btn btn-outline pf-btn" data-filter="ellen"
-              style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Ellen Jabour</button>
-            <button class="btn btn-outline pf-btn" data-filter="ellen-mundo"
-              style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Ellen Jabour Descobrindo o Mundo</button>
+          <div class="flex pf-filters">
+            <button class="btn btn-outline pf-btn is-active" data-filter="all">Todos</button>
+            <button class="btn btn-outline pf-btn" data-filter="foto">Fotos</button>
+            <button class="btn btn-outline pf-btn" data-filter="video">Vídeos</button>
+            <button class="btn btn-outline pf-btn" data-filter="longa">Longa Metragens</button>
+            <button class="btn btn-outline pf-btn" data-filter="projetos">Projetos</button>
+            <button class="btn btn-outline pf-btn" data-filter="ellen">Ellen Jabour</button>
+            <button class="btn btn-outline pf-btn" data-filter="ellen-mundo">Ellen Jabour Descobrindo o Mundo</button>
           </div>
         </div>
 
         <!-- Container para portfólio - renderizado dinamicamente pelo JavaScript -->
-        <div id="portfolio-container" class="grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+        <div id="portfolio-container" class="grid portfolio-grid">
           <!-- Os itens do portfólio são carregados automaticamente do array PORTFOLIO_DATA em script.js -->
         </div>
       </div>
@@ -257,43 +250,41 @@
   </main>
 
   <!-- Lightbox Modal - Com suporte a título e descrição -->
-  <div id="pf-image-modal"
-    style="display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; padding: 2rem;"
-    aria-hidden="true">
+  <div id="pf-image-modal" class="pf-modal" aria-hidden="true">
     
-    <button class="pf-close"
-      style="position: absolute; top: 2rem; right: 2rem; background: none; border: none; color: var(--primary); font-size: 2rem; cursor: pointer; z-index: 10001;">&times;</button>
+    <button class="pf-close" aria-label="Fechar">&times;</button>
     
-    <button class="pf-prev" data-ghost="❮" style="position: absolute; left: 2rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--primary); font-size: 3rem; cursor: pointer; z-index: 10001; padding: 1rem;">&#10094;</button>
-    <button class="pf-next" data-ghost="❯" style="position: absolute; right: 2rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--primary); font-size: 3rem; cursor: pointer; z-index: 10001; padding: 1rem;">&#10095;</button>
+    <button class="pf-prev" data-ghost="❮">&#10094;</button>
+    <button class="pf-next" data-ghost="❯">&#10095;</button>
 
     <!-- Layout para vídeos (vertical) -->
-    <div class="pf-video-layout" style="display: none; flex-direction: column; width: 100%; max-width: 1400px; height: calc(100vh - 4rem);">
-      <div style="position: relative; width: 100%; flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0;">
-        <div style="position: relative; display: inline-flex;">
-          <iframe class="pf-modal-iframe" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen loading="lazy" style="width: min(90vw, 1100px); aspect-ratio: 16 / 9; height: auto; max-height: 70vh; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5); background: #000;"></iframe>
-          <div class="drive-shield" style="position: absolute; top: calc(clamp(8px, 3vw, 16px) - 10px); right: calc(clamp(8px, 3vw, 16px) - 6px); width: 72px; height: 72px; background: rgba(5, 5, 5, 0.95); border-radius: 12px; cursor: default; z-index: 10002; display: none; box-shadow: 0 4px 12px rgba(0,0,0,0.7); backdrop-filter: blur(10px); border: 2px solid rgba(222, 127, 86, 0.3);">
-            <img src="assets/shield-icon.svg" alt="" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: contain; padding: 12px;">
+    <div class="pf-video-layout">
+      <div class="pf-video-frame">
+        <div class="pf-video-wrapper">
+          <iframe class="pf-modal-iframe" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
+          <div class="drive-shield">
+            <img src="assets/shield-icon.svg" alt="" loading="lazy" decoding="async">
           </div>
         </div>
       </div>
-      <div style="width: 100%; max-width: 800px; text-align: center; padding: 1.5rem 1rem; margin: 0 auto;">
-        <h3 class="pf-modal-titulo-video" style="color: var(--primary); font-size: 1.5rem; margin-bottom: 0.5rem;"></h3>
-        <div class="pf-modal-descricao-video" style="color: var(--text-muted); font-size: 1rem; line-height: 1.6;"></div>
+      <div class="pf-video-caption">
+        <h3 class="pf-modal-titulo-video"></h3>
+        <div class="pf-modal-descricao-video"></div>
+        <div class="pf-modal-links-video"></div>
       </div>
     </div>
 
     <!-- Layout para projetos/fotos (horizontal lado a lado) -->
-    <div class="pf-project-layout" style="display: none; width: 100%; max-width: 1400px; height: calc(100vh - 4rem); gap: 2rem;">
-      <div style="flex: 0 0 55%; display: flex; align-items: center; justify-content: center; min-width: 0;">
-        <img class="pf-modal-img" src="" alt="" loading="lazy" decoding="async" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 0 30px rgba(0,0,0,0.5);">
+    <div class="pf-project-layout">
+      <div class="pf-project-media">
+        <img class="pf-modal-img" src="" alt="" loading="lazy" decoding="async">
       </div>
-      <div style="flex: 0 0 calc(45% - 2rem); display: flex; flex-direction: column; min-width: 0; overflow: hidden;">
-        <h2 class="pf-modal-titulo-projeto" style="color: var(--primary); font-size: 2rem; margin-bottom: 1.5rem; flex-shrink: 0;"></h2>
-        <div class="pf-modal-descricao-projeto" style="color: var(--text); font-size: 1rem; line-height: 1.8; overflow-y: auto; padding-right: 1rem; flex: 1; white-space: pre-line;">
+      <div class="pf-project-copy">
+        <h2 class="pf-modal-titulo-projeto"></h2>
+        <div class="pf-modal-descricao-projeto">
           <!-- Scrollable content -->
         </div>
-        <div class="pf-modal-links-projeto" style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap; flex-shrink: 0;">
+        <div class="pf-modal-links-projeto">
           <!-- Links dinâmicos -->
         </div>
       </div>

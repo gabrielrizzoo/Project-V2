@@ -96,76 +96,73 @@
   </header>
 
   <main id="main">
-    <section class="section" style="padding-top: 140px;">
+    <section class="section contact-hero">
       <div class="container">
-        <div class="grid" style="grid-template-columns: 1fr 1.5fr; gap: 4rem;">
+        <div class="grid contact-grid">
 
           <!-- Contact Info -->
-          <div data-animate="fade-right">
+          <div data-animate="fade-right" class="contact-intro">
             <h1 class="text-gradient">Entre em Contato</h1>
-            <p style="font-size: 1.1rem; margin-bottom: 3rem;">Estamos prontos para transformar sua ideia em realidade.
-              Fale conosco pelos canais abaixo ou preencha o formulário.</p>
+            <p class="hero-lead">Estamos prontos para transformar sua ideia em realidade. Fale conosco pelos canais
+              abaixo ou preencha o formulário.</p>
 
-            <div class="card" style="padding: 2rem; margin-bottom: 2rem;">
-              <h4 style="color: var(--primary); margin-bottom: 1.5rem;">Canais Diretos</h4>
-              <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div class="card contact-card">
+              <h4 class="contact-title">Canais Diretos</h4>
+              <div class="contact-list">
 
                 <!-- WhatsApp / Phone -->
-                <div class="flex" style="align-items: center; gap: 1rem; cursor: default;">
-                  <div
-                    style="width: 40px; height: 40px; background: rgba(37, 211, 102, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--whatsapp);">
+                <div class="contact-row">
+                  <div class="contact-icon contact-icon--whatsapp">
                     <i class="fa-solid fa-phone"></i>
                   </div>
                   <div>
-                    <div style="font-size: 0.8rem; color: var(--text-muted);">Telefone / WhatsApp</div>
-                    <a href="tel:+5521967255471" style="font-weight: 600;">(21) 96725-5471</a>
+                    <div class="contact-row-label">Telefone / WhatsApp</div>
+                    <a href="tel:+5521967255471" class="contact-row-value">(21) 96725-5471</a>
                   </div>
                 </div>
 
                 <!-- Email -->
-                <div class="flex" style="align-items: center; gap: 1rem; cursor: default;">
-                  <div
-                    style="width: 40px; height: 40px; background: rgba(0, 176, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--info);">
+                <div class="contact-row">
+                  <div class="contact-icon contact-icon--email">
                     <i class="fa-solid fa-envelope"></i>
                   </div>
                   <div>
-                    <div style="font-size: 0.8rem; color: var(--text-muted);">E-mail</div>
-                    <a href="mailto:contato@incentivart.com.br" style="font-weight: 600;">contato@incentivart.com.br</a>
+                    <div class="contact-row-label">E-mail</div>
+                    <a href="mailto:contato@incentivart.com.br" class="contact-row-value">contato@incentivart.com.br</a>
                   </div>
                 </div>
 
                 <!-- Location -->
-                <div class="flex" style="align-items: center; gap: 1rem; cursor: default;">
-                  <div
-                    style="width: 40px; height: 40px; background: rgba(222, 127, 86, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary);">
+                <div class="contact-row">
+                  <div class="contact-icon contact-icon--map">
                     <i class="fa-solid fa-map-marker-alt"></i>
                   </div>
                   <div>
-                    <div style="font-size: 0.8rem; color: var(--text-muted);">Localização</div>
-                    <span style="font-weight: 600;">Brasil</span>
+                    <div class="contact-row-label">Localização</div>
+                    <span class="contact-row-value">Brasil</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="flex" style="gap: 1rem;">
-              <a href="https://wa.me/5521967255471" class="btn btn-whatsapp" style="flex: 1;">
+            <div class="contact-actions">
+              <a href="https://wa.me/5521967255471" class="btn btn-whatsapp">
                 <i class="fa-brands fa-whatsapp"></i> WhatsApp
               </a>
             </div>
           </div>
 
           <!-- Contact Form -->
-          <div class="card" data-animate="fade-left" class="delay-100">
+          <div class="card contact-form" data-animate="fade-left">
             <form id="contatoForm" action="enviar.php" method="POST">
-              <h3 style="margin-bottom: 2rem;">Envie uma mensagem</h3>
+              <h3 class="contact-form-title">Envie uma mensagem</h3>
 
-              <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
-                <div class="field" style="margin-bottom: 0;">
+              <div class="grid contact-form-grid">
+                <div class="field">
                   <label for="nome" class="label">Nome *</label>
                   <input type="text" id="nome" name="nome" class="input" required>
                 </div>
-                <div class="field" style="margin-bottom: 0;">
+                <div class="field">
                   <label for="sobrenome" class="label">Sobrenome *</label>
                   <input type="text" id="sobrenome" name="sobrenome" class="input" required>
                 </div>
@@ -185,14 +182,14 @@
                 <label for="mensagem" class="label">Mensagem *</label>
                 <textarea id="mensagem" name="mensagem" rows="5" maxlength="800" required
                   placeholder="Conte-nos sobre seu projeto..."></textarea>
-                <div style="text-align: right; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                <div class="char-counter">
                   <span id="mensagem-count">0</span>/800
                 </div>
               </div>
 
               <div class="field">
-                <label class="label" style="margin-bottom: 1rem;">Segmento de Interesse</label>
-                <div class="flex" style="flex-wrap: wrap; gap: 0.75rem;">
+                <label class="label">Segmento de Interesse</label>
+                <div class="contact-chips">
                   <label class="choice-chip">
                     <input type="checkbox" name="segmento[]" value="teatro">
                     <span>Teatro</span>
@@ -217,18 +214,16 @@
                 <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
               </div>
 
-              <div class="field" style="margin-top: 1.5rem;">
-                <label style="display: flex; align-items: flex-start; gap: 0.5rem; font-weight: 400; font-size: 0.9rem; cursor: pointer;">
-                  <input type="checkbox" name="consentimento" required style="width: 18px; height: 18px; margin-top: 2px; accent-color: var(--primary);">
-                  <span>Concordo com a <a href="politica-de-privacidade.html" target="_blank" style="color: var(--primary); text-decoration: underline;">Política de Privacidade</a> e autorizo o uso dos meus dados para contato.</span>
+              <div class="field consent-row">
+                <label>
+                  <input type="checkbox" name="consentimento" required class="consent-checkbox">
+                  <span>Concordo com a <a href="politica-de-privacidade.html" target="_blank">Política de Privacidade</a> e autorizo o uso dos meus dados para contato.</span>
                 </label>
               </div>
 
-              <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Enviar
-                Mensagem</button>
+              <button type="submit" class="btn btn-primary contact-submit">Enviar Mensagem</button>
 
-              <div id="msgOk"
-                style="display: none; margin-top: 1.5rem; padding: 1rem; background: rgba(0, 200, 83, 0.1); border: 1px solid var(--success); border-radius: var(--radius-sm); color: var(--success); align-items: center; gap: 0.5rem;">
+              <div id="msgOk" class="success-alert">
                 <i class="fa-solid fa-check-circle"></i>
                 <span>Mensagem enviada com sucesso! Entraremos em contato em breve.</span>
               </div>

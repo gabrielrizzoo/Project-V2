@@ -175,7 +175,7 @@ const PORTFOLIO_DATA = [
   {
     tipo: "projetos",
     titulo: "Arte de aMAR",
-    descricao: "O Projeto Arte de aMAR é uma iniciativa da Equipe F3 Esporte Cultura e Instituto Gas Petro que visa promover a Educação Ambiental, de forma lúdica, através da implantação do Programa de Educação Ambiental para Sustentabilidade, onde o intuito é educar e mudar a consciência ambiental dos alunos, professores e comunidade escolar sendo um veículo de transformação socioambiental e incentivar a criatividade artística dos participantes através da realização do Concurso Cultural Arte de AMAR.\n\nO Projeto pretende sensibilizar e conscientizar as crianças, jovens e toda a população brasileira a respeito da problemática do plástico no mar, dando a conhecer os efeitos negativos da sua presença nos ecossistemas marinhos e como podemos agir para prevenir e combater o problema, além de abordar conceitos sobre a economia circular.\n\nÉ direcionado a alunos da Pré-Escola, do 1º ao 9º ano, da Educação de Jovens e Adultos (EJA) e de Escolas Especiais, abrangendo diferentes faixas etárias e contextos educacionais. Destinado às escolas públicas do município do Rio de Janeiro, o projeto contempla unidades das 1ª, 2ª, 7ª e 8ª Coordenadorias Regionais de Educação (CRE), promovendo ampla e inclusiva participação estudantil. Com foco na conscientização ambiental, o projeto incentiva a criatividade por meio de atividades artísticas e educativas.\n\nNo ano de 2025 estamos visitamos 27 escolas.",
+    descricao: "O Projeto Arte de aMAR é uma iniciativa da Equipe F3 Esporte Cultura e Instituto Gas Petro que visa promover a Educação Ambiental, de forma lúdica, através da implantação do Programa de Educação Ambiental para Sustentabilidade, onde o intuito é educar e mudar a consciência ambiental dos alunos, professores e comunidade escolar sendo um veículo de transformação socioambiental e incentivar a criatividade artística dos participantes através da realização do Concurso Cultural Arte de AMAR.\n\nO Projeto pretende sensibilizar e conscientizar as crianças, jovens e toda a população brasileira a respeito da problemática do plástico no mar, dando a conhecer os efeitos negativos da sua presença nos ecossistemas marinhos e como podemos agir para prevenir e combater o problema, além de abordar conceitos sobre a economia circular.\n\nÉ direcionado a alunos da Pré-Escola, do 1º ao 9º ano, da Educação de Jovens e Adultos (EJA) e de Escolas Especiais, abrangendo diferentes faixas etárias e contextos educacionais. Destinado às escolas públicas do município do Rio de Janeiro, o projeto contempla unidades das 1ª, 2ª, 7ª e 8ª Coordenadorias Regionais de Educação (CRE), promovendo ampla e inclusiva participação estudantil. Com foco na conscientização ambiental, o projeto incentiva a criatividade por meio de atividades artísticas e educativas.\n\nNo ano de 2025 visitamos 27 escolas.",
     imagem: "assets/projetos/Arte_de_amar.jpg",
     link: "assets/projetos/Arte_de_amar.jpg",
     site: "https://artedeamar.org/",
@@ -358,6 +358,7 @@ function initLightbox() {
     const modalIframe = modal.querySelector('.pf-modal-iframe');
     const modalTituloVideo = modal.querySelector('.pf-modal-titulo-video');
     const modalDescricaoVideo = modal.querySelector('.pf-modal-descricao-video');
+    const modalLinksVideo = modal.querySelector('.pf-modal-links-video');
     const driveShield = modal.querySelector('.drive-shield');
     
     // Elementos do layout de projeto/foto
@@ -404,13 +405,17 @@ function initLightbox() {
         
         if (modalDescricaoVideo) {
           const descHtml = (descricao || '').replace(/\n/g, '<br>');
-          const linksHtml = [
-            site ? `<a href="${site}" target="_blank" rel="noopener" style="color: var(--primary); font-weight: 600; margin-right: 0.75rem;">Site oficial</a>` : '',
-            instagram ? `<a href="${instagram}" target="_blank" rel="noopener" style="color: var(--primary); font-weight: 600;">Instagram</a>` : ''
-          ].filter(Boolean).join('');
+          modalDescricaoVideo.innerHTML = descHtml;
+          modalDescricaoVideo.style.display = descHtml ? 'block' : 'none';
+        }
 
-          modalDescricaoVideo.innerHTML = descHtml + (linksHtml ? `<div style="margin-top: 0.75rem; display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">${linksHtml}</div>` : '');
-          modalDescricaoVideo.style.display = (descricao || linksHtml) ? 'block' : 'none';
+        if (modalLinksVideo) {
+          const linksHtml = [
+            site ? `<a href="${site}" target="_blank" rel="noopener" class="btn btn-primary" style="flex: 1; text-align: center;"><i class="fa-solid fa-globe"></i> Site Oficial</a>` : '',
+            instagram ? `<a href="${instagram}" target="_blank" rel="noopener" class="btn btn-primary" style="flex: 1; text-align: center;"><i class="fa-brands fa-instagram"></i> Instagram</a>` : ''
+          ].filter(Boolean).join('');
+          modalLinksVideo.innerHTML = linksHtml;
+          modalLinksVideo.style.display = linksHtml ? 'flex' : 'none';
         }
         
         if (driveShield) {
