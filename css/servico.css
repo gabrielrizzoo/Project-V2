@@ -13,7 +13,7 @@
 .header-banner h1{margin:0; font-size: clamp(28px,4vw,44px)}
 
 .servicos-cards{
-  background:var(--orange); 
+  background:#de7f56; 
   padding:28px clamp(18px,4vw,48px); 
   display:grid; grid-template-columns: repeat(3,minmax(240px,1fr)); gap:20px;
   animation: fadeInUp 0.8s ease-out;
@@ -48,22 +48,22 @@
 
 .card:hover .badge{
   transform: rotate(360deg);
-  background: var(--red);
+  background: #e44b33;
 }
 
 /* Força a animação mesmo com preferência por movimento reduzido */
 .servicos-cards .card:hover .badge {
   transform: rotate(360deg) !important;
-  background: var(--red) !important;
+  background: #e44b33 !important;
   transition: all 0.8s ease !important;
 }
 
-.card h3{margin:0 0 6px; font-size:19px; color: var(--black) !important; -webkit-text-fill-color: var(--black);}
+.card h3{margin:0 0 6px; font-size:19px; color: #0c0c0c !important; -webkit-text-fill-color: #0c0c0c;}
 .card ul{margin:8px 0 0 20px}
 
 .cta{
   margin-top:auto; align-self:flex-start; text-decoration:none; 
-  background:var(--red); color:#fff; border-radius:12px; padding:10px 14px; 
+  background:#e44b33; color:#fff; border-radius:12px; padding:10px 14px; 
   font-weight:700;
   transition: all 0.3s ease;
 }
@@ -102,9 +102,9 @@
 .logo:hover{
   transform: translateY(-3px);
   background: #fff;
-  border-color: var(--orange);
-  color: var(--black) !important;
-  -webkit-text-fill-color: var(--black) !important;
+  border-color: #de7f56;
+  color: #0c0c0c !important;
+  -webkit-text-fill-color: #0c0c0c !important;
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 

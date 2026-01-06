@@ -269,7 +269,7 @@ function initServicosClientes() {
   if (servicosContainer && typeof SERVICOS_DATA !== 'undefined') {
     servicosContainer.innerHTML = SERVICOS_DATA.map((servico, index) => `
       <article class="card" data-animate="fade-up" ${index > 0 ? `style="animation-delay: ${index * 0.1}s;"` : ''}>
-        <div class="rotate-360" style="position: absolute; top: 1rem; right: 1rem; font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.03);">${index + 1}</div>
+        <div class="rotate-360" style="position: absolute; top: 1rem; right: 1rem; font-size: 4rem; font-weight: 700; color: rgba(222, 127, 86, 0.12) !important; -webkit-text-fill-color: rgba(222, 127, 86, 0.12) !important;">${index + 1}</div>
         <h3 style="color: var(--primary);">${escapeHtml(servico.titulo)}</h3>
         <h5 style="color: var(--text-muted);">${escapeHtml(servico.subtitulo)}</h5>
         <ul style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">

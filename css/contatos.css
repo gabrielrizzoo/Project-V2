@@ -16,8 +16,8 @@
 .contact-cta p {
   margin: 0 0 1rem 0;
   font-size: 16px;
-  color: var(--black) !important;
-  -webkit-text-fill-color: var(--black);
+  color: #0c0c0c !important;
+  -webkit-text-fill-color: #0c0c0c;
 }
 
 .contact-methods {
@@ -34,8 +34,8 @@
   background: white !important;
   border-radius: 12px;
   text-decoration: none;
-  color: var(--black) !important;
-  -webkit-text-fill-color: var(--black);
+  color: #0c0c0c !important;
+  -webkit-text-fill-color: #0c0c0c;
   border: 1px solid rgba(0,0,0,0.1);
   transition: all 0.3s ease;
   font-weight: 500;
@@ -44,7 +44,7 @@
 .contact-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-  border-color: var(--black);
+  border-color: #0c0c0c;
 }
 
 .contact-item.whatsapp:hover {
@@ -86,8 +86,8 @@
 }
 
 .contact-info a:hover {
-  color: var(--orange) !important;
-  -webkit-text-fill-color: var(--orange) !important;
+  color: #de7f56 !important;
+  -webkit-text-fill-color: #de7f56 !important;
 }
 
 .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
@@ -106,7 +106,7 @@ legend {
   width: 100%;
 }
 
-label{font-weight:700; font-size:14px; display:block; margin-bottom:6px; color: var(--black) !important; -webkit-text-fill-color: var(--black);}
+label{font-weight:700; font-size:14px; display:block; margin-bottom:6px; color: #0c0c0c !important; -webkit-text-fill-color: #0c0c0c;}
 
 .input, textarea{
   width:100%; 
@@ -116,14 +116,14 @@ label{font-weight:700; font-size:14px; display:block; margin-bottom:6px; color: 
   font:inherit; 
   outline:none; 
   background:#fff !important;
-  color: var(--black) !important;
-  -webkit-text-fill-color: var(--black);
+  color: #0c0c0c !important;
+  -webkit-text-fill-color: #0c0c0c;
   transition:all var(--transition-smooth);
   font-size: 16px; /* Prevents zoom on iOS */
 }
 
 .input:focus, textarea:focus{
-  border-color:var(--black); 
+  border-color:#0c0c0c; 
   box-shadow:0 6px 18px rgba(0,0,0,.1);
   transform: translateY(-2px);
 }
@@ -160,7 +160,7 @@ textarea {
 .checks input[type="checkbox"] {
   width: 18px;
   height: 18px;
-  accent-color: var(--orange);
+  accent-color: #de7f56;
 }
 
 .agree{display:flex; gap:8px; align-items:flex-start; margin:10px 0 16px; cursor: pointer;}
@@ -168,7 +168,7 @@ textarea {
 
 /* Botões: maiores no mobile, largura total quando adequado */
 .btn{
-  background:var(--red); color:#fff; border:none; padding:14px 18px; 
+  background:#e44b33; color:#fff; border:none; padding:14px 18px; 
   border-radius:14px; font-weight:800; cursor:pointer;
   transition: all var(--transition-smooth);
   position: relative;
