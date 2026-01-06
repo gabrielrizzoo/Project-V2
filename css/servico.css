@@ -24,7 +24,7 @@
 }
 
 .card{
-  background:#fff; border-radius:var(--radius); border:1px solid rgba(0,0,0,.06); 
+  background:#fff !important; border-radius:var(--radius); border:1px solid rgba(0,0,0,.06); 
   box-shadow:var(--shadow); padding:22px 18px; display:flex; flex-direction:column;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: scaleIn 0.6s ease-out;
@@ -42,7 +42,7 @@
 
 .badge{
   width:44px; height:44px; border-radius:50%; display:grid; place-items:center; 
-  background:#000; color:#fff; font-weight:800; margin-bottom:8px;
+  background:#000 !important; color:#fff !important; -webkit-text-fill-color: #fff; font-weight:800; margin-bottom:8px;
   transition: all 0.8s ease;
 }
 
@@ -58,7 +58,7 @@
   transition: all 0.8s ease !important;
 }
 
-.card h3{margin:0 0 6px; font-size:19px}
+.card h3{margin:0 0 6px; font-size:19px; color: var(--black) !important; -webkit-text-fill-color: var(--black);}
 .card ul{margin:8px 0 0 20px}
 
 .cta{
@@ -103,7 +103,8 @@
   transform: translateY(-3px);
   background: #fff;
   border-color: var(--orange);
-  color: var(--black);
+  color: var(--black) !important;
+  -webkit-text-fill-color: var(--black) !important;
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
