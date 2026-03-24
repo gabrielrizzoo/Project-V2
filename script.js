@@ -13,33 +13,59 @@
  */
 const SERVICOS_DATA = [
   {
-    titulo: "Projetos Culturais",
-    subtitulo: "Leis de Incentivo e Editais",
+    titulo: "Leis de Incentivo",
+    subtitulo: "Estruturação e Escrita Técnica",
     itens: [
-      "Identificação de oportunidades",
-      "Análise de viabilidade",
-      "Elaboração conforme legislação"
+      "Enquadramento e tipologia",
+      "Justificativa e metas",
+      "Orçamento estruturado"
+    ]
+  },
+  {
+    titulo: "Editais de Fomento",
+    subtitulo: "Estratégia e Precisão",
+    itens: [
+      "Leitura técnica e checklist",
+      "Adequação ao regulamento",
+      "Revisão de consistência"
     ]
   },
   {
     titulo: "Projetos Audiovisuais",
-    subtitulo: "ANCINE e Editais",
+    subtitulo: "ANCINE e FSA",
     itens: [
-      "Mapeamento de linhas",
-      "Estratégia e orçamento",
-      "Submissão e acompanhamento"
+      "Desenvolvimento por formato",
+      "Requisitos regulatórios",
+      "Plano de financiamento"
     ]
   },
   {
-    titulo: "Terceiro Setor",
-    subtitulo: "Aprovação em Incentivo",
+    titulo: "Prestação de Contas",
+    subtitulo: "Segurança e Conformidade",
     itens: [
-      "Saúde, Educação e Cultura",
-      "Esporte e Meio Ambiente",
-      "Ação Social"
+      "Organização documental",
+      "Relatórios de execução",
+      "Rastreabilidade financeira"
+    ]
+  },
+  {
+    titulo: "Gestão de Projetos",
+    subtitulo: "Execução com Governança",
+    itens: [
+      "Cumprimento de prazos",
+      "Acompanhamento de rubricas",
+      "Preparação contínua"
+    ]
+  },
+  {
+    titulo: "Análise de Roteiro",
+    subtitulo: "Product Placement",
+    itens: [
+      "Leitura técnica cena a cena",
+      "Mapeamento para marcas",
+      "Monetização estratégica"
     ]
   }
-  // Para adicionar mais serviços, copie o bloco acima e cole aqui
 ];
 
 /**
@@ -264,22 +290,47 @@ function initForm() {
 // SERVIÇOS E CLIENTES (Renderização Dinâmica)
 // ================================
 function initServicosClientes() {
+  // Ícones e cores correspondentes a cada serviço
+  const SERVICOS_META = [
+    { icon: 'fa-solid fa-gavel',           accent: '#de7f56' }, // Leis de Incentivo
+    { icon: 'fa-solid fa-bullseye',        accent: '#e44b33' }, // Editais de Fomento
+    { icon: 'fa-solid fa-film',            accent: '#ffb300' }, // Projetos Audiovisuais
+    { icon: 'fa-solid fa-file-invoice',    accent: '#00c853' }, // Prestação de Contas
+    { icon: 'fa-solid fa-diagram-project', accent: '#00b0ff' }, // Gestão de Projetos
+    { icon: 'fa-solid fa-clapperboard',    accent: '#ab47bc' }  // Análise de Roteiro
+  ];
+
   // Renderizar serviços dinamicamente
   const servicosContainer = document.getElementById('servicos-container');
   if (servicosContainer && typeof SERVICOS_DATA !== 'undefined') {
-    servicosContainer.innerHTML = SERVICOS_DATA.map((servico, index) => `
-      <article class="card" data-animate="fade-up" ${index > 0 ? `style="animation-delay: ${index * 0.1}s;"` : ''}>
-        <div class="rotate-360" style="position: absolute; top: 1rem; right: 1rem; font-size: 4rem; font-weight: 700; color: rgba(222, 127, 86, 0.12) !important; -webkit-text-fill-color: rgba(222, 127, 86, 0.12) !important;">${index + 1}</div>
-        <h3 style="color: var(--primary);">${escapeHtml(servico.titulo)}</h3>
-        <h5 style="color: var(--text-muted);">${escapeHtml(servico.subtitulo)}</h5>
-        <ul style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
-          ${servico.itens.map(item => `
-            <li><i class="fa-solid fa-check" style="color: var(--success); margin-right: 0.5rem;"></i> ${escapeHtml(item)}</li>
-          `).join('')}
-        </ul>
-        <a href="contato.html" class="btn btn-contact" style="margin-top: 2rem; width: 100%;">ENTRE EM CONTATO</a>
-      </article>
-    `).join('');
+    servicosContainer.innerHTML = SERVICOS_DATA.map((servico, index) => {
+      const meta = SERVICOS_META[index] || { icon: 'fa-solid fa-check', accent: '#de7f56' };
+      return `
+      <article class="service-card" data-animate="fade-up" style="transition-delay: ${index * 0.07}s; --card-accent: ${meta.accent};">
+        <div class="service-card-accent"></div>
+        <div class="service-card-body">
+          <div class="service-card-top">
+            <div class="service-icon-wrap">
+              <i class="${meta.icon}"></i>
+            </div>
+            <span class="service-step">${String(index + 1).padStart(2, '0')}</span>
+          </div>
+          <h3 class="service-title">${escapeHtml(servico.titulo)}</h3>
+          <p class="service-subtitle">${escapeHtml(servico.subtitulo)}</p>
+          <ul class="service-checklist">
+            ${servico.itens.map(item => `
+              <li>
+                <span class="check-dot"></span>
+                <span>${escapeHtml(item)}</span>
+              </li>
+            `).join('')}
+          </ul>
+          <a href="contato.html" class="service-btn">
+            Solicitar <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </article>`;
+    }).join('');
   }
 
   // Renderizar clientes dinamicamente
