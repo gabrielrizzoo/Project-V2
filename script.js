@@ -145,6 +145,8 @@ function initHeader() {
   const mobileToggle = document.querySelector('.mobile-menu-toggle');
   const nav = document.querySelector('.nav');
 
+  if (!header) return;
+
   // Header scroll effect
   window.addEventListener('scroll', debounce(() => {
     if (window.scrollY > 50) {
