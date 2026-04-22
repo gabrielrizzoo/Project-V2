@@ -6,6 +6,31 @@ body[data-page="servicos"] {
   --servicos-shadow: 0 30px 90px rgba(0, 0, 0, 0.28);
 }
 
+body[data-page="servicos"] .decorative-lines,
+body[data-page="servicos"] .brand a,
+body[data-page="servicos"] .nav a,
+body[data-page="servicos"] .mobile-menu-toggle,
+body[data-page="servicos"] .section-tag,
+body[data-page="servicos"] .stat-pill,
+body[data-page="servicos"] .service-card-top,
+body[data-page="servicos"] .service-step,
+body[data-page="servicos"] .service-btn,
+body[data-page="servicos"] .client-chip,
+body[data-page="servicos"] .pf-btn,
+body[data-page="servicos"] .pf-card-badges,
+body[data-page="servicos"] .pf-card-play,
+body[data-page="servicos"] .pf-card-action,
+body[data-page="servicos"] .pf-modal-nav,
+body[data-page="servicos"] .pf-close,
+body[data-page="servicos"] .pf-prev,
+body[data-page="servicos"] .pf-next,
+body[data-page="servicos"] .pf-modal-links-projeto .btn,
+body[data-page="servicos"] .pf-modal-links-video .btn,
+body[data-page="servicos"] .social-links-footer a {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 body[data-page="servicos"] .section-tag {
   display: inline-flex;
   align-items: center;
