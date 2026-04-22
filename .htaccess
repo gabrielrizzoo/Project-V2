@@ -48,9 +48,15 @@ ErrorDocument 404 /404.html
 # URL Rewriting
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # Bloqueia artefatos internos e arquivos que nao devem ficar publicos
+    RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L,NC]
+    RewriteRule (^|/)(?:\.git|\.vscode)(?:/|$) - [F,L,NC]
+    RewriteRule (^|/).+\.(?:md|sql|ya?ml|sh|bat|ps1)$ - [F,L,NC]
     
     # Force HTTPS
     RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$ [NC]
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     
     # Remove trailing slash

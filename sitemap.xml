@@ -2,37 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://incentivart.com.br/</loc>
-    <lastmod>2025-08-15</lastmod>
+    <lastmod>2026-04-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://incentivart.com.br/sobre.html</loc>
-    <lastmod>2025-09-02</lastmod>
+    <loc>https://incentivart.com.br/sobre</loc>
+    <lastmod>2026-04-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://incentivart.com.br/servicos.html</loc>
-    <lastmod>2025-08-15</lastmod>
+    <loc>https://incentivart.com.br/servicos</loc>
+    <lastmod>2026-04-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://incentivart.com.br/contato.html</loc>
-    <lastmod>2025-08-15</lastmod>
+    <loc>https://incentivart.com.br/contato</loc>
+    <lastmod>2026-04-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://incentivart.com.br/contato.html</loc>
-    <lastmod>2025-08-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://incentivart.com.br/politica-de-privacidade.html</loc>
-    <lastmod>2025-11-24</lastmod>
+    <loc>https://incentivart.com.br/politica-de-privacidade</loc>
+    <lastmod>2026-04-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>

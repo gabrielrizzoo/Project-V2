@@ -196,12 +196,22 @@ function initHeader() {
   // Marcar link ativo
   const currentPage = document.body.getAttribute('data-page');
   if (currentPage) {
-    const activeLink = document.querySelector(`.nav a[href*="${currentPage}"]`);
+    const navLinks = Array.from(document.querySelectorAll('.nav a'));
+    const activeLink = navLinks.find(link => {
+      const href = link.getAttribute('href') || '';
+
+      if (currentPage === 'home') {
+        return href === './' || href === '/' || href === 'index.html';
+      }
+
+      return href === currentPage || href === `${currentPage}.html` || href === `./${currentPage}`;
+    });
+
     if (activeLink) activeLink.classList.add('active');
   } else {
     // Fallback para home
-    const homeLink = document.querySelector('.nav a[href="index.html"]');
-    if (homeLink && window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+    const homeLink = document.querySelector('.nav a[href="./"], .nav a[href="/"], .nav a[href="index.html"]');
+    if (homeLink && (window.location.pathname.endsWith('index.html') || window.location.pathname === '/')) {
       homeLink.classList.add('active');
     }
   }
@@ -233,6 +243,19 @@ function initForm() {
     const btn = form.querySelector('button[type="submit"]');
     const originalText = btn.innerHTML;
     const msgSuccess = document.getElementById('msgOk');
+    const msgError = document.getElementById('msgErro');
+
+    if (msgSuccess) {
+      msgSuccess.style.display = 'none';
+    }
+
+    if (msgError) {
+      msgError.style.display = 'none';
+      const msgErrorText = msgError.querySelector('span');
+      if (msgErrorText) {
+        msgErrorText.textContent = '';
+      }
+    }
 
     // Estado de loading
     btn.disabled = true;
@@ -245,6 +268,7 @@ function initForm() {
         body: formData,
         headers: { 'Accept': 'application/json' }
       });
+      const responseData = await response.json().catch(() => null);
 
       if (response.ok) {
         form.reset();
@@ -259,11 +283,24 @@ function initForm() {
           }, 5000);
         }
       } else {
-        throw new Error('Erro no envio');
+        throw new Error(responseData?.message || 'Ocorreu um erro ao enviar sua mensagem.');
       }
     } catch (error) {
       console.error('Erro:', error);
-      alert('Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.');
+      const errorMessage = error instanceof Error
+        ? error.message
+        : 'Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.';
+
+      if (msgError) {
+        const msgErrorText = msgError.querySelector('span');
+        if (msgErrorText) {
+          msgErrorText.textContent = errorMessage;
+        }
+        msgError.style.display = 'flex';
+        msgError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        alert(errorMessage);
+      }
     } finally {
       btn.disabled = false;
       btn.innerHTML = originalText;
@@ -307,15 +344,16 @@ function initServicosClientes() {
   if (servicosContainer && typeof SERVICOS_DATA !== 'undefined') {
     servicosContainer.innerHTML = SERVICOS_DATA.map((servico, index) => {
       const meta = SERVICOS_META[index] || { icon: 'fa-solid fa-check', accent: '#de7f56' };
+      const stepLabel = `Módulo ${String(index + 1).padStart(2, '0')}`;
       return `
-      <article class="service-card" data-animate="fade-up" style="transition-delay: ${index * 0.07}s; --card-accent: ${meta.accent};">
+      <article class="service-card" data-animate="fade-up" style="transition-delay: ${index * 0.045}s; --card-accent: ${meta.accent};">
         <div class="service-card-accent"></div>
         <div class="service-card-body">
           <div class="service-card-top">
             <div class="service-icon-wrap">
-              <i class="${meta.icon}"></i>
+              <i class="${meta.icon} service-icon"></i>
             </div>
-            <span class="service-step">${String(index + 1).padStart(2, '0')}</span>
+            <span class="service-step" aria-label="${stepLabel}">${stepLabel}</span>
           </div>
           <h3 class="service-title">${escapeHtml(servico.titulo)}</h3>
           <p class="service-subtitle">${escapeHtml(servico.subtitulo)}</p>
@@ -327,8 +365,8 @@ function initServicosClientes() {
               </li>
             `).join('')}
           </ul>
-          <a href="contato.html" class="service-btn">
-            Solicitar <i class="fa-solid fa-arrow-right"></i>
+          <a href="contato.html" class="service-btn" aria-label="Solicitar atendimento para ${escapeHtml(servico.titulo)}">
+            Solicitar atendimento <i class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
       </article>`;
@@ -338,8 +376,8 @@ function initServicosClientes() {
   // Renderizar clientes dinamicamente
   const clientesContainer = document.getElementById('clientes-container');
   if (clientesContainer && typeof CLIENTES_DATA !== 'undefined') {
-    clientesContainer.innerHTML = CLIENTES_DATA.map(cliente => `
-      <div class="card" style="padding: 1rem 2rem; min-width: 150px; text-align: center; font-weight: 600;">${escapeHtml(cliente)}</div>
+    clientesContainer.innerHTML = CLIENTES_DATA.map((cliente, index) => `
+      <div class="card client-chip" data-animate="fade-up" style="transition-delay: ${index * 0.05}s;">${escapeHtml(cliente)}</div>
     `).join('');
   }
 }
@@ -386,7 +424,7 @@ const PrivacyModal = {
 
   init() {
     // Find all privacy policy links
-    const links = document.querySelectorAll('a[href="politica-de-privacidade.html"]');
+    const links = document.querySelectorAll('[data-open-privacy-modal="true"]');
     
     if (links.length > 0) {
       this.createModal();

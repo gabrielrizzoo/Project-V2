@@ -231,6 +231,80 @@ function escapeHtml(text) {
     .replace(/'/g, "&#039;");
 }
 
+function getPortfolioPresentation(item) {
+  const type = item.tipo || 'video';
+
+  switch (type) {
+    case 'foto':
+      return {
+        filterType: 'foto',
+        typeLabel: 'Foto',
+        contextLabel: 'Registro visual',
+        actionLabel: 'Abrir imagem',
+        kicker: 'Ver imagem'
+      };
+    case 'projetos':
+      return {
+        filterType: 'projetos',
+        typeLabel: 'Projeto',
+        contextLabel: 'Projeto cultural',
+        actionLabel: 'Abrir projeto',
+        kicker: 'Ver detalhes'
+      };
+    case 'longa':
+      return {
+        filterType: 'video',
+        typeLabel: 'Trailer',
+        contextLabel: 'Longa-metragem',
+        actionLabel: 'Abrir trailer',
+        kicker: 'Assistir trailer'
+      };
+    case 'ellen':
+      return {
+        filterType: 'video',
+        typeLabel: 'Vídeo',
+        contextLabel: 'Ellen Jabour',
+        actionLabel: 'Abrir vídeo',
+        kicker: 'Assistir conteúdo'
+      };
+    case 'ellen-mundo':
+      return {
+        filterType: 'video',
+        typeLabel: 'Série',
+        contextLabel: 'Descobrindo o Mundo',
+        actionLabel: 'Abrir episódio',
+        kicker: 'Assistir episódio'
+      };
+    default:
+      return {
+        filterType: 'video',
+        typeLabel: 'Vídeo',
+        contextLabel: 'Audiovisual',
+        actionLabel: 'Abrir vídeo',
+        kicker: 'Assistir conteúdo'
+      };
+  }
+}
+
+function getPortfolioExcerpt(text) {
+  if (!text) return '';
+
+  const normalized = String(text).replace(/\s+/g, ' ').trim();
+  if (normalized.length <= 120) return normalized;
+
+  const sentenceMatch = normalized.match(/^(.{48,150}?[.!?])(\s|$)/);
+  if (sentenceMatch) return sentenceMatch[1];
+
+  return `${normalized.slice(0, 117).trimEnd()}...`;
+}
+
+function buildModalLinks(site, instagram) {
+  return [
+    site ? `<a href="${site}" target="_blank" rel="noopener" class="btn btn-outline"><i class="fa-solid fa-globe"></i> Site Oficial</a>` : '',
+    instagram ? `<a href="${instagram}" target="_blank" rel="noopener" class="btn btn-outline"><i class="fa-brands fa-instagram"></i> Instagram</a>` : ''
+  ].filter(Boolean).join('');
+}
+
 // ================================
 // RENDERIZAÇÃO E FILTROS
 // ================================
@@ -240,102 +314,127 @@ function initPortfolio() {
   const portfolioContainer = document.getElementById('portfolio-container');
   if (portfolioContainer && typeof PORTFOLIO_DATA !== 'undefined') {
     portfolioContainer.innerHTML = PORTFOLIO_DATA.map((item, index) => {
+      const presentation = getPortfolioPresentation(item);
+      const isVideo = presentation.filterType === 'video';
       const titulo = escapeHtml(item.titulo);
       const descricao = escapeHtml(item.descricao || '');
+      const resumo = escapeHtml(getPortfolioExcerpt(item.descricao || ''));
       const imagem = escapeHtml(item.imagem);
       const link = escapeHtml(item.link);
       const site = escapeHtml(item.site || '');
       const instagram = escapeHtml(item.instagram || '');
-      const delayStyle = index > 0 ? `animation-delay: ${index * 0.1}s;` : '';
+      const videoId = escapeHtml(item.videoId || '');
+      const fallbackAttr = videoId ? ` onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'"` : '';
+      const delayStyle = index > 0 ? `animation-delay: ${index * 0.06}s;` : '';
 
-      if (item.tipo === 'foto' || item.tipo === 'projetos') {
-        return `
-          <figure class="pf-item card" style="padding: 0; border: none; ${delayStyle}" data-type="${escapeHtml(item.tipo)}" data-animate="scale-in">
-            <a href="${link}" 
-               class="pf-lightbox" 
-               data-titulo="${titulo}"
-               data-descricao="${descricao}"
-               data-site="${site}"
-               data-instagram="${instagram}"
-               style="display: block; position: relative; overflow: hidden; aspect-ratio: 16/9;">
-              <img src="${imagem}" alt="${titulo}" 
-                   loading="lazy"
-                   decoding="async"
-                   style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
-              <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 1rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);">
-                <figcaption style="color: white; font-weight: 600;">${titulo}</figcaption>
+      return `
+        <figure class="pf-item card" style="padding: 0; border: none; ${delayStyle}" data-type="${presentation.filterType}" data-animate="scale-in">
+          <a href="${link}"
+             class="pf-lightbox pf-card-link"
+             data-video="${isVideo ? 'true' : 'false'}"
+             data-titulo="${titulo}"
+             data-descricao="${descricao}"
+             data-site="${site}"
+             data-instagram="${instagram}"
+             data-type-label="${escapeHtml(presentation.typeLabel)}"
+             data-context-label="${escapeHtml(presentation.contextLabel)}"
+             aria-label="${escapeHtml(`${presentation.actionLabel}: ${item.titulo}`)}">
+            <div class="pf-card-media">
+              <img class="pf-card-image" src="${imagem}" alt="${titulo}" loading="lazy" decoding="async"${fallbackAttr}>
+              <div class="pf-card-overlay"></div>
+              <div class="pf-card-badges">
+                <span class="pf-card-badge">${escapeHtml(presentation.typeLabel)}</span>
+                <span class="pf-card-context">${escapeHtml(presentation.contextLabel)}</span>
               </div>
-            </a>
-          </figure>
-        `;
-      } else {
-        // Video, Longa, Ellen ou Ellen-Mundo
-        const videoId = escapeHtml(item.videoId);
-        let dataType = 'video';
-        if (item.tipo === 'longa') dataType = 'longa';
-        else if (item.tipo === 'ellen') dataType = 'ellen';
-        else if (item.tipo === 'ellen-mundo') dataType = 'ellen-mundo';
-        
-        return `
-          <figure class="pf-item card" style="padding: 0; border: none; ${delayStyle}" data-type="${dataType}" data-animate="scale-in">
-            <div style="position: relative; aspect-ratio: 16/9; overflow: hidden;">
-              <img src="${imagem}" alt="${titulo}" 
-                   loading="lazy"
-                   decoding="async"
-                   style="width: 100%; height: 100%; object-fit: cover;"
-                   onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'">
-              <a href="${link}" 
-                 class="pf-lightbox"
-                 data-video="true"
-                 data-titulo="${titulo}"
-                 data-descricao="${descricao}"
-                 data-site="${site}"
-                 data-instagram="${instagram}"
-                 style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3);">
-                <i class="fa-solid fa-play-circle" style="font-size: 4rem; color: white; opacity: 0.8;"></i>
-              </a>
-              <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 1rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); pointer-events: none;">
-                <figcaption style="color: white; font-weight: 600;">${titulo}</figcaption>
-              </div>
+              ${isVideo ? `
+                <span class="pf-card-play" aria-hidden="true">
+                  <i class="fa-solid fa-play"></i>
+                </span>
+              ` : ''}
             </div>
-          </figure>
-        `;
-      }
+            <div class="pf-card-copy">
+              <div class="pf-card-copy-main">
+                <span class="pf-card-kicker">${escapeHtml(presentation.kicker)}</span>
+                <span class="pf-card-title">${titulo}</span>
+                ${resumo ? `<p class="pf-card-description">${resumo}</p>` : ''}
+              </div>
+              <span class="pf-card-action">
+                ${escapeHtml(presentation.actionLabel)}
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </span>
+            </div>
+          </a>
+        </figure>
+      `;
     }).join('');
   }
 
   // Configurar filtros
-  const filterBtns = document.querySelectorAll('.pf-btn');
-  const items = document.querySelectorAll('.pf-item');
+  const filterBtns = Array.from(document.querySelectorAll('.pf-btn'));
+  const items = Array.from(document.querySelectorAll('.pf-item'));
+
+  const setActiveFilter = (activeBtn) => {
+    filterBtns.forEach(btn => {
+      const isActive = btn === activeBtn;
+      btn.classList.toggle('is-active', isActive);
+      btn.setAttribute('aria-selected', String(isActive));
+      btn.setAttribute('tabindex', isActive ? '0' : '-1');
+    });
+  };
+
+  const setItemVisibility = (item, shouldShow) => {
+    if (item._hideTimer) {
+      window.clearTimeout(item._hideTimer);
+      item._hideTimer = null;
+    }
+
+    if (shouldShow) {
+      item.hidden = false;
+      requestAnimationFrame(() => {
+        item.classList.remove('is-filtered-out');
+      });
+      return;
+    }
+
+    item.classList.add('is-filtered-out');
+    item._hideTimer = window.setTimeout(() => {
+      item.hidden = true;
+    }, 220);
+  };
 
   if (filterBtns.length > 0) {
+    const initiallyActiveBtn = filterBtns.find(btn => btn.classList.contains('is-active')) || filterBtns[0];
+    if (initiallyActiveBtn) {
+      setActiveFilter(initiallyActiveBtn);
+    }
+
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('is-active'));
-        btn.classList.add('is-active');
+        setActiveFilter(btn);
 
         const filter = btn.dataset.filter;
 
         items.forEach(item => {
           const itemType = item.dataset.type;
-          const shouldShow = filter === 'all' || 
-                            itemType === filter || 
-                            (filter === 'video' && (itemType === 'ellen' || itemType === 'ellen-mundo' || itemType === 'longa' || itemType === 'video'));
-          
-          if (shouldShow) {
-            item.style.display = '';
-            setTimeout(() => {
-              item.style.opacity = '1';
-              item.style.transform = 'scale(1)';
-            }, 50);
-          } else {
-            item.style.opacity = '0';
-            item.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-              item.style.display = 'none';
-            }, 300);
-          }
+          const shouldShow = filter === 'all' || itemType === filter;
+
+          setItemVisibility(item, shouldShow);
         });
+      });
+
+      btn.addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+
+        event.preventDefault();
+        const currentIndex = filterBtns.indexOf(btn);
+        const direction = event.key === 'ArrowRight' ? 1 : -1;
+        const nextIndex = (currentIndex + direction + filterBtns.length) % filterBtns.length;
+        const nextBtn = filterBtns[nextIndex];
+
+        if (nextBtn) {
+          nextBtn.focus();
+          nextBtn.click();
+        }
       });
     });
   }
@@ -356,6 +455,7 @@ function initLightbox() {
     // Elementos do layout de vídeo
     const videoLayout = modal.querySelector('.pf-video-layout');
     const modalIframe = modal.querySelector('.pf-modal-iframe');
+    const modalEyebrowVideo = modal.querySelector('.pf-modal-eyebrow-video');
     const modalTituloVideo = modal.querySelector('.pf-modal-titulo-video');
     const modalDescricaoVideo = modal.querySelector('.pf-modal-descricao-video');
     const modalLinksVideo = modal.querySelector('.pf-modal-links-video');
@@ -364,6 +464,7 @@ function initLightbox() {
     // Elementos do layout de projeto/foto
     const projectLayout = modal.querySelector('.pf-project-layout');
     const modalImg = modal.querySelector('.pf-modal-img');
+    const modalEyebrowProjeto = modal.querySelector('.pf-modal-eyebrow-projeto');
     const modalTituloProjeto = modal.querySelector('.pf-modal-titulo-projeto');
     const modalDescricaoProjeto = modal.querySelector('.pf-modal-descricao-projeto');
     const modalLinksProjeto = modal.querySelector('.pf-modal-links-projeto');
@@ -377,7 +478,7 @@ function initLightbox() {
     let currentLinks = [];
 
     const updateCurrentLinks = () => {
-      currentLinks = Array.from(document.querySelectorAll('.pf-item:not([style*="display: none"]) .pf-lightbox'));
+      currentLinks = Array.from(document.querySelectorAll('.pf-item:not([hidden]) .pf-lightbox'));
     };
 
     const updateModal = (index) => {
@@ -390,30 +491,36 @@ function initLightbox() {
       const descricao = link.getAttribute('data-descricao') || '';
       const site = link.getAttribute('data-site') || '';
       const instagram = link.getAttribute('data-instagram') || '';
+      const typeLabel = link.getAttribute('data-type-label') || '';
+      const contextLabel = link.getAttribute('data-context-label') || '';
+      const eyebrow = [typeLabel, contextLabel].filter(Boolean).join(' · ');
 
       if (isVideo) {
         // Layout de vídeo (vertical)
         projectLayout.style.display = 'none';
         videoLayout.style.display = 'flex';
+        modal.setAttribute('data-modal-type', 'video');
         
-        if (modalIframe) modalIframe.src = href;
+        if (modalIframe) {
+          modalIframe.src = href;
+          modalIframe.title = titulo ? `Vídeo: ${titulo}` : 'Vídeo do portfólio';
+        }
+        if (modalEyebrowVideo) modalEyebrowVideo.textContent = eyebrow;
+        if (modalEyebrowProjeto) modalEyebrowProjeto.textContent = '';
         
         if (modalTituloVideo) {
           modalTituloVideo.textContent = titulo;
-          modalTituloVideo.style.display = titulo ? 'block' : 'none';
+          modalTituloVideo.style.display = 'block';
         }
         
         if (modalDescricaoVideo) {
           const descHtml = (descricao || '').replace(/\n/g, '<br>');
           modalDescricaoVideo.innerHTML = descHtml;
-          modalDescricaoVideo.style.display = descHtml ? 'block' : 'none';
+          modalDescricaoVideo.style.display = 'block';
         }
 
         if (modalLinksVideo) {
-          const linksHtml = [
-            site ? `<a href="${site}" target="_blank" rel="noopener" class="btn btn-primary" style="flex: 1; text-align: center;"><i class="fa-solid fa-globe"></i> Site Oficial</a>` : '',
-            instagram ? `<a href="${instagram}" target="_blank" rel="noopener" class="btn btn-primary" style="flex: 1; text-align: center;"><i class="fa-brands fa-instagram"></i> Instagram</a>` : ''
-          ].filter(Boolean).join('');
+          const linksHtml = buildModalLinks(site, instagram);
           modalLinksVideo.innerHTML = linksHtml;
           modalLinksVideo.style.display = linksHtml ? 'flex' : 'none';
         }
@@ -422,23 +529,33 @@ function initLightbox() {
           const isGoogleDrive = href.includes('drive.google.com');
           driveShield.style.display = isGoogleDrive ? 'block' : 'none';
         }
+        if (modalImg) {
+          modalImg.src = '';
+          modalImg.alt = '';
+        }
       } else {
         // Layout de projeto/foto (horizontal lado a lado)
         videoLayout.style.display = 'none';
         projectLayout.style.display = 'flex';
+        modal.setAttribute('data-modal-type', 'project');
         
-        if (modalImg) modalImg.src = href;
+        if (modalIframe) modalIframe.src = '';
+        if (modalEyebrowVideo) modalEyebrowVideo.textContent = '';
+        if (modalEyebrowProjeto) modalEyebrowProjeto.textContent = eyebrow;
+        if (modalImg) {
+          modalImg.src = href;
+          modalImg.alt = titulo ? `Imagem do portfólio ${titulo}` : 'Imagem do portfólio';
+        }
         if (modalTituloProjeto) modalTituloProjeto.textContent = titulo;
         if (modalDescricaoProjeto) modalDescricaoProjeto.textContent = descricao;
         
         if (modalLinksProjeto) {
-          const linksHtml = [
-            site ? `<a href="${site}" target="_blank" rel="noopener" class="btn btn-primary" style="flex: 1; text-align: center;"><i class="fa-solid fa-globe"></i> Site Oficial</a>` : '',
-            instagram ? `<a href="${instagram}" target="_blank" rel="noopener" class="btn btn-primary" style="flex: 1; text-align: center;"><i class="fa-brands fa-instagram"></i> Instagram</a>` : ''
-          ].filter(Boolean).join('');
+          const linksHtml = buildModalLinks(site, instagram);
           modalLinksProjeto.innerHTML = linksHtml;
           modalLinksProjeto.style.display = linksHtml ? 'flex' : 'none';
         }
+
+        if (driveShield) driveShield.style.display = 'none';
       }
       currentIndex = index;
     };
@@ -449,14 +566,18 @@ function initLightbox() {
       modal.style.display = 'flex';
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
+      if (modalClose) modalClose.focus({ preventScroll: true });
     };
 
     const closeModal = () => {
       modal.style.display = 'none';
       modal.setAttribute('aria-hidden', 'true');
+      modal.removeAttribute('data-modal-type');
       document.body.style.overflow = '';
       if (modalImg) modalImg.src = '';
       if (modalIframe) modalIframe.src = '';
+      if (modalEyebrowVideo) modalEyebrowVideo.textContent = '';
+      if (modalEyebrowProjeto) modalEyebrowProjeto.textContent = '';
     };
 
     const nextItem = (e) => {

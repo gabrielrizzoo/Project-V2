@@ -5,11 +5,34 @@
 date_default_timezone_set('America/Sao_Paulo');
 $destinatario = "contato@incentivart.com.br"; // Substitua pelo seu e-mail real
 $assunto_padrao = "Novo contato via site - Incentivart";
-$rate_limit_window = 60; // Janela em segundos
+$rate_limit_window = 300; // Janela em segundos
 $rate_limit_max_requests = 5; // Máximo de envios na janela
 
+$max_nome_length = 80;
+$max_sobrenome_length = 120;
+$max_email_length = 254;
+$max_telefone_length = 30;
+$max_mensagem_length = 800;
+
+function respond_json($http_code, $status, $message) {
+    http_response_code($http_code);
+    echo json_encode([
+        "status" => $status,
+        "message" => $message
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    exit;
+}
+
+function text_length($value) {
+    if (function_exists('mb_strlen')) {
+        return mb_strlen($value, 'UTF-8');
+    }
+
+    return strlen($value);
+}
+
 // Cabeçalhos de resposta JSON
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=UTF-8');
 
 // Verifica se é uma requisição POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -18,19 +41,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificação de Honeypot
     $honeypot = isset($_POST['website']) ? trim($_POST['website']) : '';
     if ($honeypot !== '') {
-        http_response_code(400);
-        echo json_encode(["status" => "error", "message" => "Requisição inválida."]);
-        exit;
+        respond_json(400, "error", "Requisição inválida.");
     }
 
     // Limite IP
-    $rate_file = __DIR__ . '/logs/rate_limit_' . preg_replace('/[^0-9a-fA-F:]/', '_', $ip) . '.log';
+    $rate_file = __DIR__ . '/logs/rate_limit_' . preg_replace('/[^a-zA-Z0-9_-]/', '_', $ip) . '.log';
     $now = time();
     $window_start = $now - $rate_limit_window;
     $timestamps = [];
 
-    if (file_exists($rate_file)) {
-        $timestamps = array_map('intval', file($rate_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES));
+    $rate_handle = fopen($rate_file, 'c+');
+    if ($rate_handle === false) {
+        respond_json(500, "error", "Não foi possível processar o envio agora.");
+    }
+
+    if (!flock($rate_handle, LOCK_EX)) {
+        fclose($rate_handle);
+        respond_json(500, "error", "Não foi possível processar o envio agora.");
+    }
+
+    rewind($rate_handle);
+    $rate_contents = stream_get_contents($rate_handle);
+    if ($rate_contents !== false && trim($rate_contents) !== '') {
+        $timestamps = array_map('intval', preg_split('/\R+/', trim($rate_contents)));
     }
 
     $recent = array_values(array_filter($timestamps, function($ts) use ($window_start) {
@@ -38,13 +71,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }));
 
     if (count($recent) >= $rate_limit_max_requests) {
-        http_response_code(429);
-        echo json_encode(["status" => "error", "message" => "Muitas tentativas. Aguarde um momento e tente novamente."]);
-        exit;
+        flock($rate_handle, LOCK_UN);
+        fclose($rate_handle);
+        respond_json(429, "error", "Muitas tentativas. Aguarde alguns minutos e tente novamente.");
     }
 
     $recent[] = $now;
-    file_put_contents($rate_file, implode("\n", $recent), LOCK_EX);
+    ftruncate($rate_handle, 0);
+    rewind($rate_handle);
+    fwrite($rate_handle, implode(PHP_EOL, $recent));
+    fflush($rate_handle);
+    flock($rate_handle, LOCK_UN);
+    fclose($rate_handle);
     
     // Coleta os dados (sem sanitização destrutiva aqui, faremos no output)
     $nome = isset($_POST['nome']) ? trim($_POST['nome']) : '';
@@ -55,37 +93,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $consentimento = isset($_POST['consentimento']) ? $_POST['consentimento'] : '';
 
     if (empty($consentimento)) {
-        http_response_code(400);
-        echo json_encode(["status" => "error", "message" => "É necessário aceitar a política de privacidade."]);
-        exit;
+        respond_json(400, "error", "É necessário aceitar a política de privacidade.");
     }
-    
+
+    // Validação básica
+    if ($nome === '' || $sobrenome === '' || $email === '' || $telefone === '' || $mensagem === '') {
+        respond_json(400, "error", "Preencha os campos obrigatórios.");
+    }
+
+    if (text_length($nome) > $max_nome_length || text_length($sobrenome) > $max_sobrenome_length) {
+        respond_json(400, "error", "Nome ou sobrenome excede o tamanho permitido.");
+    }
+
+    if (text_length($email) > $max_email_length) {
+        respond_json(400, "error", "E-mail excede o tamanho permitido.");
+    }
+
+    if (text_length($telefone) > $max_telefone_length) {
+        respond_json(400, "error", "Telefone excede o tamanho permitido.");
+    }
+
+    if (text_length($mensagem) > $max_mensagem_length) {
+        respond_json(400, "error", "Mensagem excede o tamanho permitido.");
+    }
+
     // Validação de E-mail (segurança contra Header Injection)
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        http_response_code(400);
-        echo json_encode(["status" => "error", "message" => "E-mail inválido."]);
-        exit;
+        respond_json(400, "error", "E-mail inválido.");
+    }
+
+    $telefone_digits = preg_replace('/\D+/', '', $telefone);
+    if (!preg_match('/^[0-9+()\s-]+$/', $telefone) || strlen($telefone_digits) < 10 || strlen($telefone_digits) > 13) {
+        respond_json(400, "error", "Telefone inválido.");
     }
 
     // Segmentos
+    $segmento_map = [
+        'teatro' => 'Teatro',
+        'musica' => 'Música',
+        'audiovisual' => 'Audiovisual',
+        'outros' => 'Outros'
+    ];
     $segmento_input = isset($_POST['segmento']) ? $_POST['segmento'] : [];
-    if (is_array($segmento_input)) {
-        // Sanitiza cada item do array
-        $segmentos_limpos = array_map(function($item) {
-            return htmlspecialchars($item, ENT_QUOTES, 'UTF-8');
-        }, $segmento_input);
-        $segmento_str = implode(", ", $segmentos_limpos);
-    } else {
-        $segmento_str = htmlspecialchars($segmento_input, ENT_QUOTES, 'UTF-8');
-    }
-    if (empty($segmento_str)) $segmento_str = 'Não informado';
+    $segmentos_limpos = [];
 
-    // Validação básica
-    if (empty($nome) || empty($email) || empty($mensagem)) {
-        http_response_code(400);
-        echo json_encode(["status" => "error", "message" => "Preencha os campos obrigatórios."]);
-        exit;
+    if (!is_array($segmento_input)) {
+        $segmento_input = [$segmento_input];
     }
+
+    foreach ($segmento_input as $item) {
+        $segmento_key = trim((string) $item);
+        if (isset($segmento_map[$segmento_key])) {
+            $segmentos_limpos[] = $segmento_map[$segmento_key];
+        }
+    }
+
+    $segmentos_limpos = array_values(array_unique($segmentos_limpos));
+    $segmento_str = !empty($segmentos_limpos)
+        ? implode(', ', array_map(function($item) {
+            return htmlspecialchars($item, ENT_QUOTES, 'UTF-8');
+        }, $segmentos_limpos))
+        : 'Não informado';
 
     // Sanitização para Output (Previne XSS / Injeção de HTML no e-mail)
     $nome_safe = htmlspecialchars($nome, ENT_QUOTES, 'UTF-8');
@@ -125,15 +193,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Tenta enviar
     if (mail($destinatario, $assunto_padrao, $corpo_email, $headers)) {
-        http_response_code(200);
-        echo json_encode(["status" => "success", "message" => "E-mail enviado com sucesso!"]);
+        respond_json(200, "success", "E-mail enviado com sucesso!");
     } else {
-        http_response_code(500);
-        echo json_encode(["status" => "error", "message" => "Falha ao enviar e-mail."]);
+        respond_json(500, "error", "Falha ao enviar e-mail.");
     }
 
 } else {
-    http_response_code(405);
-    echo json_encode(["status" => "error", "message" => "Método não permitido."]);
+    respond_json(405, "error", "Método não permitido.");
 }
 ?>
