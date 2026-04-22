@@ -522,7 +522,7 @@ function initLightbox() {
         if (modalLinksVideo) {
           const linksHtml = buildModalLinks(site, instagram);
           modalLinksVideo.innerHTML = linksHtml;
-          modalLinksVideo.style.display = linksHtml ? 'flex' : 'none';
+          modalLinksVideo.style.display = linksHtml ? 'grid' : 'none';
         }
         
         if (driveShield) {
@@ -552,7 +552,7 @@ function initLightbox() {
         if (modalLinksProjeto) {
           const linksHtml = buildModalLinks(site, instagram);
           modalLinksProjeto.innerHTML = linksHtml;
-          modalLinksProjeto.style.display = linksHtml ? 'flex' : 'none';
+          modalLinksProjeto.style.display = linksHtml ? 'grid' : 'none';
         }
 
         if (driveShield) driveShield.style.display = 'none';
