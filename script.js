@@ -14,7 +14,7 @@
 const SERVICOS_DATA = [
   {
     titulo: "Projetos Culturais — Leis de Incentivo (Rouanet, estaduais e municipais)",
-    descricao: "Projetos para leis de incentivo exigem consistência técnica, coerência orçamentária e aderência normativa. Estruturo (ou reestruturo) sua proposta para ficar apta à submissão, com narrativa clara e documentação organizada.",
+    descricao: "Projetos para leis de incentivo exigem consistência técnica, coerência orçamentária e aderência normativa. Estruturamos (ou reestruturamos) sua proposta para ficar apta à submissão, com narrativa clara e documentação organizada.",
     inclui: [
       "Enquadramento e tipologia conforme o mecanismo",
       "Justificativa, objetivos, metas e indicadores",
@@ -33,7 +33,7 @@ const SERVICOS_DATA = [
   },
   {
     titulo: "Projetos Culturais — Editais de Fomento Direto (públicos e privados)",
-    descricao: "Editais eliminam projetos por detalhes: inconsistências, documentos faltando, orçamento fora do padrão. Eu preparo sua inscrição com estratégia e precisão, alinhando a proposta aos critérios de avaliação do edital.",
+    descricao: "Editais eliminam projetos por detalhes: inconsistências, documentos faltando, orçamento fora do padrão. Preparamos sua inscrição com estratégia e precisão, alinhando a proposta aos critérios de avaliação do edital.",
     inclui: [
       "Leitura técnica do edital e checklist de exigências",
       "Adequação do projeto ao regulamento (limites, vedações, anexos)",
@@ -51,7 +51,7 @@ const SERVICOS_DATA = [
   },
   {
     titulo: "Projetos Audiovisuais — ANCINE e FSA (longas, séries, festivais e mostras)",
-    descricao: "Projetos audiovisuais precisam unir proposta artística, viabilidade e conformidade. Estruturo o projeto com padrão técnico e linguagem adequada para mecanismos do setor audiovisual, preparando materiais e organização para submissão.",
+    descricao: "Projetos audiovisuais precisam unir proposta artística, viabilidade e conformidade. Estruturamos o projeto com padrão técnico e linguagem adequada para mecanismos do setor audiovisual, preparando materiais e organização para submissão.",
     inclui: [
       "Estruturação do projeto por formato (longa, série, festival/mostra)",
       "Materiais técnicos: apresentação, proposta, público, posicionamento",
@@ -69,7 +69,7 @@ const SERVICOS_DATA = [
   },
   {
     titulo: "Prestação de Contas — Técnica e Financeira (envio em sistemas)",
-    descricao: "Prestação de contas não é \"relatório genérico\". É conformidade, evidência e rastreabilidade. Organizo documentos e elaboro relatórios técnicos e financeiros para reduzir riscos de diligência e glosas.",
+    descricao: "Prestação de contas não é \"relatório genérico\". É conformidade, evidência e rastreabilidade. Organizamos documentos e elaboramos relatórios técnicos e financeiros para reduzir riscos de diligência e glosas.",
     inclui: [
       "Organização documental (comprovantes, contratos, evidências)",
       "Relatório técnico: execução, metas, público, resultados",
@@ -87,7 +87,7 @@ const SERVICOS_DATA = [
   },
   {
     titulo: "Gestão de Projetos Culturais — Execução com governança",
-    descricao: "Aprovou e agora precisa executar sem perder prazos, orçamento e documentação? Eu apoio a gestão para garantir cumprimento de metas, organização e preparo contínuo para prestação de contas.",
+    descricao: "Aprovou e agora precisa executar sem perder prazos, orçamento e documentação? Apoiamos a gestão para garantir cumprimento de metas, organização e preparo contínuo para prestação de contas.",
     inclui: [
       "Planejamento da execução e organização de rotinas",
       "Gestão de cronograma, entregáveis e responsabilidades",
@@ -105,8 +105,7 @@ const SERVICOS_DATA = [
   },
   {
     titulo: "Análise de Roteiro — Product Placement e Advertainment (monetização)",
-    descricao: "Monetizar com marcas sem ferir a obra exige método. Faço leitura técnica do roteiro cena a cena para mapear oportunidades orgânicas de inserção, organizando tudo por tipo e segmento para facilitar negociação.",
-    indicadoPara: "Produtoras de pequeno e médio porte, roteiristas e produtores executivos; longas, minisséries, obras seriadas e webséries.",
+    descricao: "Monetizar com marcas sem ferir a obra exige método. Fazemos a leitura técnica do roteiro cena a cena para mapear oportunidades orgânicas de inserção, organizando tudo por tipo e segmento para facilitar negociação.",
     inclui: [
       "Leitura técnica cena a cena",
       "Identificação de contextos narrativos com potencial para marcas",
@@ -409,7 +408,8 @@ function initServicosClientes() {
     servicosContainer.innerHTML = SERVICOS_DATA.map((servico, index) => {
       const meta = SERVICOS_META[index] || { icon: 'fa-solid fa-check', accent: '#de7f56' };
       const ctaHref = servico.ctaHref || 'contato.html';
-      const stepLabel = `Módulo ${String(index + 1).padStart(2, '0')}`;
+      const stepNumber = String(index + 1).padStart(2, '0');
+      const stepLabel = `Segmento ${stepNumber}`;
       return `
       <article class="service-card" data-animate="fade-up" style="transition-delay: ${index * 0.045}s; --card-accent: ${meta.accent};">
         <div class="service-card-accent"></div>
@@ -418,7 +418,7 @@ function initServicosClientes() {
             <div class="service-icon-wrap">
               <i class="${meta.icon} service-icon"></i>
             </div>
-            <span class="service-step" aria-label="${stepLabel}">${stepLabel}</span>
+            <span class="service-step" aria-label="${stepLabel}">${stepNumber}</span>
           </div>
           <h3 class="service-title">${escapeHtml(servico.titulo)}</h3>
           <div class="service-content-stack">
