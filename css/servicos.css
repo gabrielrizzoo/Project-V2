@@ -64,6 +64,11 @@ body[data-page="servicos"] .hero-servicos {
   padding-bottom: 4.5rem;
 }
 
+body[data-page="servicos"] .hero-servicos .container {
+  max-width: 1440px;
+  padding-inline: clamp(0.35rem, 0.6vw, 0.65rem);
+}
+
 body[data-page="servicos"] .hero-servicos::before,
 body[data-page="servicos"] .hero-servicos::after {
   content: "";
@@ -96,60 +101,182 @@ body[data-page="servicos"] .hero-glow-orb {
 }
 
 body[data-page="servicos"] .servicos-hero-shell {
-  max-width: 980px;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: clamp(1.8rem, 3vw, 3rem);
+  padding: clamp(1.4rem, 3vw, 2.2rem);
   border-radius: 32px;
-  background: var(--servicos-panel);
-  border: 1px solid var(--servicos-border);
-  box-shadow: var(--servicos-shadow);
+  background:
+    radial-gradient(circle at top left, rgba(222, 127, 86, 0.14) 0%, rgba(222, 127, 86, 0) 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 42%, rgba(255, 255, 255, 0.02) 100%),
+    var(--servicos-panel);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 body[data-page="servicos"] .servicos-hero-shell.card::before {
   display: none;
 }
 
+body[data-page="servicos"] .servicos-hero-shell::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0) 34%, rgba(255, 255, 255, 0.02) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
 body[data-page="servicos"] .servicos-hero-content {
   display: grid;
-  gap: 1.9rem;
-  text-align: center;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.95fr);
+  align-items: stretch;
+  gap: 1.25rem;
+  text-align: left;
   max-width: none;
 }
 
 body[data-page="servicos"] .servicos-hero-copy {
   display: grid;
-  gap: 1rem;
-  justify-items: center;
+  align-content: start;
+  gap: 1.05rem;
+  justify-items: start;
+  padding: 0.35rem 0;
 }
 
 body[data-page="servicos"] .servicos-hero-copy h1 {
-  max-width: 13ch;
-  margin: 0 auto;
+  max-width: 14ch;
+  margin: 0;
+  text-wrap: balance;
 }
 
 body[data-page="servicos"] .servicos-hero-content .hero-lead {
   max-width: 680px;
-  margin: 0 auto;
+  margin: 0;
   font-size: clamp(1rem, 1.8vw, 1.18rem);
   line-height: 1.75;
 }
 
-body[data-page="servicos"] .servicos-hero-stats {
-  margin: 0 auto;
+body[data-page="servicos"] .hero-support-copy {
+  max-width: 720px;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.72;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+body[data-page="servicos"] .hero-primary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 0.85rem;
+  margin-top: 0.3rem;
+}
+
+body[data-page="servicos"] .hero-important-note {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.97rem;
+  line-height: 1.72;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+body[data-page="servicos"] .hero-important-note strong {
+  color: #f0b092;
+}
+
+body[data-page="servicos"] .hero-primary-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 48px;
+  padding: 0.95rem 1.25rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(222, 127, 86, 0.28);
+  background: linear-gradient(180deg, rgba(222, 127, 86, 0.22) 0%, rgba(222, 127, 86, 0.16) 100%);
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 16px 32px rgba(222, 127, 86, 0.12);
+  transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+body[data-page="servicos"] .hero-primary-cta:hover,
+body[data-page="servicos"] .hero-primary-cta:focus-visible {
+  transform: translateY(-1px);
+  background: linear-gradient(180deg, rgba(222, 127, 86, 0.28) 0%, rgba(222, 127, 86, 0.2) 100%);
+  border-color: rgba(222, 127, 86, 0.4);
+  box-shadow: 0 20px 40px rgba(222, 127, 86, 0.15), inset 0 0 0 1px rgba(222, 127, 86, 0.12);
+}
+
+body[data-page="servicos"] .hero-secondary-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.74);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+body[data-page="servicos"] .hero-secondary-link:hover,
+body[data-page="servicos"] .hero-secondary-link:focus-visible {
+  color: #ffffff;
+}
+
+body[data-page="servicos"] .servicos-hero-aside {
+  display: grid;
+  gap: 0.9rem;
+  align-content: start;
+}
+
+body[data-page="servicos"] .hero-note-panel,
+body[data-page="servicos"] .hero-stats-panel,
+body[data-page="servicos"] .hero-contact-panel {
+  padding: 1rem 1.05rem;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.02) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+body[data-page="servicos"] .hero-panel-label {
+  display: inline-flex;
+  margin-bottom: 0.8rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f0b092;
+}
+
+body[data-page="servicos"] .servicos-hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  margin: 0;
+  gap: 0.7rem;
 }
 
 body[data-page="servicos"] .stat-pill {
-  min-height: 48px;
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius-full);
+  min-height: 56px;
+  width: 100%;
+  justify-content: flex-start;
+  padding: 0.8rem 0.9rem;
+  border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.07) !important;
   background: rgba(255, 255, 255, 0.03) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
-  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease !important;
+  line-height: 1.35;
+  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease !important;
 }
 
 body[data-page="servicos"] .stat-pill::before {
@@ -170,14 +297,19 @@ body[data-page="servicos"] .stat-pill:focus-visible {
 }
 
 body[data-page="servicos"] .hero-contact-info {
-  justify-content: center;
-  gap: 0.9rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: stretch;
+  gap: 0.7rem;
   margin-top: 0;
 }
 
 body[data-page="servicos"] .hero-contact-info .contact-item-footer {
   display: inline-flex;
   align-items: center;
+  width: 100%;
+  justify-content: flex-start;
+  cursor: pointer;
   gap: 0.65rem;
   padding: 0.9rem 1.1rem;
   border-radius: var(--radius-full);
@@ -232,8 +364,8 @@ body[data-page="servicos"] .pf-heading p {
 }
 
 body[data-page="servicos"] .services-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.35rem;
   align-items: stretch;
 }
 
@@ -253,6 +385,12 @@ body[data-page="servicos"] .services-grid .service-card {
 body[data-page="servicos"] .services-grid .service-card[data-animate],
 body[data-page="servicos"] .services-grid .service-card[data-animate="fade-up"] {
   transform: translateY(10px);
+}
+
+body[data-page="servicos"] .services-grid .service-card[data-animate].in-view,
+body[data-page="servicos"] .services-grid .service-card[data-animate="fade-up"].in-view {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 body[data-page="servicos"] .services-grid .service-card::after {
@@ -279,7 +417,7 @@ body[data-page="servicos"] .service-card-body {
   flex: 1 1 auto;
   height: 100%;
   padding: 1.45rem;
-  gap: 0.95rem;
+  gap: 1rem;
 }
 
 body[data-page="servicos"] .service-card-top {
@@ -326,14 +464,11 @@ body[data-page="servicos"] .service-card:hover .service-step {
 
 body[data-page="servicos"] .service-title {
   margin-bottom: 0;
-  font-size: clamp(1.2rem, 2vw, 1.45rem);
-  line-height: 1.22;
-  min-height: calc(1.22em * 2);
-  display: -webkit-box;
-  line-clamp: 2;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  font-size: clamp(1.18rem, 1.8vw, 1.4rem);
+  line-height: 1.35;
+  min-height: 0;
+  display: block;
+  overflow: visible;
 }
 
 body[data-page="servicos"] .service-card:hover .service-title {
@@ -343,21 +478,65 @@ body[data-page="servicos"] .service-card:hover .service-title {
 
 body[data-page="servicos"] .service-subtitle {
   margin-bottom: 0;
-  font-size: 0.94rem;
-  line-height: 1.62;
-  min-height: calc(1.62em * 3);
+  font-size: 0.95rem;
+  line-height: 1.68;
+  min-height: 0;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+body[data-page="servicos"] .service-content-stack {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+body[data-page="servicos"] .service-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.72rem;
+}
+
+body[data-page="servicos"] .service-section-title {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--card-accent) 70%, #ffffff 30%) !important;
+  -webkit-text-fill-color: color-mix(in srgb, var(--card-accent) 70%, #ffffff 30%) !important;
+}
+
+body[data-page="servicos"] .service-context {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.95rem 1rem;
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--card-accent) 20%, rgba(255, 255, 255, 0.04));
+  background: color-mix(in srgb, var(--card-accent) 8%, rgba(255, 255, 255, 0.02));
+}
+
+body[data-page="servicos"] .service-context p:last-child {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.74);
 }
 
 body[data-page="servicos"] .service-checklist {
-  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
   gap: 0.72rem;
-  margin-bottom: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 body[data-page="servicos"] .service-checklist li {
   align-items: flex-start;
   font-size: 0.91rem;
-  line-height: 1.55;
+  line-height: 1.58;
 }
 
 body[data-page="servicos"] .check-dot {
@@ -963,6 +1142,40 @@ body[data-page="servicos"] .hero-contact-info .contact-item-footer:focus-visible
 }
 
 @media (max-width: 980px) {
+  body[data-page="servicos"] .servicos-hero-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  body[data-page="servicos"] .servicos-hero-copy {
+    justify-items: center;
+    padding-top: 0;
+  }
+
+  body[data-page="servicos"] .servicos-hero-copy h1,
+  body[data-page="servicos"] .servicos-hero-content .hero-lead,
+  body[data-page="servicos"] .hero-support-copy {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  body[data-page="servicos"] .hero-primary-actions {
+    justify-content: center;
+  }
+
+  body[data-page="servicos"] .servicos-hero-aside {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-page="servicos"] .hero-note-panel {
+    grid-column: 1 / -1;
+  }
+
+  body[data-page="servicos"] .hero-contact-info .contact-item-footer {
+    justify-content: center;
+  }
+
   body[data-page="servicos"] .services-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.1rem;
@@ -1025,6 +1238,10 @@ body[data-page="servicos"] .hero-contact-info .contact-item-footer:focus-visible
 }
 
 @media (max-width: 768px) {
+  body[data-page="servicos"] .hero-servicos .container {
+    padding-inline: 0.85rem;
+  }
+
   body[data-page="servicos"] .hero-servicos {
     padding-top: 104px;
     padding-bottom: 3.25rem;
@@ -1043,6 +1260,10 @@ body[data-page="servicos"] .hero-contact-info .contact-item-footer:focus-visible
     gap: 0.8rem;
   }
 
+  body[data-page="servicos"] .servicos-hero-aside {
+    grid-template-columns: 1fr;
+  }
+
   body[data-page="servicos"] .section-tag {
     padding: 0.5rem 0.82rem;
     font-size: 0.72rem;
@@ -1050,6 +1271,8 @@ body[data-page="servicos"] .hero-contact-info .contact-item-footer:focus-visible
   }
 
   body[data-page="servicos"] .servicos-hero-content .hero-lead,
+  body[data-page="servicos"] .hero-support-copy,
+  body[data-page="servicos"] .hero-important-note,
   body[data-page="servicos"] .servicos-section-header p,
   body[data-page="servicos"] .clients-section-header p,
   body[data-page="servicos"] .pf-heading p {
@@ -1068,9 +1291,21 @@ body[data-page="servicos"] .hero-contact-info .contact-item-footer:focus-visible
   }
 
   body[data-page="servicos"] .hero-contact-info {
-    flex-direction: column;
-    align-items: stretch;
     gap: 0.7rem;
+  }
+
+  body[data-page="servicos"] .hero-primary-cta {
+    width: 100%;
+  }
+
+  body[data-page="servicos"] .hero-primary-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  body[data-page="servicos"] .hero-secondary-link {
+    width: 100%;
+    justify-content: center;
   }
 
   body[data-page="servicos"] .hero-contact-info .contact-item-footer {
@@ -1086,13 +1321,17 @@ body[data-page="servicos"] .hero-contact-info .contact-item-footer:focus-visible
   }
 
   body[data-page="servicos"] .services-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 0.95rem;
   }
 
   body[data-page="servicos"] .service-card-body {
     padding: 1.15rem;
     gap: 0.82rem;
+  }
+
+  body[data-page="servicos"] .service-content-stack {
+    gap: 0.85rem;
   }
 
   body[data-page="servicos"] .service-icon-wrap {
@@ -1113,6 +1352,19 @@ body[data-page="servicos"] .hero-contact-info .contact-item-footer:focus-visible
   body[data-page="servicos"] .service-subtitle {
     font-size: 0.9rem;
     line-height: 1.55;
+  }
+
+  body[data-page="servicos"] .service-section {
+    gap: 0.62rem;
+  }
+
+  body[data-page="servicos"] .service-section-title {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+  }
+
+  body[data-page="servicos"] .service-context {
+    padding: 0.85rem 0.9rem;
   }
 
   body[data-page="servicos"] .service-checklist {
@@ -1312,6 +1564,7 @@ body[data-page="servicos"] .hero-contact-info .contact-item-footer:focus-visible
   }
 
   body[data-page="servicos"] .service-subtitle,
+  body[data-page="servicos"] .service-context p:last-child,
   body[data-page="servicos"] .service-checklist li,
   body[data-page="servicos"] .service-btn {
     font-size: 0.87rem;

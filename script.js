@@ -9,62 +9,119 @@
 
 /**
  * SERVIÇOS - Adicione ou remova serviços aqui
- * Cada serviço deve ter: titulo, subtitulo, itens (array de strings)
+ * Cada serviço deve ter: titulo, descricao, inclui, beneficios e cta
  */
 const SERVICOS_DATA = [
   {
-    titulo: "Leis de Incentivo",
-    subtitulo: "Estruturação e Escrita Técnica",
-    itens: [
-      "Enquadramento e tipologia",
-      "Justificativa e metas",
-      "Orçamento estruturado"
-    ]
+    titulo: "Projetos Culturais — Leis de Incentivo (Rouanet, estaduais e municipais)",
+    descricao: "Projetos para leis de incentivo exigem consistência técnica, coerência orçamentária e aderência normativa. Estruturo (ou reestruturo) sua proposta para ficar apta à submissão, com narrativa clara e documentação organizada.",
+    inclui: [
+      "Enquadramento e tipologia conforme o mecanismo",
+      "Justificativa, objetivos, metas e indicadores",
+      "Plano de trabalho e cronograma",
+      "Orçamento estruturado conforme regras do incentivo",
+      "Contrapartidas e diretrizes de acessibilidade (quando aplicável)",
+      "Organização de anexos e documentação para submissão em sistemas oficiais"
+    ],
+    beneficios: [
+      "Mais chances de aprovação por consistência técnica",
+      "Menos diligências e retrabalho",
+      "Projeto mais apresentável a patrocinadores e parceiros",
+      "Redução de riscos de glosas na prestação de contas"
+    ],
+    cta: "Quero estruturar meu projeto"
   },
   {
-    titulo: "Editais de Fomento",
-    subtitulo: "Estratégia e Precisão",
-    itens: [
-      "Leitura técnica e checklist",
-      "Adequação ao regulamento",
-      "Revisão de consistência"
-    ]
+    titulo: "Projetos Culturais — Editais de Fomento Direto (públicos e privados)",
+    descricao: "Editais eliminam projetos por detalhes: inconsistências, documentos faltando, orçamento fora do padrão. Eu preparo sua inscrição com estratégia e precisão, alinhando a proposta aos critérios de avaliação do edital.",
+    inclui: [
+      "Leitura técnica do edital e checklist de exigências",
+      "Adequação do projeto ao regulamento (limites, vedações, anexos)",
+      "Estruturação técnica: metodologia, impacto, público, indicadores",
+      "Cronograma e orçamento compatíveis",
+      "Revisão final para consistência, clareza e aderência"
+    ],
+    beneficios: [
+      "Proposta mais competitiva e alinhada ao edital",
+      "Menos risco de inabilitação",
+      "Economia de tempo e segurança no envio",
+      "Projeto com linguagem profissional e objetiva"
+    ],
+    cta: "Tenho um edital em vista"
   },
   {
-    titulo: "Projetos Audiovisuais",
-    subtitulo: "ANCINE e FSA",
-    itens: [
-      "Desenvolvimento por formato",
-      "Requisitos regulatórios",
-      "Plano de financiamento"
-    ]
+    titulo: "Projetos Audiovisuais — ANCINE e FSA (longas, séries, festivais e mostras)",
+    descricao: "Projetos audiovisuais precisam unir proposta artística, viabilidade e conformidade. Estruturo o projeto com padrão técnico e linguagem adequada para mecanismos do setor audiovisual, preparando materiais e organização para submissão.",
+    inclui: [
+      "Estruturação do projeto por formato (longa, série, festival/mostra)",
+      "Materiais técnicos: apresentação, proposta, público, posicionamento",
+      "Plano de execução, cronograma e orçamento",
+      "Organização de documentação e requisitos regulatórios",
+      "Preparação para submissão conforme a linha/mecanismo aplicável"
+    ],
+    beneficios: [
+      "Projeto mais robusto e defensável tecnicamente",
+      "Menos inconsistências na análise regulatória",
+      "Material organizado para acelerar desenvolvimento e submissões",
+      "Melhor posicionamento para parcerias e financiamento"
+    ],
+    cta: "Quero preparar um projeto audiovisual"
   },
   {
-    titulo: "Prestação de Contas",
-    subtitulo: "Segurança e Conformidade",
-    itens: [
-      "Organização documental",
-      "Relatórios de execução",
-      "Rastreabilidade financeira"
-    ]
+    titulo: "Prestação de Contas — Técnica e Financeira (envio em sistemas)",
+    descricao: "Prestação de contas não é \"relatório genérico\". É conformidade, evidência e rastreabilidade. Organizo documentos e elaboro relatórios técnicos e financeiros para reduzir riscos de diligência e glosas.",
+    inclui: [
+      "Organização documental (comprovantes, contratos, evidências)",
+      "Relatório técnico: execução, metas, público, resultados",
+      "Relatório financeiro: rubricas, conciliações e consistência",
+      "Preparação para envio em sistemas/plataformas exigidos",
+      "Revisão de conformidade com regras do mecanismo"
+    ],
+    beneficios: [
+      "Menos diligências e risco de reprovação",
+      "Segurança jurídica e administrativa",
+      "Prestação de contas clara e auditável",
+      "Tranquilidade para fechar o projeto corretamente"
+    ],
+    cta: "Preciso prestar contas"
   },
   {
-    titulo: "Gestão de Projetos",
-    subtitulo: "Execução com Governança",
-    itens: [
-      "Cumprimento de prazos",
-      "Acompanhamento de rubricas",
-      "Preparação contínua"
-    ]
+    titulo: "Gestão de Projetos Culturais — Execução com governança",
+    descricao: "Aprovou e agora precisa executar sem perder prazos, orçamento e documentação? Eu apoio a gestão para garantir cumprimento de metas, organização e preparo contínuo para prestação de contas.",
+    inclui: [
+      "Planejamento da execução e organização de rotinas",
+      "Gestão de cronograma, entregáveis e responsabilidades",
+      "Acompanhamento orçamentário por rubricas",
+      "Articulação com instituições, equipes e parceiros",
+      "Organização documental ao longo do projeto"
+    ],
+    beneficios: [
+      "Execução mais eficiente e previsível",
+      "Menos riscos operacionais e financeiros",
+      "Melhor comunicação e organização com parceiros",
+      "Documentação pronta (não \"corrida\" no final)"
+    ],
+    cta: "Quero apoio na execução"
   },
   {
-    titulo: "Análise de Roteiro",
-    subtitulo: "Product Placement",
-    itens: [
+    titulo: "Análise de Roteiro — Product Placement e Advertainment (monetização)",
+    descricao: "Monetizar com marcas sem ferir a obra exige método. Faço leitura técnica do roteiro cena a cena para mapear oportunidades orgânicas de inserção, organizando tudo por tipo e segmento para facilitar negociação.",
+    indicadoPara: "Produtoras de pequeno e médio porte, roteiristas e produtores executivos; longas, minisséries, obras seriadas e webséries.",
+    inclui: [
       "Leitura técnica cena a cena",
-      "Mapeamento para marcas",
-      "Monetização estratégica"
-    ]
+      "Identificação de contextos narrativos com potencial para marcas",
+      "Mapeamento de oportunidades de product placement e advertainment",
+      "Classificação: visual, verbal ou integrada à narrativa",
+      "Organização por segmento de mercado",
+      "Diretrizes para preservar integridade artística"
+    ],
+    beneficios: [
+      "Amplia fontes de financiamento do projeto",
+      "Material profissional para apresentar a marcas/parceiros",
+      "Inserções mais orgânicas e estratégicas",
+      "Mais previsibilidade na estratégia de monetização"
+    ],
+    cta: "Quero monetizar meu projeto"
   }
 ];
 
@@ -342,8 +399,16 @@ function initServicosClientes() {
   // Renderizar serviços dinamicamente
   const servicosContainer = document.getElementById('servicos-container');
   if (servicosContainer && typeof SERVICOS_DATA !== 'undefined') {
+    const renderChecklist = (items) => items.map(item => `
+      <li>
+        <span class="check-dot"></span>
+        <span>${escapeHtml(item)}</span>
+      </li>
+    `).join('');
+
     servicosContainer.innerHTML = SERVICOS_DATA.map((servico, index) => {
       const meta = SERVICOS_META[index] || { icon: 'fa-solid fa-check', accent: '#de7f56' };
+      const ctaHref = servico.ctaHref || 'contato.html';
       const stepLabel = `Módulo ${String(index + 1).padStart(2, '0')}`;
       return `
       <article class="service-card" data-animate="fade-up" style="transition-delay: ${index * 0.045}s; --card-accent: ${meta.accent};">
@@ -356,17 +421,28 @@ function initServicosClientes() {
             <span class="service-step" aria-label="${stepLabel}">${stepLabel}</span>
           </div>
           <h3 class="service-title">${escapeHtml(servico.titulo)}</h3>
-          <p class="service-subtitle">${escapeHtml(servico.subtitulo)}</p>
-          <ul class="service-checklist">
-            ${servico.itens.map(item => `
-              <li>
-                <span class="check-dot"></span>
-                <span>${escapeHtml(item)}</span>
-              </li>
-            `).join('')}
-          </ul>
-          <a href="contato.html" class="service-btn" aria-label="Solicitar atendimento para ${escapeHtml(servico.titulo)}">
-            Solicitar atendimento <i class="fa-solid fa-arrow-right"></i>
+          <div class="service-content-stack">
+            <p class="service-subtitle">${escapeHtml(servico.descricao)}</p>
+            ${servico.indicadoPara ? `
+            <div class="service-context">
+              <p class="service-section-title">Indicado para</p>
+              <p>${escapeHtml(servico.indicadoPara)}</p>
+            </div>` : ''}
+            <div class="service-section">
+              <p class="service-section-title">Inclui</p>
+              <ul class="service-checklist">
+                ${renderChecklist(servico.inclui)}
+              </ul>
+            </div>
+            <div class="service-section">
+              <p class="service-section-title">Benefícios para você</p>
+              <ul class="service-checklist">
+                ${renderChecklist(servico.beneficios)}
+              </ul>
+            </div>
+          </div>
+          <a href="${ctaHref}" class="service-btn" aria-label="${escapeHtml(servico.cta)} sobre ${escapeHtml(servico.titulo)}">
+            ${escapeHtml(servico.cta)} <i class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
       </article>`;
