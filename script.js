@@ -172,14 +172,30 @@ function escapeHtml(text) {
 // ================================
 // ANIMAÇÕES DE SCROLL (Intersection Observer)
 // ================================
-function initScrollAnimations() {
+let scrollAnimationObserver;
+const observedAnimatedElements = new WeakSet();
+const SCROLL_ANIMATION_PRELOAD = 180;
+
+function getAnimatedElements(root = document) {
+  const elements = [];
+
+  if (root instanceof Element && root.matches('[data-animate]')) {
+    elements.push(root);
+  }
+
+  return elements.concat(Array.from(root.querySelectorAll('[data-animate]')));
+}
+
+function getScrollAnimationObserver() {
+  if (scrollAnimationObserver) return scrollAnimationObserver;
+
   const observerOptions = {
     root: null,
-    rootMargin: '0px',
-    threshold: 0.15
+    rootMargin: `0px 0px ${SCROLL_ANIMATION_PRELOAD}px 0px`,
+    threshold: 0.01
   };
 
-  const observer = new IntersectionObserver((entries, observer) => {
+  scrollAnimationObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
@@ -188,9 +204,95 @@ function initScrollAnimations() {
     });
   }, observerOptions);
 
-  // Seleciona todos os elementos com data-animate
-  const animatedElements = document.querySelectorAll('[data-animate]');
-  animatedElements.forEach(el => observer.observe(el));
+  return scrollAnimationObserver;
+}
+
+function isElementNearViewport(element) {
+  const rect = element.getBoundingClientRect();
+  return rect.top <= window.innerHeight + SCROLL_ANIMATION_PRELOAD && rect.bottom >= -80;
+}
+
+function initScrollAnimations(root = document) {
+  const animatedElements = getAnimatedElements(root);
+
+  if (!('IntersectionObserver' in window)) {
+    animatedElements.forEach(el => el.classList.add('in-view'));
+    return;
+  }
+
+  const observer = getScrollAnimationObserver();
+  animatedElements.forEach(el => {
+    if (observedAnimatedElements.has(el)) return;
+
+    if (isElementNearViewport(el)) {
+      el.classList.add('in-view');
+      observedAnimatedElements.add(el);
+      return;
+    }
+
+    observedAnimatedElements.add(el);
+    observer.observe(el);
+  });
+}
+
+function initPortfolioWhenVisible() {
+  const portfolioSection = document.getElementById('portfolio');
+  const portfolioContainer = document.getElementById('portfolio-container');
+  const preloadOffset = 180;
+
+  if (!portfolioSection || !portfolioContainer || typeof window.initPortfolio !== 'function') {
+    return;
+  }
+
+  const isPortfolioNearViewport = () => {
+    const rect = portfolioSection.getBoundingClientRect();
+    return rect.top <= window.innerHeight + preloadOffset;
+  };
+
+  const renderPortfolio = () => {
+    const hasItems = portfolioContainer.children.length > 0;
+    if (hasItems) return;
+
+    window.initPortfolio();
+    initScrollAnimations(portfolioContainer);
+  };
+
+  const tryRenderPortfolio = () => {
+    if (!isPortfolioNearViewport()) return false;
+
+    renderPortfolio();
+    return true;
+  };
+
+  if (!('IntersectionObserver' in window)) {
+    const fallbackLoad = debounce(() => {
+      if (!tryRenderPortfolio()) return;
+
+      window.removeEventListener('scroll', fallbackLoad);
+      window.removeEventListener('resize', fallbackLoad);
+    }, 60);
+
+    fallbackLoad();
+    window.addEventListener('scroll', fallbackLoad, { passive: true });
+    window.addEventListener('resize', fallbackLoad);
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, currentObserver) => {
+    const isVisible = entries.some(entry => entry.isIntersecting);
+
+    if (!isVisible) return;
+
+    if (!tryRenderPortfolio()) return;
+
+    currentObserver.disconnect();
+  }, {
+    root: null,
+    rootMargin: `${preloadOffset}px 0px`,
+    threshold: 0.01
+  });
+
+  observer.observe(portfolioSection);
 }
 
 // ================================
@@ -611,12 +713,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. Renderiza serviços e clientes (script.js)
   initServicosClientes();
 
-  // 2. Renderiza o portfólio (portfolio.js)
+  // 2. Renderiza o portfólio imediatamente para evitar atraso de conteúdo
   if (typeof window.initPortfolio === 'function') {
     window.initPortfolio();
   }
-  
-  // 3. Depois inicializa as animações (para pegar os elementos renderizados)
+
+  // 3. Inicializa as animações depois dos elementos dinâmicos estarem no DOM
   initScrollAnimations();
   
   // 4. Inicializa o header e navegação
