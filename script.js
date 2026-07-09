@@ -14,16 +14,18 @@
 const SERVICOS_DATA = [
   {
     titulo: "Projetos Culturais — Leis de Incentivo (Rouanet, estaduais e municipais)",
-    descricao: "Projetos para leis de incentivo exigem consistência técnica, coerência orçamentária e aderência normativa. Estruturamos (ou reestruturamos) sua proposta para ficar apta à submissão, com narrativa clara e documentação organizada.",
+    descricao: "Projetos incentivados exigem mais do que uma boa ideia: coerência técnica, aderência normativa, planejamento financeiro, documentação organizada e capacidade de demonstrar relevância cultural e impacto social. A Incentivart estrutura ou reestrutura projetos para mecanismos federais, estaduais e municipais, conforme as exigências de cada programa.",
     inclui: [
-      "Enquadramento e tipologia conforme o mecanismo",
+      "Diagnóstico e enquadramento do projeto",
+      "Estruturação completa da proposta",
       "Justificativa, objetivos, metas e indicadores",
       "Plano de trabalho e cronograma",
-      "Orçamento estruturado conforme regras do incentivo",
-      "Contrapartidas e diretrizes de acessibilidade (quando aplicável)",
+      "Orçamento técnico compatível com a legislação aplicável",
+      "Contrapartidas sociais e medidas de acessibilidade",
       "Organização de anexos e documentação para submissão em sistemas oficiais"
     ],
     beneficios: [
+      "Projetos mais competitivos",
       "Mais chances de aprovação por consistência técnica",
       "Menos diligências e retrabalho",
       "Projeto mais apresentável a patrocinadores e parceiros",
@@ -33,47 +35,50 @@ const SERVICOS_DATA = [
   },
   {
     titulo: "Projetos Culturais — Editais de Fomento Direto (públicos e privados)",
-    descricao: "Editais eliminam projetos por detalhes: inconsistências, documentos faltando, orçamento fora do padrão. Preparamos sua inscrição com estratégia e precisão, alinhando a proposta aos critérios de avaliação do edital.",
+    descricao: "Editais eliminam projetos por detalhes: inconsistências, documentos faltando, orçamento fora do padrão. A Incentivart realiza a leitura completa do regulamento e estrutura o projeto alinhado aos critérios de avaliação do edital.",
     inclui: [
-      "Leitura técnica do edital e checklist de exigências",
-      "Adequação do projeto ao regulamento (limites, vedações, anexos)",
-      "Estruturação técnica: metodologia, impacto, público, indicadores",
+      "Leitura técnica e interpretação do edital",
+      "Identificação de oportunidades e riscos",
+      "Adequação do projeto ao regulamento e aos critérios de seleção",
+      "Estruturação de metodologia, impacto, público e indicadores",
       "Cronograma e orçamento compatíveis",
-      "Revisão final para consistência, clareza e aderência"
+      "Revisão técnica completa antes do envio"
     ],
     beneficios: [
       "Proposta mais competitiva e alinhada ao edital",
-      "Menos risco de inabilitação",
-      "Economia de tempo e segurança no envio",
-      "Projeto com linguagem profissional e objetiva"
+      "Menor risco de inabilitação",
+      "Maior aderência aos critérios de avaliação",
+      "Economia de tempo e segurança no processo de inscrição",
+      "Linguagem profissional e objetiva"
     ],
     cta: "Tenho um edital em vista"
   },
   {
     titulo: "Projetos Audiovisuais — ANCINE e FSA (longas, séries, festivais e mostras)",
-    descricao: "Projetos audiovisuais precisam unir proposta artística, viabilidade e conformidade. Estruturamos o projeto com padrão técnico e linguagem adequada para mecanismos do setor audiovisual, preparando materiais e organização para submissão.",
+    descricao: "O mercado audiovisual tem exigências próprias, que demandam conhecimento especializado sobre regulamentação, estruturação financeira e fontes de financiamento. A Incentivart estrutura ou reestrutura projetos com padrão técnico e linguagem adequada aos mecanismos do setor.",
     inclui: [
-      "Estruturação do projeto por formato (longa, série, festival/mostra)",
-      "Materiais técnicos: apresentação, proposta, público, posicionamento",
+      "Estruturação técnica da proposta",
+      "Organização documental e requisitos regulatórios",
       "Plano de execução, cronograma e orçamento",
-      "Organização de documentação e requisitos regulatórios",
-      "Preparação para submissão conforme a linha/mecanismo aplicável"
+      "Plano de negócios por janela de comercialização",
+      "Preparação para submissão na linha ou mecanismo aplicável"
     ],
     beneficios: [
       "Projeto mais robusto e defensável tecnicamente",
-      "Menos inconsistências na análise regulatória",
-      "Material organizado para acelerar desenvolvimento e submissões",
+      "Menos inconsistências regulatórias",
+      "Material organizado para acelerar desenvolvimento e submissão",
+      "Economia de tempo",
       "Melhor posicionamento para parcerias e financiamento"
     ],
     cta: "Quero preparar um projeto audiovisual"
   },
   {
-    titulo: "Prestação de Contas — Técnica e Financeira (envio em sistemas)",
-    descricao: "Prestação de contas não é \"relatório genérico\". É conformidade, evidência e rastreabilidade. Organizamos documentos e elaboramos relatórios técnicos e financeiros para reduzir riscos de diligência e glosas.",
+    titulo: "Prestação de Contas e Compliance",
+    descricao: "Prestação de contas não é \"relatório genérico\": é conformidade, evidência e rastreabilidade. A Incentivart organiza documentos e elabora relatórios técnicos e financeiros para reduzir riscos de diligência e glosas.",
     inclui: [
       "Organização documental (comprovantes, contratos, evidências)",
-      "Relatório técnico: execução, metas, público, resultados",
-      "Relatório financeiro: rubricas, conciliações e consistência",
+      "Relatório técnico de execução, metas, público e resultados",
+      "Relatório financeiro com rubricas, conciliações e consistência",
       "Preparação para envio em sistemas/plataformas exigidos",
       "Revisão de conformidade com regras do mecanismo"
     ],
@@ -81,13 +86,14 @@ const SERVICOS_DATA = [
       "Menos diligências e risco de reprovação",
       "Segurança jurídica e administrativa",
       "Prestação de contas clara e auditável",
-      "Tranquilidade para fechar o projeto corretamente"
+      "Processos mais organizados",
+      "Maior tranquilidade para encerramento do projeto"
     ],
     cta: "Preciso prestar contas"
   },
   {
-    titulo: "Gestão de Projetos Culturais — Execução com governança",
-    descricao: "Aprovou e agora precisa executar sem perder prazos, orçamento e documentação? Apoiamos a gestão para garantir cumprimento de metas, organização e preparo contínuo para prestação de contas.",
+    titulo: "Gestão e Governança de Execução",
+    descricao: "Uma execução eficiente depende de planejamento, controle documental, acompanhamento financeiro e gestão contínua das obrigações junto aos órgãos financiadores. A Incentivart implementa práticas de governança para garantir cumprimento de metas e organização.",
     inclui: [
       "Planejamento da execução e organização de rotinas",
       "Gestão de cronograma, entregáveis e responsabilidades",
@@ -99,26 +105,26 @@ const SERVICOS_DATA = [
       "Execução mais eficiente e previsível",
       "Menos riscos operacionais e financeiros",
       "Melhor comunicação e organização com parceiros",
-      "Documentação pronta (não \"corrida\" no final)"
+      "Documentação pronta para a prestação de contas"
     ],
     cta: "Quero apoio na execução"
   },
   {
-    titulo: "Análise de Roteiro — Product Placement e Advertainment (monetização)",
-    descricao: "Monetizar com marcas sem ferir a obra exige método. Fazemos a leitura técnica do roteiro cena a cena para mapear oportunidades orgânicas de inserção, organizando tudo por tipo e segmento para facilitar negociação.",
+    titulo: "Mapa de Monetização do Roteiro",
+    descricao: "Análise técnica de roteiro para product placement e advertainment. Entregável voltado a produtoras audiovisuais, produtores executivos e roteiristas que querem abrir novas fontes de receita sem comprometer a obra. O roteiro é lido cena a cena para mapear onde inserções cabem de forma orgânica, resultando em documento organizado por tipo e segmento de mercado, pronto para embasar negociação com marcas e patrocinadores.",
     inclui: [
       "Leitura técnica cena a cena",
-      "Identificação de contextos narrativos com potencial para marcas",
+      "Identificação de contextos narrativos com potencial para inserção",
       "Mapeamento de oportunidades de product placement e advertainment",
-      "Classificação: visual, verbal ou integrada à narrativa",
+      "Critérios de integração",
       "Organização por segmento de mercado",
-      "Diretrizes para preservar integridade artística"
+      "Relatório estratégico para negociação"
     ],
     beneficios: [
-      "Amplia fontes de financiamento do projeto",
+      "Novas fontes de financiamento",
       "Material profissional para apresentar a marcas/parceiros",
       "Inserções mais orgânicas e estratégicas",
-      "Mais previsibilidade na estratégia de monetização"
+      "Maior potencial de monetização do projeto"
     ],
     cta: "Quero monetizar meu projeto"
   }
@@ -511,7 +517,7 @@ function initServicosClientes() {
       const meta = SERVICOS_META[index] || { icon: 'fa-solid fa-check', accent: '#de7f56' };
       const ctaHref = servico.ctaHref || 'contato.html';
       const stepNumber = String(index + 1).padStart(2, '0');
-      const stepLabel = `Segmento ${stepNumber}`;
+      const stepLabel = `Serviço ${stepNumber}`;
       return `
       <article class="service-card" data-animate="fade-up" style="transition-delay: ${index * 0.045}s; --card-accent: ${meta.accent};">
         <div class="service-card-accent"></div>
