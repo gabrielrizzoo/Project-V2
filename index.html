@@ -38,14 +38,14 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/global.css?v=20260710-1" />
+  <link rel="stylesheet" href="css/global.css?v=20260710-2" />
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   
   <!-- Main Script -->
   <script defer src="portfolio-data.js"></script>
   <script defer src="portfolio.js"></script>
-  <script defer src="script.js?v=20260710-1"></script>
+  <script defer src="script.js?v=20260710-2"></script>
 </head>
 
 <body data-page="home">
@@ -100,15 +100,16 @@
 
   <main id="main">
     <!-- Hero Section -->
-    <section class="section hero" style="min-height: 90vh; display: flex; align-items: center; padding-top: 120px;">
+    <section class="section hero hero-home">
       <div class="container">
         <div class="grid hero-grid">
           <div class="hero-content" data-animate="fade-up">
+            <span class="section-tag">Consultoria técnica</span>
             <h1 class="text-gradient">Cuidamos da parte técnica e <br>burocrática enquanto você cria.</h1>
-            <p style="font-size: 1.2rem; margin-top: 1.5rem;">Consultoria especializada em projetos culturais e audiovisuais. Rigor técnico, segurança jurídica e compliance, da concepção à prestação de contas.</p>
-            <div class="flex" style="gap: 1rem; margin-top: 2rem;">
+            <p class="hero-lead">Consultoria especializada em projetos culturais e audiovisuais. Rigor técnico, segurança jurídica e compliance, da concepção à prestação de contas.</p>
+            <div class="hero-actions">
               <a href="servicos.html" class="btn btn-primary">Nossos Serviços</a>
-              <a href="contato.html" class="btn btn-contact">ENTRE EM CONTATO</a>
+              <a href="contato.html" class="btn btn-outline">ENTRE EM CONTATO</a>
             </div>
           </div>
           <div class="hero-visual delay-200" data-animate="scale-in"
@@ -122,8 +123,9 @@
     <!-- Intro Section -->
     <section class="section">
       <div class="container">
-        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem;">
+        <div class="grid intro-grid">
           <article data-animate="fade-right">
+            <span class="section-tag">Quem somos</span>
             <h2>Seja muito <span class="text-highlight">bem-vindo(a)!</span></h2>
             <p>Há mais de 14 anos, nos dedicamos a elevar o patamar de projetos culturais e audiovisuais no Brasil. Estruturamos projetos sólidos, aderentes à legislação e prontos para aprovação, execução e prestação de contas em leis de incentivo, editais de fomento, ANCINE e chamadas públicas do FSA.</p>
           </article>
@@ -143,17 +145,18 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="section" style="background: var(--bg-surface);">
+    <section class="section section--spacious" style="background: var(--bg-surface);">
       <div class="container">
-        <div class="flex-column flex-center" style="text-align: center;" data-animate="fade-up">
+        <div class="cta-block" data-animate="fade-up">
+          <span class="section-tag">Fale conosco</span>
           <h2>Vamos elevar o seu projeto?</h2>
           <p style="max-width: 600px;">Conte com consultoria técnica especializada para garantir a viabilidade e a conformidade do seu projeto desde o primeiro passo.</p>
 
-          <div class="flex" style="gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap; justify-content: center;">
+          <div class="cta-actions">
             <a href="https://wa.me/5521967255471" class="btn btn-whatsapp">
               <i class="fa-brands fa-whatsapp"></i> WhatsApp
             </a>
-            <a href="contato.html" class="btn btn-contact">
+            <a href="contato.html" class="btn btn-outline">
               ENTRE EM CONTATO
             </a>
           </div>

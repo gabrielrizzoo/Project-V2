@@ -57,6 +57,11 @@
   /* Layout */
   --container-width: 1280px;
   --header-height: 80px;
+
+  /* Spacing rhythm — escala vertical entre seções (ver css/READMEcss.md) */
+  --space-section-sm: clamp(2.75rem, 5vw, 4rem);
+  --space-section-md: clamp(4rem, 7vw, 6rem);
+  --space-section-lg: clamp(5rem, 9vw, 7.5rem);
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
@@ -181,9 +186,18 @@ p {
 }
 
 .section {
-  padding: 6rem 0;
+  padding: var(--space-section-md) 0;
   position: relative;
   z-index: 1;
+}
+
+/* Ritmo: seções de transição respiram menos, seções-chave respiram mais */
+.section--compact {
+  padding: var(--space-section-sm) 0;
+}
+
+.section--spacious {
+  padding: var(--space-section-lg) 0;
 }
 
 .section.hero-servicos {
@@ -278,7 +292,8 @@ p {
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
   box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-  animation: pulse-green 2s infinite;
+  /* Pulso limitado: chama atenção na chegada sem competir para sempre */
+  animation: pulse-green 2.5s ease-out 3;
 }
 
 .btn-whatsapp:hover {
@@ -352,6 +367,35 @@ p {
 
 .card:hover::before {
   transform: scaleX(1);
+}
+
+/* Card estático: conteúdo não clicável não deve "levantar" nem ganhar barra no hover */
+.card--static {
+  cursor: default;
+}
+
+.card--static::before {
+  content: none;
+}
+
+.card--static:hover {
+  transform: none;
+  border-color: var(--border-light);
+  box-shadow: none;
+}
+
+/* Card em destaque: um item por grid pode receber ênfase sem sair da paleta */
+.card--feature {
+  border-color: rgba(222, 127, 86, 0.28);
+  background:
+    radial-gradient(circle at top left, rgba(222, 127, 86, 0.12) 0%, rgba(222, 127, 86, 0) 55%),
+    #0f0f0f !important;
+  box-shadow: var(--shadow-glow);
+}
+
+.card--feature.card--static:hover {
+  border-color: rgba(222, 127, 86, 0.28);
+  box-shadow: var(--shadow-glow);
 }
 
 /* Inputs */
@@ -460,6 +504,63 @@ textarea:focus {
   gap: 3.5rem;
 }
 
+/* Hero da home: coluna de texto domina, o glow é coadjuvante */
+.hero-home {
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  padding-top: calc(var(--header-height) + 2.5rem);
+}
+
+.hero-home .hero-grid {
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+}
+
+.hero-home .hero-lead {
+  margin-top: 1.5rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2.25rem;
+}
+
+/* Intro da home: texto levemente dominante sobre o card */
+.intro-grid {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 3rem 4rem;
+  align-items: center;
+}
+
+/* Bloco de CTA centralizado com um único botão primário */
+.cta-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.5rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 900px) {
+  .hero-home .hero-grid,
+  .intro-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .intro-grid {
+    gap: 2rem;
+  }
+}
+
 .hero-glow {
   width: 100%;
   height: 400px;
@@ -476,8 +577,8 @@ textarea:focus {
 
 .hero-lead {
   font-size: clamp(1.05rem, 2.5vw, 1.25rem);
-  color: #a0a0a0 !important;
-  -webkit-text-fill-color: #a0a0a0 !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.82) !important;
   max-width: 620px;
 }
 
@@ -1915,6 +2016,15 @@ textarea:focus {
   align-items: start;
 }
 
+/* Variante espelhada: alterna foto/texto entre perfis consecutivos */
+.founder-grid--flip {
+  grid-template-columns: 1fr 380px;
+}
+
+.founder-grid--flip .founder-image-wrapper {
+  order: 2;
+}
+
 .founder-image-wrapper {
   position: sticky;
   top: 100px;
@@ -2060,15 +2170,21 @@ textarea:focus {
   line-height: 1.6;
 }
 
+/* 5 diferenciais em 2 + 3: quebra a monotonia e elimina a linha órfã */
 .diff-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(6, 1fr);
   gap: 1.25rem;
   margin-top: 1.5rem;
 }
 
 .diff-card {
   position: relative;
+  grid-column: span 2;
+}
+
+.diff-grid .diff-card:nth-child(-n+2) {
+  grid-column: span 3;
 }
 
 .diff-index {
@@ -2077,7 +2193,7 @@ textarea:focus {
   right: 1.75rem;
   font-size: 1.6rem;
   font-weight: 800;
-  color: rgba(255, 255, 255, 0.08);
+  color: rgba(222, 127, 86, 0.35);
 }
 
 .section-tag {
@@ -2113,6 +2229,12 @@ textarea:focus {
   text-align: center;
 }
 
+/* Variante à esquerda para alternar o eixo entre seções consecutivas */
+.section-heading--left {
+  margin: 0 0 3rem;
+  text-align: left;
+}
+
 .section-heading p {
   margin-bottom: 0;
 }
@@ -2131,6 +2253,11 @@ textarea:focus {
 .side-highlight {
   position: sticky;
   top: 100px;
+}
+
+/* Aside recua um plano em relação ao conteúdo principal */
+.side-highlight.card {
+  background: #0a0a0a !important;
 }
 
 .feature-list {
@@ -2167,10 +2294,19 @@ textarea:focus {
   margin-top: 1.5rem;
 }
 
+/* 5 valores em 2 + 3, mesmo racional do diff-grid */
 .value-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
+}
+
+.value-grid > div {
+  grid-column: span 2;
+}
+
+.value-grid > div:nth-child(-n+2) {
+  grid-column: span 3;
 }
 
 .value-grid div {
@@ -2224,14 +2360,23 @@ textarea:focus {
   margin-right: 0.5rem;
 }
 
+/* Jornada em 5 passos lado a lado no desktop; 2+3 em telas médias */
 .process-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap: 1.25rem;
 }
 
 .process-card {
   min-height: 100%;
+  padding: 1.75rem 1.4rem;
+}
+
+/* O último passo fecha o ciclo: índice preenchido marca a chegada */
+.process-card:last-child .process-index {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
 }
 
 .process-index {
@@ -2255,6 +2400,14 @@ textarea:focus {
   margin-top: 1.5rem;
   margin-bottom: 2.5rem;
   cursor: default;
+}
+
+/* O primeiro stat (o mais forte) ganha ênfase sutil */
+.founder-stats-grid .stat-card:first-child {
+  border-color: rgba(222, 127, 86, 0.3);
+  background:
+    linear-gradient(180deg, rgba(222, 127, 86, 0.12) 0%, rgba(222, 127, 86, 0) 70%),
+    #0f0f0f !important;
 }
 
 /* Formation Timeline */
@@ -2345,6 +2498,24 @@ textarea:focus {
     grid-template-columns: 320px 1fr;
     gap: 2.5rem;
   }
+
+  .founder-grid--flip {
+    grid-template-columns: 1fr 320px;
+  }
+
+  /* 5 passos viram 3 + 2 em telas médias */
+  .process-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .process-card {
+    grid-column: span 2;
+  }
+
+  .process-grid .process-card:nth-child(4),
+  .process-grid .process-card:nth-child(5) {
+    grid-column: span 3;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -2355,10 +2526,31 @@ textarea:focus {
   .content-split {
     grid-template-columns: 1fr;
   }
-  
+
   .founder-grid {
     grid-template-columns: 280px 1fr;
     gap: 2rem;
+  }
+
+  .founder-grid--flip {
+    grid-template-columns: 1fr 280px;
+  }
+
+  .diff-grid,
+  .value-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .diff-card,
+  .diff-grid .diff-card:nth-child(-n+2),
+  .value-grid > div,
+  .value-grid > div:nth-child(-n+2) {
+    grid-column: auto;
+  }
+
+  .diff-card:last-child,
+  .value-grid > div:last-child {
+    grid-column: 1 / -1;
   }
   
   .founder-image-wrapper {
@@ -2377,17 +2569,20 @@ textarea:focus {
 }
 
 @media (max-width: 768px) {
-  .section {
-    padding: 4rem 0;
-  }
-
+  /* O padding das seções já escala via clamp() nas variáveis --space-section-* */
   .container {
     padding: 0 1.25rem;
   }
 
-  .founder-grid {
+  .founder-grid,
+  .founder-grid--flip {
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+
+  /* No empilhamento, a foto volta a abrir o bloco */
+  .founder-grid--flip .founder-image-wrapper {
+    order: -1;
   }
   
   .founder-image-wrapper {
@@ -2417,10 +2612,23 @@ textarea:focus {
   }
 
   .value-grid,
-  .process-grid {
+  .process-grid,
+  .diff-grid {
     grid-template-columns: 1fr;
   }
-  
+
+  .diff-card,
+  .diff-grid .diff-card:nth-child(-n+2),
+  .diff-card:last-child,
+  .value-grid > div,
+  .value-grid > div:nth-child(-n+2),
+  .value-grid > div:last-child,
+  .process-card,
+  .process-grid .process-card:nth-child(4),
+  .process-grid .process-card:nth-child(5) {
+    grid-column: auto;
+  }
+
   .formation-item {
     padding: 0.5rem 0 0.5rem 1rem;
   }

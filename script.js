@@ -193,6 +193,43 @@ function getAnimatedElements(root = document) {
   return elements.concat(Array.from(root.querySelectorAll('[data-animate]')));
 }
 
+// Stagger automático: irmãos animados dentro do mesmo contêiner entram em
+// cascata, sem depender de classes delay-* manuais em cada item.
+const STAGGER_STEP_MS = 80;
+const STAGGER_MAX_MS = 480;
+const REVEAL_DELAY_CLASSES = ['delay-100', 'delay-200', 'delay-300', 'delay-400', 'delay-500'];
+
+function applyStaggerDelays(elements) {
+  const groups = new Map();
+
+  elements.forEach(el => {
+    const parent = el.parentElement;
+    if (!parent) return;
+    if (!groups.has(parent)) groups.set(parent, []);
+    groups.get(parent).push(el);
+  });
+
+  groups.forEach(group => {
+    if (group.length < 2) return;
+
+    group.forEach((el, index) => {
+      if (el.style.transitionDelay) return; // respeita delays definidos na renderização
+      el.style.transitionDelay = `${Math.min(index * STAGGER_STEP_MS, STAGGER_MAX_MS)}ms`;
+    });
+  });
+}
+
+// Após a entrada, remove o atraso para que transições de hover respondam na hora.
+function clearRevealDelayAfterAnimation(el) {
+  const clear = () => {
+    el.style.transitionDelay = '';
+    el.classList.remove(...REVEAL_DELAY_CLASSES);
+  };
+
+  el.addEventListener('transitionend', clear, { once: true });
+  setTimeout(clear, 1800);
+}
+
 function getScrollAnimationObserver() {
   if (scrollAnimationObserver) return scrollAnimationObserver;
 
@@ -206,6 +243,7 @@ function getScrollAnimationObserver() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
+        clearRevealDelayAfterAnimation(entry.target);
         observer.unobserve(entry.target); // Anima apenas uma vez
       }
     });
@@ -222,8 +260,13 @@ function isElementNearViewport(element) {
 function initScrollAnimations(root = document) {
   const animatedElements = getAnimatedElements(root);
 
+  applyStaggerDelays(animatedElements);
+
   if (!('IntersectionObserver' in window)) {
-    animatedElements.forEach(el => el.classList.add('in-view'));
+    animatedElements.forEach(el => {
+      el.classList.add('in-view');
+      clearRevealDelayAfterAnimation(el);
+    });
     return;
   }
 
@@ -233,6 +276,7 @@ function initScrollAnimations(root = document) {
 
     if (isElementNearViewport(el)) {
       el.classList.add('in-view');
+      clearRevealDelayAfterAnimation(el);
       observedAnimatedElements.add(el);
       return;
     }

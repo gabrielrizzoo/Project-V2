@@ -38,6 +38,11 @@
   animation: pulse 3s infinite alternate;
 }
 
+/* Dessincroniza os dois "4" para um pulso mais orgânico */
+.digit:last-of-type {
+  animation-delay: 1.5s;
+}
+
 /* Órbita entre os números */
 .orbit {
   width: 100px;
@@ -92,53 +97,25 @@
 }
 
 @keyframes glow {
-  from { box-shadow: 0 0 10px var(--primary); }
-  to { box-shadow: 0 0 30px var(--primary), 0 0 10px white; }
+  from { box-shadow: 0 0 10px rgba(222, 127, 86, 0.7); }
+  to { box-shadow: 0 0 25px rgba(228, 75, 51, 0.9), 0 0 40px rgba(222, 127, 86, 0.5); }
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-  .digit {
-    font-size: 5rem;
-  }
-  
-  .orbit {
-    width: 70px;
-    height: 70px;
-  }
-  
   .error-section {
     min-height: 60vh;
   }
-}
 
-/* Animações para a página 404 */
-@keyframes pulse {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.05); }
-}
-
-@keyframes rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes glow {
-  0% { box-shadow: 0 0 10px rgba(222, 127, 86, 0.7); }
-  100% { box-shadow: 0 0 25px rgba(228, 75, 51, 0.9), 0 0 40px rgba(222, 127, 86, 0.5); }
-}
-
-/* Ajustes de responsividade para 404 */
-@media (max-width: 768px) {
   .digit {
     font-size: 5rem;
   }
-  
+
   .orbit {
     width: 60px;
     height: 60px;
   }
-  
+
   .planet {
     width: 20px;
     height: 20px;
@@ -150,16 +127,16 @@
   .error-code {
     height: 100px;
   }
-  
+
   .digit {
     font-size: 4rem;
   }
-  
+
   .orbit {
     width: 50px;
     height: 50px;
   }
-  
+
   .planet {
     width: 16px;
     height: 16px;
