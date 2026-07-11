@@ -111,6 +111,7 @@ const SERVICOS_DATA = [
   },
   {
     titulo: "Mapa de Monetização do Roteiro",
+    novo: true,
     descricao: "Análise técnica de roteiro para product placement e advertainment. Entregável voltado a produtoras audiovisuais, produtores executivos e roteiristas que querem abrir novas fontes de receita sem comprometer a obra. O roteiro é lido cena a cena para mapear onde inserções cabem de forma orgânica, resultando em documento organizado por tipo e segmento de mercado, pronto para embasar negociação com marcas e patrocinadores.",
     inclui: [
       "Leitura técnica cena a cena",
@@ -526,6 +527,7 @@ function initServicosClientes() {
             <div class="service-icon-wrap">
               <i class="${meta.icon} service-icon"></i>
             </div>
+            ${servico.novo ? '<span class="service-badge-new">Novo</span>' : ''}
             <span class="service-step" aria-label="${stepLabel}">${stepNumber}</span>
           </div>
           <h3 class="service-title">${escapeHtml(servico.titulo)}</h3>
