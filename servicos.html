@@ -264,9 +264,11 @@
           <h2>Clientes e Parceiros</h2>
           <p>Atuamos ao lado de produtoras, institutos e iniciativas que precisam de organização técnica, direção clara e execução consistente.</p>
         </div>
-        <!-- Container para clientes - renderizado dinamicamente pelo JavaScript -->
-        <div id="clientes-container" class="flex clients-grid" data-animate="fade-up">
-          <!-- Os clientes são carregados automaticamente do array CLIENTES_DATA em script.js -->
+        <!-- Carrossel horizontal de clientes - renderizado dinamicamente pelo JavaScript -->
+        <div class="clients-carousel" data-animate="fade-up">
+          <div id="clientes-container" class="clients-track">
+            <!-- Os clientes são carregados automaticamente do array CLIENTES_DATA em script.js -->
+          </div>
         </div>
       </div>
     </section>

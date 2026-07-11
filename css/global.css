@@ -1015,13 +1015,7 @@ textarea:focus {
   transform: translateX(4px);
 }
 
-.clients-grid {
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-}
-
-.clients-grid .card {
+.client-chip {
   min-width: 140px;
   background: #0f0f0f;
   border: 1px solid var(--border-light);

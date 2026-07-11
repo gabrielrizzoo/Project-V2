@@ -585,39 +585,86 @@ body[data-page="servicos"] .clients-section {
   padding-top: 2rem;
 }
 
-body[data-page="servicos"] .clients-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
+body[data-page="servicos"] .clients-carousel {
+  position: relative;
+  overflow: hidden;
+  contain: layout paint style;
+  isolation: isolate;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
 }
 
-body[data-page="servicos"] .clients-grid .card {
-  min-width: 0;
-  padding: 1.05rem 1.15rem !important;
+body[data-page="servicos"] .clients-track {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  width: max-content;
+  padding: 10px 0;
+  animation: clients-scroll 32s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+body[data-page="servicos"] .clients-carousel:hover .clients-track {
+  animation-play-state: paused;
+}
+
+body[data-page="servicos"] .client-chip {
+  flex: 0 0 auto;
+  width: 190px;
+  min-height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.1rem 1.4rem !important;
   border-radius: 20px;
   background: linear-gradient(180deg, rgba(17, 17, 17, 0.96) 0%, rgba(11, 11, 11, 0.94) 100%);
-  text-align: center;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.32s ease, border-color 0.32s ease;
 }
 
-body[data-page="servicos"] .clients-grid .card::before {
+body[data-page="servicos"] .client-chip::before {
   transform: scaleX(1);
   height: 1px;
   opacity: 0.32;
 }
 
-body[data-page="servicos"] .clients-grid .card:hover {
+body[data-page="servicos"] .client-chip:hover {
   transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+  border-color: rgba(222, 127, 86, 0.28);
 }
 
-body[data-page="servicos"] .client-chip {
-  min-height: 76px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+body[data-page="servicos"] .client-chip-logo {
+  max-width: 100%;
+  max-height: 48px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(1) brightness(1.8) opacity(0.72);
+  transition: filter 0.28s ease, transform 0.28s ease;
+  will-change: filter;
+  transform: translateZ(0);
+}
+
+body[data-page="servicos"] .client-chip:hover .client-chip-logo {
+  filter: grayscale(0) brightness(1) opacity(1);
+  transform: scale(1.04);
+}
+
+@keyframes clients-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-page="servicos"] .clients-track {
+    animation: none;
+  }
 }
 
 body[data-page="servicos"] .servicos-portfolio-section {
@@ -1395,19 +1442,20 @@ body[data-page="servicos"] .hero-contact-info .contact-item-footer:focus-visible
     font-size: 0.88rem;
   }
 
-  body[data-page="servicos"] .clients-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.85rem;
-  }
-
-  body[data-page="servicos"] .clients-grid .card {
-    padding: 0.92rem 0.9rem !important;
-    border-radius: 18px;
-    font-size: 0.82rem;
+  body[data-page="servicos"] .clients-track {
+    gap: 1rem;
+    animation-duration: 26s;
   }
 
   body[data-page="servicos"] .client-chip {
-    min-height: 68px;
+    width: 150px;
+    min-height: 78px;
+    padding: 0.9rem 1.1rem !important;
+    border-radius: 18px;
+  }
+
+  body[data-page="servicos"] .client-chip-logo {
+    max-height: 40px;
   }
 
   body[data-page="servicos"] .pf-filters {
@@ -1553,13 +1601,21 @@ body[data-page="servicos"] .hero-contact-info .contact-item-footer:focus-visible
   }
 
   body[data-page="servicos"] .services-grid,
-  body[data-page="servicos"] .portfolio-grid,
-  body[data-page="servicos"] .clients-grid {
+  body[data-page="servicos"] .portfolio-grid {
     grid-template-columns: 1fr;
   }
 
   body[data-page="servicos"] .services-grid {
     gap: 0.85rem;
+  }
+
+  body[data-page="servicos"] .clients-track {
+    gap: 0.85rem;
+    animation-duration: 22s;
+  }
+
+  body[data-page="servicos"] .client-chip {
+    width: 130px;
   }
 
   body[data-page="servicos"] .service-card-body {

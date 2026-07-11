@@ -133,14 +133,18 @@ const SERVICOS_DATA = [
 
 /**
  * CLIENTES/PARCEIROS - Adicione ou remova aqui
+ * logo: caminho do arquivo em Incentivart/Logos/
  */
 const CLIENTES_DATA = [
-  "Valkyria Filmes",
-  "Pipoca Cultural",
-  "Instituto Ciativo",
-  "P J X",
-  "Pan Tiles",
-  "Mower"
+  { nome: "Valkyria Filmes", logo: "Incentivart/Logos/Valkyria_logo.png" },
+  { nome: "Pipoca Cultural", logo: "Incentivart/Logos/Pipoca_logo.png" },
+  { nome: "Instituto Ciativo", logo: "Incentivart/Logos/CIATIVA_logo.png" },
+  { nome: "Equipe F3", logo: "Incentivart/Logos/EquipeF3_logo.webp" },
+  { nome: "IGP", logo: "Incentivart/Logos/IGP_logo.png" },
+  { nome: "Igloo", logo: "Incentivart/Logos/Igloo_logo.png" },
+  { nome: "Jardineiro", logo: "Incentivart/Logos/Jardineiro_logo.png" },
+  { nome: "L2C", logo: "Incentivart/Logos/L2C_logo.png" },
+  { nome: "Margarida", logo: "Incentivart/Logos/Margarida_logo.png" }
   // Adicione mais clientes aqui
 ];
 
@@ -603,12 +607,16 @@ function initServicosClientes() {
     }).join('');
   }
 
-  // Renderizar clientes dinamicamente
+  // Renderizar clientes dinamicamente em carrossel horizontal (loop infinito)
   const clientesContainer = document.getElementById('clientes-container');
   if (clientesContainer && typeof CLIENTES_DATA !== 'undefined') {
-    clientesContainer.innerHTML = CLIENTES_DATA.map((cliente, index) => `
-      <div class="card client-chip" data-animate="fade-up" style="transition-delay: ${index * 0.05}s;">${escapeHtml(cliente)}</div>
+    const clientChipsHtml = CLIENTES_DATA.map((cliente) => `
+      <div class="card client-chip">
+        <img class="client-chip-logo" src="${escapeHtml(cliente.logo)}" alt="${escapeHtml(cliente.nome)}" width="160" height="48" decoding="async">
+      </div>
     `).join('');
+    // Duplica os itens para permitir a rolagem contínua e sem cortes
+    clientesContainer.innerHTML = clientChipsHtml + clientChipsHtml;
   }
 }
 
