@@ -132,20 +132,32 @@ const SERVICOS_DATA = [
 ];
 
 /**
- * CLIENTES/PARCEIROS - Adicione ou remova aqui
+ * PARCEIROS - Adicione ou remova aqui (carrossel de logos em servicos.html)
  * logo: caminho do arquivo em Incentivart/Logos/
+ * link: site oficial ou Instagram, aberto em nova guia ao clicar no card
+ */
+const PARCEIROS_DATA = [
+  { nome: "Valkyria Filmes", logo: "Incentivart/Logos/Valkyria_logo.png", link: "https://www.valkyriafilmes.com/" },
+  { nome: "Pipoca Cultural", logo: "Incentivart/Logos/Pipoca_logo.png", link: "https://www.instagram.com/pipoca.cultural/" },
+  { nome: "Instituto Ciativa", logo: "Incentivart/Logos/CIATIVA_logo.png", link: "https://www.instagram.com/ciativa/" },
+  { nome: "Equipe F3 Esporte e Cultura", logo: "Incentivart/Logos/EquipeF3_logo.webp", link: "https://equipef3.com/" },
+  { nome: "Instituto Gas Petro - IGP", logo: "Incentivart/Logos/IGP_logo.png", link: "https://igp5.org/" },
+  { nome: "Igloo Filmes", logo: "Incentivart/Logos/Igloo_logo.png", link: "https://www.igloo.art.br/" },
+  { nome: "Jardineiro da Felicidade", logo: "Incentivart/Logos/Jardineiro_logo.png", link: "https://www.jardineirodafelicidade.com.br/" },
+  { nome: "L2C", logo: "Incentivart/Logos/L2C_logo.png", link: "https://www.l2c.art.br/" },
+  { nome: "Margarida Filmes", logo: "Incentivart/Logos/Margarida_logo.png", link: "https://www.margaridafilmes.com.br/" }
+  // Hi Hat Girls (https://www.hihatgirls.com/): sem logo em Incentivart/Logos/ ainda —
+  // adicionar o arquivo e a entrada aqui quando a logo chegar
+];
+
+/**
+ * CLIENTES - Adicione ou remova aqui (carrossel de cards foto + nome em servicos.html)
+ * foto: caminho do arquivo em Incentivart/Logos/Clientes/
+ * link: site oficial ou Instagram, aberto em nova guia ao clicar no card
  */
 const CLIENTES_DATA = [
-  { nome: "Valkyria Filmes", logo: "Incentivart/Logos/Valkyria_logo.png" },
-  { nome: "Pipoca Cultural", logo: "Incentivart/Logos/Pipoca_logo.png" },
-  { nome: "Instituto Ciativo", logo: "Incentivart/Logos/CIATIVA_logo.png" },
-  { nome: "Equipe F3", logo: "Incentivart/Logos/EquipeF3_logo.webp" },
-  { nome: "IGP", logo: "Incentivart/Logos/IGP_logo.png" },
-  { nome: "Igloo", logo: "Incentivart/Logos/Igloo_logo.png" },
-  { nome: "Jardineiro", logo: "Incentivart/Logos/Jardineiro_logo.png" },
-  { nome: "L2C", logo: "Incentivart/Logos/L2C_logo.png" },
-  { nome: "Margarida", logo: "Incentivart/Logos/Margarida_logo.png" }
-  // Adicione mais clientes aqui
+  { nome: "Ellen Jabour", foto: "Incentivart/Logos/Clientes/EllenJabour_foto.jpg", link: "https://www.instagram.com/ellenjabour/" },
+  { nome: "Andréa Cals", foto: "Incentivart/Logos/Clientes/AndreaCals_foto.jpg", link: "https://www.instagram.com/andrea.cals/" }
 ];
 
 // ================================
@@ -482,7 +494,7 @@ function initForm() {
 }
 
 // ================================
-// SERVIÇOS E CLIENTES (Renderização Dinâmica)
+// SERVIÇOS, PARCEIROS E CLIENTES (Renderização Dinâmica)
 // ================================
 function initServicosClientes() {
   // Ícones e cores correspondentes a cada serviço
@@ -550,16 +562,47 @@ function initServicosClientes() {
     }).join('');
   }
 
-  // Renderizar clientes dinamicamente em carrossel horizontal (loop infinito)
+  // Carrosséis de parceiros e clientes: o loop infinito anima translateX(-50%),
+  // então o conteúdo precisa existir em duas metades idênticas. As cópias saem
+  // da navegação por teclado/leitores de tela (aria-hidden + tabindex=-1) para
+  // não duplicar links na árvore de acessibilidade.
+  const buildCarouselTrack = (items, buildChip, repeats = 1) => {
+    let half = '';
+    let cloneHalf = '';
+    for (let i = 0; i < repeats; i++) {
+      half += items.map(item => buildChip(item, i > 0)).join('');
+      cloneHalf += items.map(item => buildChip(item, true)).join('');
+    }
+    return half + cloneHalf;
+  };
+
+  const cloneAttrs = (isClone) => (isClone ? ' aria-hidden="true" tabindex="-1"' : '');
+
+  const buildParceiroChip = (parceiro, isClone) => `
+    <a class="card client-chip" href="${escapeHtml(parceiro.link)}" target="_blank" rel="noopener noreferrer"
+       aria-label="Abrir página de ${escapeHtml(parceiro.nome)} em nova guia"${cloneAttrs(isClone)}>
+      <img class="client-chip-logo" src="${escapeHtml(parceiro.logo)}" alt="${escapeHtml(parceiro.nome)}" width="160" height="48" loading="lazy" decoding="async">
+    </a>
+  `;
+
+  const buildClienteChip = (cliente, isClone) => `
+    <a class="card client-chip client-chip--cliente" href="${escapeHtml(cliente.link)}" target="_blank" rel="noopener noreferrer"
+       aria-label="Abrir página de ${escapeHtml(cliente.nome)} em nova guia"${cloneAttrs(isClone)}>
+      <img class="cliente-chip-foto" src="${escapeHtml(cliente.foto)}" alt="${escapeHtml(cliente.nome)}" width="150" height="150" loading="lazy" decoding="async">
+      <span class="cliente-chip-nome">${escapeHtml(cliente.nome)}</span>
+    </a>
+  `;
+
+  const parceirosContainer = document.getElementById('parceiros-container');
+  if (parceirosContainer && typeof PARCEIROS_DATA !== 'undefined') {
+    parceirosContainer.innerHTML = buildCarouselTrack(PARCEIROS_DATA, buildParceiroChip);
+  }
+
   const clientesContainer = document.getElementById('clientes-container');
   if (clientesContainer && typeof CLIENTES_DATA !== 'undefined') {
-    const clientChipsHtml = CLIENTES_DATA.map((cliente) => `
-      <div class="card client-chip">
-        <img class="client-chip-logo" src="${escapeHtml(cliente.logo)}" alt="${escapeHtml(cliente.nome)}" width="160" height="48" loading="lazy" decoding="async">
-      </div>
-    `).join('');
-    // Duplica os itens para permitir a rolagem contínua e sem cortes
-    clientesContainer.innerHTML = clientChipsHtml + clientChipsHtml;
+    // Poucos clientes: repete o conjunto 3x para cada metade do track ficar
+    // mais larga que a área visível (senão o loop mostraria um vão em branco)
+    clientesContainer.innerHTML = buildCarouselTrack(CLIENTES_DATA, buildClienteChip, 3);
   }
 }
 

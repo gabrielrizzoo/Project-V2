@@ -43,7 +43,8 @@ Project-V2/
 │   └── projetos/                  Imagens de projetos exibidas no portfólio (Arte de Amar, Ideias Brasil, etc.)
 ├── Incentivart/
 │   ├── Foto/                      Fotos da equipe (Lud, Rowena)
-│   ├── Logos/                     Logos de clientes/parceiros (carrossel em servicos.html)
+│   ├── Logos/                     Logos dos parceiros (carrossel em servicos.html)
+│   │   └── Clientes/              Fotos dos clientes (carrossel de cards foto + nome em servicos.html)
 │   └── fotos-site/                Fotos de eventos (WebP) usadas na galeria de Serviços e no carrossel da Home
 ├── logs/
 │   └── .htaccess                  Bloqueio de acesso ao diretório de logs
@@ -76,7 +77,7 @@ Ver detalhes completos em [css/READMEcss.md](css/READMEcss.md). Resumo:
 
 ## JavaScript
 
-- **[script.js](script.js):** script principal — navegação (menu/scroll), envio do formulário de contato (via `fetch` para `enviar.php`), animações/transições e os dados de configuração dos Serviços (`SERVICOS_DATA`) usados em `servicos.html`.
+- **[script.js](script.js):** script principal — navegação (menu/scroll), envio do formulário de contato (via `fetch` para `enviar.php`), animações/transições e os dados de configuração usados em `servicos.html`: `SERVICOS_DATA` (cards de serviços), `PARCEIROS_DATA` (carrossel de logos, com link por parceiro) e `CLIENTES_DATA` (carrossel de cards foto + nome, com link por cliente). Os dois carrosséis abrem o site/Instagram em nova guia ao clicar.
 - **[portfolio-data.js](portfolio-data.js):** define `window.PORTFOLIO_DATA`, array com os itens exibidos no portfólio (vídeos/imagens, título, descrição, link).
 - **[portfolio.js](portfolio.js):** consome `PORTFOLIO_DATA` para renderizar a grade do portfólio, filtros e o lightbox/modal de visualização.
 - **[hero-carousel.js](hero-carousel.js):** card stack carousel do hero da Home — empilha as fotos de `Incentivart/fotos-site/` sobre o `.hero-glow`, com navegação por setas, teclado, dots e swipe (transições só com `transform`/`opacity`).

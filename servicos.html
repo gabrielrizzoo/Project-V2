@@ -43,7 +43,7 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/global.css?v=20260712-1" />
-  <link rel="stylesheet" href="css/servicos.css?v=20260712-1" />
+  <link rel="stylesheet" href="css/servicos.css?v=20260712-3" />
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <!-- Sem JS as entradas animadas nunca recebem .in-view; garante conteúdo visível -->
@@ -51,7 +51,7 @@
   <!-- Scripts -->
   <script defer src="portfolio-data.js?v=20260711-1"></script>
   <script defer src="portfolio.js?v=20260711-1"></script>
-  <script defer src="script.js?v=20260712-1"></script>
+  <script defer src="script.js?v=20260712-2"></script>
 </head>
 
 <body data-page="servicos">
@@ -267,9 +267,19 @@
           <h2>Clientes e Parceiros</h2>
           <p>Atuamos ao lado de produtoras, institutos e iniciativas que precisam de organização técnica, direção clara e execução consistente.</p>
         </div>
-        <!-- Carrossel horizontal de clientes - renderizado dinamicamente pelo JavaScript -->
+        <!-- Carrossel de logos dos parceiros - renderizado dinamicamente pelo JavaScript -->
         <div class="clients-carousel" data-animate="fade-up">
-          <div id="clientes-container" class="clients-track">
+          <div id="parceiros-container" class="clients-track">
+            <!-- As logos são carregadas automaticamente do array PARCEIROS_DATA em script.js -->
+          </div>
+        </div>
+
+        <!-- Linha divisória entre parceiros e clientes -->
+        <div class="clients-divider" aria-hidden="true"></div>
+
+        <!-- Carrossel de clientes (foto + nome, cards maiores) - renderizado dinamicamente pelo JavaScript -->
+        <div class="clients-carousel" data-animate="fade-up">
+          <div id="clientes-container" class="clients-track clients-track--reverse">
             <!-- Os clientes são carregados automaticamente do array CLIENTES_DATA em script.js -->
           </div>
         </div>

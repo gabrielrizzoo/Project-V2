@@ -24,7 +24,7 @@ Use sempre `global.css` em todas as páginas e adicione o CSS específico da pá
 <link rel="stylesheet" href="css/contatos.css?v=20260710-2" />
 
 <!-- Somente para serviços -->
-<link rel="stylesheet" href="css/servicos.css?v=20260712-1" />
+<link rel="stylesheet" href="css/servicos.css?v=20260712-3" />
 ```
 
 ## Mapeamento por Página
@@ -56,6 +56,7 @@ Os valores usam `clamp()`, então escalam sozinhos no mobile — não crie overr
 - `.section-heading--left`: alinha o cabeçalho de seção à esquerda, para alternar o eixo entre seções consecutivas (evitar tudo centralizado).
 - `.founder-grid--flip`: espelha o layout foto/texto (usado na segunda integrante da equipe em `sobre.html`).
 - `.cta-block` + `.cta-actions`: bloco de CTA centralizado; use **um** botão primário (`btn-whatsapp` ou `btn-primary`) e o secundário como `btn-outline`.
+- `.client-chip--cliente` (servicos.css): variante maior do chip do carrossel para **clientes** — foto redonda à esquerda (`.cliente-chip-foto`) + nome à direita (`.cliente-chip-nome`), foto colorida (parceiros ficam em grayscale até o hover). `.clients-divider` é a linha fina laranja que separa os dois carrosséis. `.clients-track--reverse` inverte o sentido da rolagem (esquerda → direita), usado no carrossel de clientes para contrapor o de parceiros.
 
 ## Animações
 
