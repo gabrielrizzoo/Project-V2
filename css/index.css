@@ -1,0 +1,178 @@
+/* ================================
+   INDEX.CSS — estilos exclusivos da Home
+   Card Stack Carousel do hero, sobreposto ao .hero-glow
+   (cards renderizados por hero-carousel.js)
+   ================================ */
+
+/* O glow vira camada de fundo absoluta; o carrossel fica acima via z-index */
+body[data-page="home"] .hero-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body[data-page="home"] .hero-glow {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  z-index: 0;
+}
+
+body[data-page="home"] .hero-stack {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 400px);
+}
+
+body[data-page="home"] .hero-stack:focus-visible {
+  outline: 2px solid rgba(240, 176, 146, 0.95);
+  outline-offset: 6px;
+  border-radius: var(--radius-md);
+}
+
+/* Palco dos cards: caixa 3:2 fixa evita layout shift antes do JS renderizar */
+body[data-page="home"] .hero-stack-cards {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  /* Swipe horizontal sem bloquear a rolagem vertical da página */
+  touch-action: pan-y;
+}
+
+body[data-page="home"] .hero-card {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  pointer-events: none;
+  /* Fluidez: só transform/opacity animam (sem reflow) */
+  transition: transform 0.55s var(--ease-in-out), opacity 0.55s var(--ease-in-out);
+  will-change: transform, opacity;
+}
+
+body[data-page="home"] .hero-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Estados do stack: frontal + dois cards parcialmente visíveis atrás */
+body[data-page="home"] .hero-card.is-front {
+  opacity: 1;
+  transform: none;
+  z-index: 3;
+  pointer-events: auto;
+  cursor: grab;
+}
+
+body[data-page="home"] .hero-card.is-front:active {
+  cursor: grabbing;
+}
+
+body[data-page="home"] .hero-card.is-behind-1 {
+  opacity: 0.75;
+  transform: translate(7%, -6%) rotate(3.5deg) scale(0.94);
+  z-index: 2;
+}
+
+body[data-page="home"] .hero-card.is-behind-2 {
+  opacity: 0.4;
+  transform: translate(14%, -12%) rotate(7deg) scale(0.88);
+  z-index: 1;
+}
+
+body[data-page="home"] .hero-card.is-hidden {
+  opacity: 0;
+  transform: translate(-6%, 10%) rotate(-4deg) scale(0.86);
+  z-index: 0;
+}
+
+/* Controles: setas + dots */
+body[data-page="home"] .hero-stack-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+body[data-page="home"] .hero-stack-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+}
+
+body[data-page="home"] .hero-stack-btn:hover,
+body[data-page="home"] .hero-stack-btn:focus-visible {
+  border-color: var(--primary);
+  background: rgba(222, 127, 86, 0.12);
+  transform: translateY(-1px);
+}
+
+body[data-page="home"] .hero-stack-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  max-width: 220px;
+}
+
+body[data-page="home"] .hero-stack-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+body[data-page="home"] .hero-stack-dot.is-active {
+  background: var(--primary);
+  transform: scale(1.3);
+}
+
+/* Telas menores: hero vira coluna única; stack encolhe e mostra
+   só o frontal + leve indício do próximo, sem competir com o texto */
+@media (max-width: 900px) {
+  body[data-page="home"] .hero-stack {
+    width: min(100%, 340px);
+  }
+}
+
+@media (max-width: 600px) {
+  body[data-page="home"] .hero-stack {
+    width: min(100%, 300px);
+  }
+
+  body[data-page="home"] .hero-card.is-behind-1 {
+    opacity: 0.5;
+    transform: translate(4%, -3%) rotate(2deg) scale(0.96);
+  }
+
+  body[data-page="home"] .hero-card.is-behind-2 {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-page="home"] .hero-card {
+    transition: none;
+  }
+}

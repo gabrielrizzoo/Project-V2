@@ -5,8 +5,9 @@ Este diretório contém os arquivos CSS utilizados atualmente no site.
 ## Arquivos
 
 - `global.css`: estilos globais, layout base, componentes compartilhados, seções de páginas e responsividade.
+- `index.css`: estilos específicos da Home (card stack carousel do hero, sobreposto ao `.hero-glow`).
 - `contatos.css`: ajustes específicos da página de contato e formulário.
-- `servicos.css`: ajustes específicos da página de serviços.
+- `servicos.css`: ajustes específicos da página de serviços (inclui a galeria de fotos `#fotos`).
 
 ## Importação Recomendada
 
@@ -16,16 +17,19 @@ Use sempre `global.css` em todas as páginas e adicione o CSS específico da pá
 <!-- Base do site -->
 <link rel="stylesheet" href="css/global.css?v=20260711-1" />
 
+<!-- Somente para a Home -->
+<link rel="stylesheet" href="css/index.css?v=20260711-1" />
+
 <!-- Somente para contato -->
 <link rel="stylesheet" href="css/contatos.css?v=20260710-2" />
 
 <!-- Somente para serviços -->
-<link rel="stylesheet" href="css/servicos.css?v=20260711-1" />
+<link rel="stylesheet" href="css/servicos.css?v=20260711-2" />
 ```
 
 ## Mapeamento por Página
 
-- `index.html`: `global.css`
+- `index.html`: `global.css` + `index.css`
 - `sobre.html`: `global.css`
 - `servicos.html`: `global.css` + `servicos.css`
 - `contato.html`: `global.css` + `contatos.css`

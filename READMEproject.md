@@ -23,6 +23,7 @@ Project-V2/
 ├── script.js                    JS principal (navegação, formulários, animações, dados de Serviços)
 ├── portfolio.js                 Lógica do portfólio/lightbox (usado em index, sobre, servicos)
 ├── portfolio-data.js            Dados (array) consumidos pelo portfolio.js
+├── hero-carousel.js             Card stack carousel do hero da Home (fotos de Incentivart/fotos-site/)
 ├── enviar.php                   Endpoint PHP que envia o e-mail do formulário de contato
 ├── robots.txt                   Diretivas para crawlers + referência ao sitemap
 ├── sitemap.xml                  Mapa do site para SEO
@@ -30,14 +31,17 @@ Project-V2/
 ├── apple-touch-icon.png         Ícone para dispositivos Apple
 ├── css/
 │   ├── global.css                Design system, layout base, componentes e responsividade (usado em todas as páginas)
+│   ├── index.css                  Estilos específicos de index.html (card stack carousel do hero)
 │   ├── contatos.css               Estilos específicos de contato.html
-│   ├── servicos.css                Estilos específicos de servicos.html
+│   ├── servicos.css                Estilos específicos de servicos.html (inclui galeria de fotos)
 │   └── README.md                  Documentação da pasta css/
 ├── assets/
 │   ├── favicon.ico, icon-192x192.png, icon-512x512.png, shield-icon.svg
 │   └── projetos/                  Imagens de projetos exibidas no portfólio (Arte de Amar, Ideias Brasil, etc.)
 ├── Incentivart/
-│   └── Foto/                      Fotos da equipe (Lud, Rowena)
+│   ├── Foto/                      Fotos da equipe (Lud, Rowena)
+│   ├── Logos/                     Logos de clientes/parceiros (carrossel em servicos.html)
+│   └── fotos-site/                Fotos de eventos (WebP) usadas na galeria de Serviços e no carrossel da Home
 ├── logs/
 │   └── .htaccess                  Bloqueio de acesso ao diretório de logs
 └── .vscode/
@@ -48,9 +52,9 @@ Project-V2/
 
 | Página | CSS | JS | Observação |
 |---|---|---|---|
-| [index.html](index.html) | `global.css` | `portfolio-data.js`, `portfolio.js`, `script.js` | Home, exibe portfólio |
+| [index.html](index.html) | `global.css`, `index.css` | `portfolio-data.js`, `portfolio.js`, `script.js`, `hero-carousel.js` | Home, carrossel de fotos no hero |
 | [sobre.html](sobre.html) | `global.css` | `portfolio-data.js`, `portfolio.js`, `script.js` | Institucional |
-| [servicos.html](servicos.html) | `global.css`, `servicos.css` | `portfolio-data.js`, `portfolio.js`, `script.js` | Lista de serviços + portfólio |
+| [servicos.html](servicos.html) | `global.css`, `servicos.css` | `portfolio-data.js`, `portfolio.js`, `script.js` | Lista de serviços + portfólio + galeria de fotos |
 | [contato.html](contato.html) | `global.css`, `contatos.css` | `script.js` | Formulário envia para `enviar.php` |
 | [politica-de-privacidade.html](politica-de-privacidade.html) | `global.css` | `script.js` | Texto institucional |
 | [404.html](404.html) | `global.css`, `404.css` | `script.js` | Página de erro |
@@ -62,8 +66,9 @@ Todas as páginas também carregam a fonte `Font Awesome` via CDN (`cdnjs.cloudf
 Ver detalhes completos em [css/README.md](css/README.md). Resumo:
 
 - `global.css`: base do site, usado em todas as páginas.
+- `index.css`: só em `index.html` (card stack carousel do hero).
 - `contatos.css`: só em `contato.html`.
-- `servicos.css`: só em `servicos.html`.
+- `servicos.css`: só em `servicos.html` (inclui a galeria de fotos `#fotos`).
 - `404.css` (na raiz): só em `404.html`.
 
 ## JavaScript
@@ -71,8 +76,9 @@ Ver detalhes completos em [css/README.md](css/README.md). Resumo:
 - **[script.js](script.js):** script principal — navegação (menu/scroll), envio do formulário de contato (via `fetch` para `enviar.php`), animações/transições e os dados de configuração dos Serviços (`SERVICOS_DATA`) usados em `servicos.html`.
 - **[portfolio-data.js](portfolio-data.js):** define `window.PORTFOLIO_DATA`, array com os itens exibidos no portfólio (vídeos/imagens, título, descrição, link).
 - **[portfolio.js](portfolio.js):** consome `PORTFOLIO_DATA` para renderizar a grade do portfólio, filtros e o lightbox/modal de visualização.
+- **[hero-carousel.js](hero-carousel.js):** card stack carousel do hero da Home — empilha as fotos de `Incentivart/fotos-site/` sobre o `.hero-glow`, com navegação por setas, teclado, dots e swipe (transições só com `transform`/`opacity`).
 
-Ordem de carregamento nas páginas que usam portfólio: `portfolio-data.js` → `portfolio.js` → `script.js` (todos com `defer`).
+Ordem de carregamento nas páginas que usam portfólio: `portfolio-data.js` → `portfolio.js` → `script.js` (todos com `defer`). Na Home, `hero-carousel.js` entra por último, depois de `script.js`.
 
 ## PHP
 

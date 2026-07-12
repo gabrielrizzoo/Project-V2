@@ -39,13 +39,15 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/global.css?v=20260711-1" />
+  <link rel="stylesheet" href="css/index.css?v=20260711-1" />
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-  
+
   <!-- Main Script -->
   <script defer src="portfolio-data.js"></script>
   <script defer src="portfolio.js"></script>
   <script defer src="script.js?v=20260711-1"></script>
+  <script defer src="hero-carousel.js?v=20260711-1"></script>
 </head>
 
 <body data-page="home">
@@ -112,9 +114,22 @@
               <a href="contato.html" class="btn btn-outline">ENTRE EM CONTATO</a>
             </div>
           </div>
-          <div class="hero-visual delay-200" data-animate="scale-in"
-            style="display: flex; justify-content: center;">
+          <div class="hero-visual delay-200" data-animate="scale-in">
             <div class="hero-glow"></div>
+            <div id="hero-stack" class="hero-stack" role="region" aria-roledescription="carrossel" aria-label="Fotos de eventos e projetos culturais" tabindex="0">
+              <div class="hero-stack-cards">
+                <!-- Cards renderizados por hero-carousel.js (fotos de Incentivart/fotos-site/) -->
+              </div>
+              <div class="hero-stack-controls">
+                <button type="button" class="hero-stack-btn" data-dir="-1" aria-label="Foto anterior">
+                  <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                </button>
+                <div class="hero-stack-dots" aria-hidden="true"></div>
+                <button type="button" class="hero-stack-btn" data-dir="1" aria-label="Próxima foto">
+                  <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
