@@ -1,11 +1,12 @@
 <?php
-// enviar.php - Script de envio de e-mail para HostGator (PHP Mail)
+// enviar.php — recebe o POST do formulário de contato e envia por PHP mail()
+// (ambiente alvo: HostGator). Responde sempre em JSON; ver README-backend.md.
 
 // Configurações
 date_default_timezone_set('America/Sao_Paulo');
-$destinatario = "contato@incentivart.com.br"; // Substitua pelo seu e-mail real
+$destinatario = "contato@incentivart.com.br";
 $assunto_padrao = "Novo contato via site - Incentivart";
-$rate_limit_window = 300; // Janela em segundos
+$rate_limit_window = 300; // Janela em segundos (5 min)
 $rate_limit_max_requests = 5; // Máximo de envios na janela
 
 $max_nome_length = 80;
@@ -36,20 +37,28 @@ header('Content-Type: application/json; charset=UTF-8');
 
 // Verifica se é uma requisição POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // REMOTE_ADDR vem do socket TCP e não pode ser forjado pelo cliente.
+    // NÃO usar X-Forwarded-For aqui: é um header controlado pelo cliente e
+    // permitiria bypass trivial do rate limiting.
     $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
 
-    // Verificação de Honeypot
+    // Honeypot: campo "website" fica invisível para humanos (display:none no
+    // formulário); se vier preenchido, é bot — rejeita antes de qualquer custo.
     $honeypot = isset($_POST['website']) ? trim($_POST['website']) : '';
     if ($honeypot !== '') {
         respond_json(400, "error", "Requisição inválida.");
     }
 
-    // Limite IP
+    // Rate limiting por IP: um arquivo de timestamps por IP em logs/
+    // (diretório bloqueado para acesso web via logs/.htaccess).
+    // O IP é higienizado antes de virar nome de arquivo para impedir path traversal.
     $rate_file = __DIR__ . '/logs/rate_limit_' . preg_replace('/[^a-zA-Z0-9_-]/', '_', $ip) . '.log';
     $now = time();
     $window_start = $now - $rate_limit_window;
     $timestamps = [];
 
+    // flock evita corrida entre requisições simultâneas do mesmo IP
+    // (duas leituras do mesmo arquivo contariam o mesmo envio uma vez só)
     $rate_handle = fopen($rate_file, 'c+');
     if ($rate_handle === false) {
         respond_json(500, "error", "Não foi possível processar o envio agora.");
@@ -84,7 +93,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     flock($rate_handle, LOCK_UN);
     fclose($rate_handle);
     
-    // Coleta os dados (sem sanitização destrutiva aqui, faremos no output)
+    // Coleta os dados sem sanitização destrutiva: a sanitização certa depende
+    // do contexto de uso, então ela acontece no output (htmlspecialchars no
+    // corpo do e-mail; validação estrita no header Reply-To)
     $nome = isset($_POST['nome']) ? trim($_POST['nome']) : '';
     $sobrenome = isset($_POST['sobrenome']) ? trim($_POST['sobrenome']) : '';
     $email = isset($_POST['email']) ? trim($_POST['email']) : '';
@@ -117,7 +128,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         respond_json(400, "error", "Mensagem excede o tamanho permitido.");
     }
 
-    // Validação de E-mail (segurança contra Header Injection)
+    // FILTER_VALIDATE_EMAIL rejeita quebras de linha — primeira barreira
+    // contra header injection no Reply-To (a segunda está antes do mail())
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         respond_json(400, "error", "E-mail inválido.");
     }
@@ -127,7 +139,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         respond_json(400, "error", "Telefone inválido.");
     }
 
-    // Segmentos
+    // Segmentos: whitelist — só valores conhecidos entram no e-mail,
+    // qualquer outro valor enviado é simplesmente ignorado
     $segmento_map = [
         'teatro' => 'Teatro',
         'musica' => 'Música',
@@ -183,12 +196,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </html>
     ";
 
+    // Segunda barreira contra header injection: remove CR/LF do valor que
+    // vai para o header (defesa em profundidade além do FILTER_VALIDATE_EMAIL)
     $email_header = str_replace(["\r", "\n"], '', $email);
 
-    // Cabeçalhos do e-mail
+    // From precisa ser do próprio domínio: e-mail de terceiros falharia
+    // SPF/DKIM e cairia em spam. O e-mail do visitante vai no Reply-To.
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    $headers .= "From: Site Incentivart <no-reply@incentivart.com.br>" . "\r\n"; // Use um e-mail do seu domínio
+    $headers .= "From: Site Incentivart <no-reply@incentivart.com.br>" . "\r\n";
     $headers .= "Reply-To: $email_header" . "\r\n";
 
     // Tenta enviar

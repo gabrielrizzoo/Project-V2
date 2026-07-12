@@ -27,14 +27,17 @@ Project-V2/
 ├── enviar.php                   Endpoint PHP que envia o e-mail do formulário de contato
 ├── robots.txt                   Diretivas para crawlers + referência ao sitemap
 ├── sitemap.xml                  Mapa do site para SEO
-├── .htaccess                    Headers de segurança, compressão, cache (Apache)
+├── .htaccess                    Headers de segurança, compressão, cache, rewrites (Apache)
 ├── apple-touch-icon.png         Ícone para dispositivos Apple
+├── README-backend.md            Documentação do enviar.php (validação, rate limiting, segurança)
+├── DEPLOY-HOSTGATOR.md          Guia passo a passo de deploy no HostGator
+├── AUDITORIA.md                 Changelog da auditoria geral (jul/2026): achados, correções e pendências
 ├── css/
 │   ├── global.css                Design system, layout base, componentes e responsividade (usado em todas as páginas)
 │   ├── index.css                  Estilos específicos de index.html (card stack carousel do hero)
 │   ├── contatos.css               Estilos específicos de contato.html
 │   ├── servicos.css                Estilos específicos de servicos.html (inclui galeria de fotos)
-│   └── README.md                  Documentação da pasta css/
+│   └── READMEcss.md               Documentação da pasta css/
 ├── assets/
 │   ├── favicon.ico, icon-192x192.png, icon-512x512.png, shield-icon.svg
 │   └── projetos/                  Imagens de projetos exibidas no portfólio (Arte de Amar, Ideias Brasil, etc.)
@@ -59,11 +62,11 @@ Project-V2/
 | [politica-de-privacidade.html](politica-de-privacidade.html) | `global.css` | `script.js` | Texto institucional |
 | [404.html](404.html) | `global.css`, `404.css` | `script.js` | Página de erro |
 
-Todas as páginas também carregam a fonte `Font Awesome` via CDN (`cdnjs.cloudflare.com`). Os links de CSS/JS locais usam parâmetro de versão (`?v=AAAAMMDD-N`) para cache busting — atualize esse valor sempre que o arquivo referenciado mudar (ver [css/README.md](css/README.md)).
+Todas as páginas também carregam a fonte `Font Awesome` via CDN (`cdnjs.cloudflare.com`). Os links de CSS/JS locais usam parâmetro de versão (`?v=AAAAMMDD-N`) para cache busting — atualize esse valor sempre que o arquivo referenciado mudar (ver [css/READMEcss.md](css/READMEcss.md)). As páginas com animações de entrada (`[data-animate]`) incluem um fallback `<noscript>` para que o conteúdo fique visível mesmo sem JavaScript.
 
 ## CSS
 
-Ver detalhes completos em [css/README.md](css/README.md). Resumo:
+Ver detalhes completos em [css/READMEcss.md](css/READMEcss.md). Resumo:
 
 - `global.css`: base do site, usado em todas as páginas.
 - `index.css`: só em `index.html` (card stack carousel do hero).
@@ -82,7 +85,7 @@ Ordem de carregamento nas páginas que usam portfólio: `portfolio-data.js` → 
 
 ## PHP
 
-- **[enviar.php](enviar.php):** recebe o POST do formulário de `contato.html`, valida/sanitiza campos (nome, sobrenome, email, telefone, mensagem), aplica rate limiting (5 envios / 5 minutos por IP) e envia e-mail para `contato@incentivart.com.br`, respondendo em JSON.
+- **[enviar.php](enviar.php):** recebe o POST do formulário de `contato.html`, valida/sanitiza campos (nome, sobrenome, email, telefone, mensagem), aplica rate limiting (5 envios / 5 minutos por IP) e envia e-mail para `contato@incentivart.com.br`, respondendo em JSON. Documentação completa (campos, validações, decisões de segurança) em [README-backend.md](README-backend.md).
 
 ## Assets e Mídia
 
@@ -92,13 +95,16 @@ Ordem de carregamento nas páginas que usam portfólio: `portfolio-data.js` → 
 ## SEO e Infraestrutura
 
 - [robots.txt](robots.txt): libera indexação geral e aponta para o `sitemap.xml`.
-- [sitemap.xml](sitemap.xml): lista as URLs indexáveis do site.
-- [.htaccess](.htaccess) (raiz): define headers de segurança (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`), compressão (mod_deflate) e cache de navegador (mod_expires).
-- [logs/.htaccess](logs/.htaccess): bloqueia acesso público ao diretório `logs/`.
+- [sitemap.xml](sitemap.xml): lista as URLs indexáveis do site (a política de privacidade fica de fora por ter `noindex`).
+- [.htaccess](.htaccess) (raiz): headers de segurança (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security`; CSP preparada, comentada), compressão (mod_deflate), cache de navegador (mod_expires), força HTTPS, URLs limpas sem `.html` e bloqueio de arquivos internos (`.git`, `.vscode`, `*.md` etc.).
+- [logs/.htaccess](logs/.htaccess): bloqueia acesso público ao diretório `logs/` (usado pelo rate limiting do `enviar.php`).
 
 ## Documentação Interna
 
-- [css/README.md](css/README.md): guia de uso dos arquivos CSS.
+- [css/READMEcss.md](css/READMEcss.md): guia de uso dos arquivos CSS.
+- [README-backend.md](README-backend.md): funcionamento e segurança do `enviar.php`.
+- [DEPLOY-HOSTGATOR.md](DEPLOY-HOSTGATOR.md): passo a passo de deploy no HostGator.
+- [AUDITORIA.md](AUDITORIA.md): changelog da auditoria geral de julho/2026.
 
 ## Convenções
 

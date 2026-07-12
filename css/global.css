@@ -318,23 +318,6 @@ p {
   }
 }
 
-.btn-contact {
-  background: #1a1a1a !important;
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  border: 1px solid var(--border-light);
-  font-weight: 700;
-  letter-spacing: 0.05em;
-}
-
-.btn-contact:hover {
-  background: #de7f56;
-  border-color: #de7f56;
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
 /* Cards */
 .card {
   background: #0f0f0f !important;
@@ -1649,17 +1632,8 @@ textarea:focus {
   transform: translate(0) scale(1);
 }
 
-/* 360 Rotation for Service Numbers */
-.rotate-360 {
-  transition: transform 0.8s ease-in-out;
-  display: inline-block;
-}
-
-.card:hover .rotate-360 {
-  transform: rotate(360deg);
-}
-
-/* Stagger delays */
+/* Stagger delays — fallback sem JS; com JS o stagger automático (script.js)
+   aplica transition-delay inline e sobrepõe estas classes */
 .delay-100 {
   transition-delay: 0.1s;
 }
@@ -1670,6 +1644,14 @@ textarea:focus {
 
 .delay-300 {
   transition-delay: 0.3s;
+}
+
+.delay-400 {
+  transition-delay: 0.4s;
+}
+
+.delay-500 {
+  transition-delay: 0.5s;
 }
 
 /* ================================

@@ -290,66 +290,6 @@ function initScrollAnimations(root = document) {
   });
 }
 
-function initPortfolioWhenVisible() {
-  const portfolioSection = document.getElementById('portfolio');
-  const portfolioContainer = document.getElementById('portfolio-container');
-  const preloadOffset = 180;
-
-  if (!portfolioSection || !portfolioContainer || typeof window.initPortfolio !== 'function') {
-    return;
-  }
-
-  const isPortfolioNearViewport = () => {
-    const rect = portfolioSection.getBoundingClientRect();
-    return rect.top <= window.innerHeight + preloadOffset;
-  };
-
-  const renderPortfolio = () => {
-    const hasItems = portfolioContainer.children.length > 0;
-    if (hasItems) return;
-
-    window.initPortfolio();
-    initScrollAnimations(portfolioContainer);
-  };
-
-  const tryRenderPortfolio = () => {
-    if (!isPortfolioNearViewport()) return false;
-
-    renderPortfolio();
-    return true;
-  };
-
-  if (!('IntersectionObserver' in window)) {
-    const fallbackLoad = debounce(() => {
-      if (!tryRenderPortfolio()) return;
-
-      window.removeEventListener('scroll', fallbackLoad);
-      window.removeEventListener('resize', fallbackLoad);
-    }, 60);
-
-    fallbackLoad();
-    window.addEventListener('scroll', fallbackLoad, { passive: true });
-    window.addEventListener('resize', fallbackLoad);
-    return;
-  }
-
-  const observer = new IntersectionObserver((entries, currentObserver) => {
-    const isVisible = entries.some(entry => entry.isIntersecting);
-
-    if (!isVisible) return;
-
-    if (!tryRenderPortfolio()) return;
-
-    currentObserver.disconnect();
-  }, {
-    root: null,
-    rootMargin: `${preloadOffset}px 0px`,
-    threshold: 0.01
-  });
-
-  observer.observe(portfolioSection);
-}
-
 // ================================
 // NAVEGAÇÃO E HEADER
 // ================================
@@ -470,8 +410,10 @@ function initForm() {
       }
     }
 
-    // Estado de loading
+    // Estado de loading: a classe .loading é o que exibe o .btn-loading
+    // (contatos.css esconde .btn-loading por padrão)
     btn.disabled = true;
+    btn.classList.add('loading');
     btn.innerHTML = '<span class="btn-loading">Enviando...</span>';
 
     try {
@@ -485,7 +427,7 @@ function initForm() {
 
       if (response.ok) {
         form.reset();
-        // Reset chips
+        // form.reset() desmarca os inputs mas não remove a classe visual dos chips
         document.querySelectorAll('.choice-chip').forEach(c => c.classList.remove('selected'));
 
         if (msgSuccess) {
@@ -516,6 +458,7 @@ function initForm() {
       }
     } finally {
       btn.disabled = false;
+      btn.classList.remove('loading');
       btn.innerHTML = originalText;
     }
   });
@@ -661,12 +604,11 @@ const PrivacyModal = {
   `,
 
   init() {
-    // Find all privacy policy links
     const links = document.querySelectorAll('[data-open-privacy-modal="true"]');
-    
+
     if (links.length > 0) {
       this.createModal();
-      
+
       links.forEach(link => {
         link.addEventListener('click', (e) => {
           e.preventDefault();
@@ -675,16 +617,17 @@ const PrivacyModal = {
       });
     }
 
-    // Find the consent checkbox
+    // O checkbox de consentimento não marca direto: abre o modal primeiro,
+    // e só é marcado se o usuário confirmar ("Entendi"). Garante que o
+    // consentimento passe pela leitura da política (LGPD).
     const consentCheckbox = document.querySelector('input[name="consentimento"]');
     if (consentCheckbox) {
       this.createModal();
-      
+
       consentCheckbox.addEventListener('click', (e) => {
-        // If the user is trying to check the box (it is currently unchecked)
         if (consentCheckbox.checked) {
-          e.preventDefault(); // Prevent checking immediately
-          consentCheckbox.checked = false; // Ensure it stays unchecked
+          e.preventDefault();
+          consentCheckbox.checked = false;
           this.open(consentCheckbox);
         }
       });
@@ -715,27 +658,24 @@ const PrivacyModal = {
 
     document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-    // Bind events
     this.modal = document.getElementById('privacy-modal');
-    
-    // Close buttons (X)
+
+    // Fechar pelo X, clique no backdrop ou ESC = não confirmado;
+    // só o botão "Entendi" confirma (e marca o checkbox que abriu o modal)
     const closeBtns = this.modal.querySelectorAll('.modal-close');
     closeBtns.forEach(btn => {
       btn.addEventListener('click', () => this.close(false));
     });
 
-    // Confirm button (Entendi)
     const confirmBtn = this.modal.querySelector('.modal-confirm-btn');
     if (confirmBtn) {
       confirmBtn.addEventListener('click', () => this.close(true));
     }
 
-    // Backdrop click
     this.modal.addEventListener('click', (e) => {
       if (e.target === this.modal) this.close(false);
     });
 
-    // Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.isOpen) this.close(false);
     });
@@ -745,7 +685,7 @@ const PrivacyModal = {
     this.triggerCheckbox = checkbox;
     this.modal.classList.add('active');
     this.modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    document.body.style.overflow = 'hidden'; // trava o scroll da página atrás do modal
     this.isOpen = true;
   },
 
@@ -758,8 +698,9 @@ const PrivacyModal = {
     if (confirmed && this.triggerCheckbox) {
       this.triggerCheckbox.checked = true;
     }
-    
-    // Reset trigger after a short delay to ensure no double-triggering
+
+    // Pequeno atraso antes de limpar a referência para evitar reabertura
+    // pelo mesmo clique que fechou o modal
     setTimeout(() => {
       this.triggerCheckbox = null;
     }, 100);

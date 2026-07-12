@@ -1,16 +1,33 @@
 # Options
+# -MultiViews: impede o Apache de "adivinhar" arquivos por content negotiation,
+# o que conflitaria com as regras de rewrite de extensão .html abaixo
 Options -MultiViews
 
-# Security Headers
+# ================================
+# Headers de segurança
+# ================================
 <IfModule mod_headers.c>
+    # Impede o navegador de "farejar" o tipo de arquivo e executar algo inesperado
     Header always set X-Content-Type-Options nosniff
+    # O site não deve ser embutido em iframes de terceiros (anti-clickjacking)
     Header always set X-Frame-Options DENY
-    Header always set X-XSS-Protection "1; mode=block"
+    # Envia apenas a origem (sem path) ao navegar para outros domínios
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    # O site não usa geolocalização, microfone nem câmera — nega tudo
     Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    # HSTS: obriga o navegador a usar HTTPS por 1 ano após a 1ª visita.
+    # Navegadores ignoram este header em conexões HTTP, então é seguro enviá-lo sempre.
+    # Só surte efeito depois que o SSL estiver ativo no HostGator (ver DEPLOY-HOSTGATOR.md).
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    # Content-Security-Policy: preparada mas DESATIVADA — ativar somente após
+    # testar todas as páginas (portfólio carrega imagens/vídeos de domínios externos).
+    # Ver AUDITORIA.md (achado de segurança) antes de descomentar a linha abaixo.
+    # Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https://img.youtube.com https://i.ytimg.com https://br.web.img3.acsta.net https://www.cafecomfilme.com.br; frame-src https://www.youtube-nocookie.com https://drive.google.com; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
 </IfModule>
 
-# Compression
+# ================================
+# Compressão (menos bytes na rede)
+# ================================
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/plain
     AddOutputFilterByType DEFLATE text/html
@@ -25,7 +42,12 @@ Options -MultiViews
     AddOutputFilterByType DEFLATE image/svg+xml
 </IfModule>
 
-# Browser Caching
+# ================================
+# Cache do navegador
+# CSS/JS podem ter cache de 1 mês porque o site usa cache busting via ?v=
+# (mudou o arquivo → muda a versão no link → o navegador baixa de novo).
+# HTML fica em 1 dia para atualizações de conteúdo aparecerem rápido.
+# ================================
 <IfModule mod_expires.c>
     ExpiresActive on
     ExpiresByType text/css "access plus 1 month"
@@ -45,30 +67,33 @@ Options -MultiViews
 # Error Pages
 ErrorDocument 404 /404.html
 
-# URL Rewriting
+# ================================
+# Rewrites
+# ================================
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
     # Bloqueia artefatos internos e arquivos que nao devem ficar publicos
+    # (dotfiles exceto .well-known, .git/.vscode, e docs/scripts de desenvolvimento)
     RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L,NC]
     RewriteRule (^|/)(?:\.git|\.vscode)(?:/|$) - [F,L,NC]
     RewriteRule (^|/).+\.(?:md|sql|ya?ml|sh|bat|ps1)$ - [F,L,NC]
-    
-    # Force HTTPS
+
+    # Força HTTPS (exceto em desenvolvimento local)
     RewriteCond %{HTTPS} off
     RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$ [NC]
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-    
-    # Remove trailing slash
+
+    # Remove barra final de URLs que não são diretórios (evita conteúdo duplicado no SEO)
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{THE_REQUEST} /+([^?]+?)/*[?\s] [NC]
     RewriteRule ^ /%1? [E=VAR:1,R=301,L]
-    
-    # Remove .html extension
+
+    # URLs limpas: /sobre em vez de /sobre.html (redireciona a versão .html)
     RewriteCond %{THE_REQUEST} /+([^?]+?)\.html[?\s] [NC]
     RewriteRule ^ /%1? [E=VAR:1,R=301,L]
-    
-    # Add .html extension internally
+
+    # ...e serve internamente o arquivo .html correspondente
     RewriteCond %{REQUEST_FILENAME}.html -f
     RewriteRule ^([^./]+)/?$ $1.html [E=VAR:1,L]
 </IfModule>

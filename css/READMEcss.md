@@ -15,16 +15,16 @@ Use sempre `global.css` em todas as páginas e adicione o CSS específico da pá
 
 ```html
 <!-- Base do site -->
-<link rel="stylesheet" href="css/global.css?v=20260711-1" />
+<link rel="stylesheet" href="css/global.css?v=20260712-1" />
 
 <!-- Somente para a Home -->
-<link rel="stylesheet" href="css/index.css?v=20260711-1" />
+<link rel="stylesheet" href="css/index.css?v=20260711-2" />
 
 <!-- Somente para contato -->
 <link rel="stylesheet" href="css/contatos.css?v=20260710-2" />
 
 <!-- Somente para serviços -->
-<link rel="stylesheet" href="css/servicos.css?v=20260711-2" />
+<link rel="stylesheet" href="css/servicos.css?v=20260712-1" />
 ```
 
 ## Mapeamento por Página
@@ -59,7 +59,7 @@ Os valores usam `clamp()`, então escalam sozinhos no mobile — não crie overr
 
 ## Animações
 
-As entradas (`[data-animate]`) recebem stagger automático via `script.js`: irmãos animados no mesmo contêiner entram em cascata (80ms por item). As classes `delay-100`…`delay-300` continuam funcionando como fallback sem JS, mas não são mais necessárias em novos elementos.
+As entradas (`[data-animate]`) recebem stagger automático via `script.js`: irmãos animados no mesmo contêiner entram em cascata (80ms por item). As classes `delay-100`…`delay-500` continuam existindo como fallback, mas não são mais necessárias em novos elementos (o stagger inline do JS as sobrepõe). Cada página com `[data-animate]` também inclui um `<noscript>` no `<head>` que força `opacity:1` — sem JS a classe `.in-view` nunca é aplicada e o conteúdo ficaria invisível.
 
 ## Observação
 

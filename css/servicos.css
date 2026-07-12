@@ -31,31 +31,7 @@ body[data-page="servicos"] .social-links-footer a {
   user-select: none;
 }
 
-body[data-page="servicos"] .section-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  width: fit-content;
-  padding: 0.55rem 0.9rem;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(222, 127, 86, 0.18);
-  background: rgba(222, 127, 86, 0.08);
-  color: #f0b092 !important;
-  -webkit-text-fill-color: #f0b092 !important;
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-body[data-page="servicos"] .section-tag::before {
-  content: "";
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 0.9;
-}
+/* .section-tag herda tudo do global.css (regras idênticas removidas na auditoria) */
 
 body[data-page="servicos"] .hero-servicos {
   position: relative;
