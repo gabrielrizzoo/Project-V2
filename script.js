@@ -612,7 +612,7 @@ function initServicosClientes() {
   if (clientesContainer && typeof CLIENTES_DATA !== 'undefined') {
     const clientChipsHtml = CLIENTES_DATA.map((cliente) => `
       <div class="card client-chip">
-        <img class="client-chip-logo" src="${escapeHtml(cliente.logo)}" alt="${escapeHtml(cliente.nome)}" width="160" height="48" decoding="async">
+        <img class="client-chip-logo" src="${escapeHtml(cliente.logo)}" alt="${escapeHtml(cliente.nome)}" width="160" height="48" loading="lazy" decoding="async">
       </div>
     `).join('');
     // Duplica os itens para permitir a rolagem contínua e sem cortes
