@@ -4,6 +4,11 @@
    (cards renderizados por hero-carousel.js)
    ================================ */
 
+/* Coluna visual mais larga na Home: dá mais área para as fotos do carrossel */
+body[data-page="home"] .hero-home .hero-grid {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+}
+
 /* O glow vira camada de fundo absoluta; o carrossel fica acima via z-index */
 body[data-page="home"] .hero-visual {
   position: relative;
@@ -22,7 +27,7 @@ body[data-page="home"] .hero-glow {
 body[data-page="home"] .hero-stack {
   position: relative;
   z-index: 1;
-  width: min(100%, 400px);
+  width: min(100%, 560px);
 }
 
 body[data-page="home"] .hero-stack:focus-visible {
@@ -152,13 +157,13 @@ body[data-page="home"] .hero-stack-dot.is-active {
    só o frontal + leve indício do próximo, sem competir com o texto */
 @media (max-width: 900px) {
   body[data-page="home"] .hero-stack {
-    width: min(100%, 340px);
+    width: min(100%, 440px);
   }
 }
 
 @media (max-width: 600px) {
   body[data-page="home"] .hero-stack {
-    width: min(100%, 300px);
+    width: min(100%, 360px);
   }
 
   body[data-page="home"] .hero-card.is-behind-1 {

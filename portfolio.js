@@ -33,15 +33,6 @@ function getPortfolioPresentation(item) {
   let presentation;
 
   switch (type) {
-    case 'foto':
-      presentation = {
-        filterType: 'foto',
-        typeLabel: 'Foto',
-        contextLabel: 'Registro visual',
-        actionLabel: 'Abrir imagem',
-        kicker: 'Ver imagem'
-      };
-      break;
     case 'projetos':
       presentation = {
         filterType: 'projetos',
@@ -146,10 +137,8 @@ function getPortfolioSortWeight(filterType) {
       return 1;
     case 'video':
       return 2;
-    case 'foto':
-      return 3;
     default:
-      return 4;
+      return 3;
   }
 }
 

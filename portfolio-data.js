@@ -226,12 +226,5 @@ window.PORTFOLIO_DATA = [
     link: "assets/projetos/positiva'_mente.jpg",
     site: "https://positivamentebrasil.com.br/",
     instagram: "https://www.instagram.com/positivamentebrasil"
-  },
-  {
-    tipo: "foto",
-    titulo: "Teatro — Performance",
-    descricao: "Projeto cultural de teatro contemporâneo com foco em performances artísticas inovadoras.",
-    imagem: "https://dus6dayednven.cloudfront.net/app/uploads/2021/05/3.Nico-Ferreyra.jpg",
-    link: "https://dus6dayednven.cloudfront.net/app/uploads/2021/05/3.Nico-Ferreyra.jpg"
   }
 ];

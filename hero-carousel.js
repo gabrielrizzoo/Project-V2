@@ -26,7 +26,7 @@
     { src: 'Incentivart/fotos-site/44513888001_f8e875d8ef_b.webp', alt: 'Kit do festival em sacola rosa translúcida sobre o jardim' }
   ];
 
-  const AUTOPLAY_MS = 6000;
+  const AUTOPLAY_MS = 5000;
   const SWIPE_THRESHOLD_PX = 40;
   const EAGER_CARDS = 3; // frontal + 2 visíveis atrás carregam sem lazy
 
@@ -68,7 +68,7 @@
       dot.setAttribute('aria-label', 'Ir para a foto ' + (i + 1) + ' de ' + HERO_FOTOS.length);
       dot.addEventListener('click', () => {
         goTo(i);
-        stopAutoplay();
+        restartAutoplay();
       });
       dotsWrap.appendChild(dot);
       return dot;
@@ -98,7 +98,8 @@
       goTo(current + dir);
     }
 
-    // Autoplay suave: pausa em hover/foco; interação manual encerra.
+    // Autoplay: transição automática contínua; pausa em hover e,
+    // após interação manual, o cronômetro reinicia (não para de vez).
     // Desativado quando o usuário prefere menos movimento.
     function startAutoplay() {
       if (reduceMotion || autoplayTimer) return;
@@ -110,18 +111,23 @@
       autoplayTimer = null;
     }
 
-    prevBtn.addEventListener('click', () => { step(-1); stopAutoplay(); });
-    nextBtn.addEventListener('click', () => { step(1); stopAutoplay(); });
+    function restartAutoplay() {
+      stopAutoplay();
+      startAutoplay();
+    }
+
+    prevBtn.addEventListener('click', () => { step(-1); restartAutoplay(); });
+    nextBtn.addEventListener('click', () => { step(1); restartAutoplay(); });
 
     stack.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowLeft') {
         event.preventDefault();
         step(-1);
-        stopAutoplay();
+        restartAutoplay();
       } else if (event.key === 'ArrowRight') {
         event.preventDefault();
         step(1);
-        stopAutoplay();
+        restartAutoplay();
       }
     });
 
@@ -144,6 +150,7 @@
       if (Math.abs(deltaX) >= SWIPE_THRESHOLD_PX) {
         step(deltaX < 0 ? 1 : -1);
       }
+      restartAutoplay();
     });
 
     cardsWrap.addEventListener('pointercancel', () => {
