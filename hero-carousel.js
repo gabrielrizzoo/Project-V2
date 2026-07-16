@@ -9,12 +9,7 @@
 
   const HERO_FOTOS = [
     { src: 'Incentivart/fotos-site/44509923242_f35957a3c6_b.webp', alt: 'Telão exibe a marca do Festival Século XXI — Mulheres, Ação!' },
-    { src: 'Incentivart/fotos-site/30622901538_3b94b8d393_b.webp', alt: 'Equipe e participantes do festival reunidas na escadaria da Cinemateca do MAM' },
-    { src: 'Incentivart/fotos-site/43672708815_4362cc7f11_b.webp', alt: 'Participantes praticam bambolê em oficina ao ar livre durante o festival' },
-    { src: 'Incentivart/fotos-site/30604155098_8c517218a7_b.webp', alt: 'Duas participantes sorriem abraçadas em frente ao banner do Festival Século XXI — Mulheres, Ação!' },
-    { src: 'Incentivart/fotos-site/44582537311_11c596c797_b.webp', alt: 'Convidada recebe flores no palco da Cinemateca ao lado da equipe do festival' },
     { src: 'Incentivart/fotos-site/43649900855_16247e90fe_b.webp', alt: 'Celular em tripé transmite ao vivo o debate com convidadas no palco do festival' },
-    { src: 'Incentivart/fotos-site/44582567701_3856f1c297_b.webp', alt: 'Consultora conversa com participante em mesa de atendimento durante o festival' },
     { src: 'Incentivart/fotos-site/43796270634_22b99322d4_b.webp', alt: 'Espectadora observa tela rosa com a palavra feminismo' },
     { src: 'Incentivart/fotos-site/43604610935_0f83645f22_b.webp', alt: 'Silhueta de espectadora diante de tela azul com a palavra sororidade' },
     { src: 'Incentivart/fotos-site/30689017558_f04d4a3e98_b.webp', alt: 'Painel iluminado exibe a hashtag #mulheresação em parede de tijolos' },

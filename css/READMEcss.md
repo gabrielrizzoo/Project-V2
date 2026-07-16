@@ -52,7 +52,7 @@ Os valores usam `clamp()`, então escalam sozinhos no mobile — não crie overr
 
 - `.card--static`: para cards de conteúdo **não clicável** (textos, stats, valores). Remove a elevação e a barra laranja de hover, que ficam reservadas a cards interativos.
 - `.card--feature`: destaque sutil (borda/gradiente na cor primária) para **um** item por grid. Não use em mais de um card do mesmo grupo.
-- `.card--feature-cycle`: variante animada do destaque — o realce circula entre os cards do grid em sequência (1→2→3→4→1...), um por vez. Aplique a **todos** os cards do grid (até 4); o delay é derivado de `:nth-child`. Usada no grid "Por que a Incentivart" em `servicos.html`.
+- `.card--feature-cycle`: variante animada do destaque — o realce circula entre os cards do grid em sequência (1→2→3→4→1...), um por vez. Aplique a **todos** os cards do grid (até 4); o delay é derivado de `:nth-child`. Usada no grid "Por que a Incentivart?" em `servicos.html`.
 - `.section-heading--left`: alinha o cabeçalho de seção à esquerda, para alternar o eixo entre seções consecutivas (evitar tudo centralizado).
 - `.founder-grid--flip`: espelha o layout foto/texto (usado na segunda integrante da equipe em `sobre.html`).
 - `.cta-block` + `.cta-actions`: bloco de CTA centralizado; use **um** botão primário (`btn-whatsapp` ou `btn-primary`) e o secundário como `btn-outline`.
