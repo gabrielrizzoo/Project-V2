@@ -629,8 +629,14 @@ body[data-page="servicos"] .client-chip:hover .client-chip-logo {
   transform: scale(1.04);
 }
 
-/* Chips são links (abrem site/Instagram em nova guia): foco visível e
-   pausa da rolagem também ao navegar por teclado, não só no hover */
+/* Logos que ficam ilegíveis com o filtro grayscale ficam sempre em cores
+   (aplicada via semFiltro: true no PARCEIROS_DATA em script.js) */
+body[data-page="servicos"] .client-chip-logo--sem-filtro {
+  filter: none;
+}
+
+/* Chips com link são âncoras (abrem site/Instagram em nova guia): foco
+   visível e pausa da rolagem também ao navegar por teclado, não só no hover */
 body[data-page="servicos"] .client-chip:focus-visible {
   outline: 2px solid rgba(240, 176, 146, 0.95);
   outline-offset: 3px;
@@ -1255,6 +1261,22 @@ body[data-page="servicos"] .foto-item:hover {
   transform: translateY(-4px);
   border-color: rgba(222, 127, 86, 0.22);
   box-shadow: 0 22px 45px rgba(0, 0, 0, 0.24);
+}
+
+/* Botão que envolve cada foto: clique amplia no lightbox (ver script.js) */
+body[data-page="servicos"] .foto-zoom {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: zoom-in;
+}
+
+body[data-page="servicos"] .foto-zoom:focus-visible {
+  outline: 2px solid rgba(240, 176, 146, 0.95);
+  outline-offset: -2px;
 }
 
 body[data-page="servicos"] .foto-item img {

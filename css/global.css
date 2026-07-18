@@ -2041,6 +2041,95 @@ textarea:focus {
 }
 
 /* ================================
+   LIGHTBOX DA GALERIA DE FOTOS
+   (seção #fotos de servicos.html — criado por script.js)
+   ================================ */
+.img-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(5px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.img-lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.img-lightbox-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: none;
+  border: none;
+  color: #de7f56;
+  font-size: 2.1rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+  transition: transform 0.2s ease;
+}
+
+.img-lightbox-close:hover {
+  transform: scale(1.1);
+}
+
+.img-lightbox-close:focus-visible {
+  outline: 2px solid rgba(240, 176, 146, 0.95);
+  outline-offset: 3px;
+}
+
+/* Fade + scale: o backdrop esmaece enquanto o conteúdo cresce até o tamanho final */
+.img-lightbox-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  margin: 0;
+  max-width: min(92vw, 900px);
+  transform: scale(0.92);
+  transition: transform 0.3s var(--ease-out);
+}
+
+.img-lightbox.active .img-lightbox-figure {
+  transform: scale(1);
+}
+
+.img-lightbox-img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(88vw, 820px);
+  max-height: min(68vh, 640px);
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.img-lightbox-caption {
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  max-width: min(88vw, 640px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .img-lightbox,
+  .img-lightbox-figure {
+    transition: none;
+  }
+}
+
+/* ================================
    FOUNDER SECTION - SOBRE PAGE
    ================================ */
 .founder-grid {

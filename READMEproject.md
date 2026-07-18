@@ -77,7 +77,7 @@ Ver detalhes completos em [css/READMEcss.md](css/READMEcss.md). Resumo:
 
 ## JavaScript
 
-- **[script.js](script.js):** script principal — navegação (menu/scroll), envio do formulário de contato (via `fetch` para `enviar.php`), animações/transições e os dados de configuração usados em `servicos.html`: `SERVICOS_DATA` (cards de serviços), `PARCEIROS_DATA` (carrossel de logos, com link por parceiro) e `CLIENTES_DATA` (carrossel de cards foto + nome, com link por cliente). Os dois carrosséis abrem o site/Instagram em nova guia ao clicar.
+- **[script.js](script.js):** script principal — navegação (menu/scroll), envio do formulário de contato (via `fetch` para `enviar.php`), animações/transições e os dados de configuração usados em `servicos.html`: `SERVICOS_DATA` (cards de serviços), `PARCEIROS_DATA` (carrossel de logos, com link opcional por parceiro) e `CLIENTES_DATA` (carrossel de cards foto + nome, com link opcional por cliente). Os dois carrosséis abrem o site/Instagram em nova guia ao clicar (itens sem link ficam sem clique). Também define o `ImageLightbox`, lightbox que amplia as fotos da galeria `#fotos` de `servicos.html`.
 - **[portfolio-data.js](portfolio-data.js):** define `window.PORTFOLIO_DATA`, array com os itens exibidos no portfólio (vídeos/imagens, título, descrição, link).
 - **[portfolio.js](portfolio.js):** consome `PORTFOLIO_DATA` para renderizar a grade do portfólio, filtros e o lightbox/modal de visualização.
 - **[hero-carousel.js](hero-carousel.js):** card stack carousel do hero da Home — empilha as fotos de `Incentivart/fotos-site/` sobre o `.hero-glow`, com navegação por setas, teclado, dots e swipe (transições só com `transform`/`opacity`).

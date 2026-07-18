@@ -133,31 +133,43 @@ const SERVICOS_DATA = [
 
 /**
  * PARCEIROS - Adicione ou remova aqui (carrossel de logos em servicos.html)
- * logo: caminho do arquivo em Incentivart/Logos/
+ * logo: caminho do arquivo em Incentivart/Logos/ (preferir .webp)
  * link: site oficial ou Instagram, aberto em nova guia ao clicar no card
+ *       (opcional — deixe "" e o chip fica sem clique)
+ * semFiltro: true exibe a logo sempre em cores (para logos que ficam
+ *       ilegíveis com o filtro grayscale do carrossel)
  */
 const PARCEIROS_DATA = [
-  { nome: "Valkyria Filmes", logo: "Incentivart/Logos/Valkyria_logo.png", link: "https://www.valkyriafilmes.com/" },
-  { nome: "Pipoca Cultural", logo: "Incentivart/Logos/Pipoca_logo.png", link: "https://www.instagram.com/pipoca.cultural/" },
-  { nome: "Instituto Ciativa", logo: "Incentivart/Logos/CIATIVA_logo.png", link: "https://www.instagram.com/ciativa/" },
+  { nome: "Valkyria Filmes", logo: "Incentivart/Logos/Valkyria_logo.webp", link: "https://www.valkyriafilmes.com/" },
+  { nome: "Pipoca Cultural", logo: "Incentivart/Logos/Pipoca_logo.webp", link: "https://www.instagram.com/pipoca.cultural/", semFiltro: true },
+  { nome: "Instituto Ciativa", logo: "Incentivart/Logos/CIATIVA_logo.webp", link: "https://www.instagram.com/ciativa/" },
   { nome: "Equipe F3 Esporte e Cultura", logo: "Incentivart/Logos/EquipeF3_logo.webp", link: "https://equipef3.com/" },
-  { nome: "Instituto Gas Petro - IGP", logo: "Incentivart/Logos/IGP_logo.png", link: "https://igp5.org/" },
-  { nome: "Igloo Filmes", logo: "Incentivart/Logos/Igloo_logo.png", link: "https://www.igloo.art.br/" },
-  { nome: "Jardineiro da Felicidade", logo: "Incentivart/Logos/Jardineiro_logo.png", link: "https://www.jardineirodafelicidade.com.br/" },
-  { nome: "L2C", logo: "Incentivart/Logos/L2C_logo.png", link: "https://www.l2c.art.br/" },
-  { nome: "Margarida Filmes", logo: "Incentivart/Logos/Margarida_logo.png", link: "https://www.margaridafilmes.com.br/" }
-  // Hi Hat Girls (https://www.hihatgirls.com/): sem logo em Incentivart/Logos/ ainda —
-  // adicionar o arquivo e a entrada aqui quando a logo chegar
+  { nome: "Instituto Gas Petro - IGP", logo: "Incentivart/Logos/IGP_logo.webp", link: "https://igp5.org/" },
+  { nome: "Igloo Filmes", logo: "Incentivart/Logos/Igloo_logo.webp", link: "https://www.igloo.art.br/" },
+  { nome: "Jardineiro da Felicidade", logo: "Incentivart/Logos/Jardineiro_logo.webp", link: "https://www.jardineirodafelicidade.com.br/" },
+  { nome: "L2C", logo: "Incentivart/Logos/L2C_logo.webp", link: "https://www.l2c.art.br/" },
+  { nome: "Margarida Filmes", logo: "Incentivart/Logos/Margarida_logo.webp", link: "https://www.margaridafilmes.com.br/" },
+  { nome: "Hi Hat Girls", logo: "Incentivart/Logos/HiHATGIRLS_logo.webp", link: "https://www.hihatgirls.com/" },
+  { nome: "Olhar da Alma", logo: "Incentivart/Logos/OlharDaAlma_logo.webp", link: "https://olhardaalma.com.br/" },
+  { nome: "Letras & Contos", logo: "Incentivart/Logos/LetrasEContos_logo.webp", link: "" },
+  { nome: "Fazer Cinema", logo: "Incentivart/Logos/FAZERCINEMA_logo.webp", link: "http://www.fazercinema.com/" }
 ];
 
 /**
  * CLIENTES - Adicione ou remova aqui (carrossel de cards foto + nome em servicos.html)
- * foto: caminho do arquivo em Incentivart/Logos/Clientes/
+ * foto: caminho do arquivo em Incentivart/Logos/Clientes/ (preferir .webp)
  * link: site oficial ou Instagram, aberto em nova guia ao clicar no card
+ *       (opcional — deixe "" e o chip fica sem clique)
  */
 const CLIENTES_DATA = [
-  { nome: "Ellen Jabour", foto: "Incentivart/Logos/Clientes/EllenJabour_foto.jpg", link: "https://www.instagram.com/ellenjabour/" },
-  { nome: "Andréa Cals", foto: "Incentivart/Logos/Clientes/AndreaCals_foto.jpg", link: "https://www.instagram.com/andrea.cals/" }
+  { nome: "Ellen Jabour", foto: "Incentivart/Logos/Clientes/EllenJabour_foto.webp", link: "https://www.instagram.com/ellenjabour/" },
+  { nome: "Andréa Cals", foto: "Incentivart/Logos/Clientes/AndreaCals_foto.webp", link: "https://www.instagram.com/andrea.cals/" },
+  { nome: "Bruna Steiner", foto: "Incentivart/Logos/Clientes/BrunaSteiner_foto.webp", link: "https://www.instagram.com/brunasteiner/" },
+  { nome: "Gabriela Alves Toulier", foto: "Incentivart/Logos/Clientes/GabrielaAlvesToulier_foto.webp", link: "https://www.instagram.com/gabi.alves.toulier/" },
+  { nome: "Kelly Jabour", foto: "Incentivart/Logos/Clientes/KellyJabour_foto.webp", link: "https://www.instagram.com/kellyjabour/" },
+  { nome: "Maria Eugênia Baptista", foto: "Incentivart/Logos/Clientes/MariaEugeniaBaptista_foto.webp", link: "https://www.instagram.com/meugenia.art" },
+  { nome: "Najla Raja", foto: "Incentivart/Logos/Clientes/NajlaRaja_foto.webp", link: "https://www.instagram.com/najla_raja/" },
+  { nome: "Patricia von Studnitz", foto: "Incentivart/Logos/Clientes/PatriciaVonStudnitz_foto.webp", link: "https://www.instagram.com/patriciavonstudnitz/" }
 ];
 
 // ================================
@@ -578,20 +590,36 @@ function initServicosClientes() {
 
   const cloneAttrs = (isClone) => (isClone ? ' aria-hidden="true" tabindex="-1"' : '');
 
-  const buildParceiroChip = (parceiro, isClone) => `
+  // Chip com link vira âncora (abre site/Instagram em nova guia); sem link,
+  // vira div estática com o mesmo visual (ex.: parceiro ainda sem página)
+  const buildParceiroChip = (parceiro, isClone) => {
+    const classesLogo = `client-chip-logo${parceiro.semFiltro ? ' client-chip-logo--sem-filtro' : ''}`;
+    const logo = `<img class="${classesLogo}" src="${escapeHtml(parceiro.logo)}" alt="${escapeHtml(parceiro.nome)}" width="160" height="48" loading="lazy" decoding="async">`;
+    if (!parceiro.link) {
+      return `<div class="card client-chip"${isClone ? ' aria-hidden="true"' : ''}>${logo}</div>`;
+    }
+    return `
     <a class="card client-chip" href="${escapeHtml(parceiro.link)}" target="_blank" rel="noopener noreferrer"
        aria-label="Abrir página de ${escapeHtml(parceiro.nome)} em nova guia"${cloneAttrs(isClone)}>
-      <img class="client-chip-logo" src="${escapeHtml(parceiro.logo)}" alt="${escapeHtml(parceiro.nome)}" width="160" height="48" loading="lazy" decoding="async">
+      ${logo}
     </a>
   `;
+  };
 
-  const buildClienteChip = (cliente, isClone) => `
+  const buildClienteChip = (cliente, isClone) => {
+    const conteudo = `
+      <img class="cliente-chip-foto" src="${escapeHtml(cliente.foto)}" alt="${escapeHtml(cliente.nome)}" width="150" height="150" loading="lazy" decoding="async">
+      <span class="cliente-chip-nome">${escapeHtml(cliente.nome)}</span>`;
+    if (!cliente.link) {
+      return `<div class="card client-chip client-chip--cliente"${isClone ? ' aria-hidden="true"' : ''}>${conteudo}</div>`;
+    }
+    return `
     <a class="card client-chip client-chip--cliente" href="${escapeHtml(cliente.link)}" target="_blank" rel="noopener noreferrer"
        aria-label="Abrir página de ${escapeHtml(cliente.nome)} em nova guia"${cloneAttrs(isClone)}>
-      <img class="cliente-chip-foto" src="${escapeHtml(cliente.foto)}" alt="${escapeHtml(cliente.nome)}" width="150" height="150" loading="lazy" decoding="async">
-      <span class="cliente-chip-nome">${escapeHtml(cliente.nome)}</span>
+      ${conteudo}
     </a>
   `;
+  };
 
   const parceirosContainer = document.getElementById('parceiros-container');
   if (parceirosContainer && typeof PARCEIROS_DATA !== 'undefined') {
@@ -600,14 +628,107 @@ function initServicosClientes() {
 
   const clientesContainer = document.getElementById('clientes-container');
   if (clientesContainer && typeof CLIENTES_DATA !== 'undefined') {
-    // Poucos clientes: repete o conjunto 3x para cada metade do track ficar
-    // mais larga que a área visível (senão o loop mostraria um vão em branco)
-    clientesContainer.innerHTML = buildCarouselTrack(CLIENTES_DATA, buildClienteChip, 3);
+    // Repete o conjunto 2x para cada metade do track ficar mais larga que a
+    // área visível em qualquer tela (senão o loop mostraria um vão em branco)
+    clientesContainer.innerHTML = buildCarouselTrack(CLIENTES_DATA, buildClienteChip, 2);
   }
 }
 
 // Nota: Funcionalidade de portfólio (PORTFOLIO_DATA, filtros, lightbox)
 // está em portfolio.js.
+
+// ================================
+// LIGHTBOX DA GALERIA DE FOTOS
+// ================================
+
+/**
+ * Lightbox da galeria de fotos de servicos.html (seção #fotos, abaixo do
+ * portfólio): amplia a foto com fade + scale, mostra o texto alternativo
+ * como legenda e fecha pelo X, clique fora ou ESC.
+ */
+const ImageLightbox = {
+  modal: null,
+  lastTrigger: null,
+
+  // O modal só entra no DOM na primeira ampliação (páginas sem galeria não pagam o custo)
+  createModal() {
+    if (this.modal) return;
+
+    const modalHTML = `
+      <div id="img-lightbox" class="img-lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" aria-hidden="true">
+        <button type="button" class="img-lightbox-close" aria-label="Fechar foto ampliada">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <figure class="img-lightbox-figure">
+          <img class="img-lightbox-img" src="" alt="">
+          <figcaption class="img-lightbox-caption"></figcaption>
+        </figure>
+      </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    this.modal = document.getElementById('img-lightbox');
+
+    this.modal.querySelector('.img-lightbox-close').addEventListener('click', () => this.close());
+
+    // Clique no backdrop (fora da foto/legenda) fecha
+    this.modal.addEventListener('click', (e) => {
+      if (e.target === this.modal) this.close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && this.modal.classList.contains('active')) this.close();
+    });
+  },
+
+  open({ src, alt = '' }, trigger = null) {
+    this.createModal();
+    this.lastTrigger = trigger;
+
+    const img = this.modal.querySelector('.img-lightbox-img');
+    const caption = this.modal.querySelector('.img-lightbox-caption');
+
+    img.src = src;
+    img.alt = alt;
+    caption.textContent = alt;
+    caption.style.display = alt ? '' : 'none';
+
+    this.modal.classList.add('active');
+    this.modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden'; // trava o scroll da página atrás do modal
+    this.modal.querySelector('.img-lightbox-close').focus({ preventScroll: true });
+  },
+
+  close() {
+    if (!this.modal) return;
+
+    // Devolve o foco a quem abriu antes de esconder o modal (evita foco
+    // preso em subtree com aria-hidden)
+    if (this.lastTrigger && document.contains(this.lastTrigger)) {
+      this.lastTrigger.focus({ preventScroll: true });
+    }
+    this.lastTrigger = null;
+
+    this.modal.classList.remove('active');
+    this.modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  },
+
+  init() {
+    // Delegação na grade da galeria: cada foto fica dentro de um botão
+    // .foto-zoom (ver servicos.html)
+    const fotosGrid = document.querySelector('.fotos-grid');
+    if (!fotosGrid) return;
+
+    fotosGrid.addEventListener('click', (e) => {
+      const zoom = e.target.closest('.foto-zoom');
+      if (!zoom) return;
+      const foto = zoom.querySelector('img');
+      if (!foto) return;
+      this.open({ src: foto.currentSrc || foto.src, alt: foto.alt }, zoom);
+    });
+  }
+};
 
 // ================================
 // FOOTER YEAR
@@ -776,4 +897,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // 7. Inicializa o modal de privacidade
   PrivacyModal.init();
+
+  // 8. Inicializa o lightbox de imagens dos carrosséis
+  ImageLightbox.init();
 });
