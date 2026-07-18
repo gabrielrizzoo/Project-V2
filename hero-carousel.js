@@ -15,10 +15,24 @@
     { src: 'Incentivart/fotos-site/30689017558_f04d4a3e98_b.webp', alt: 'Painel iluminado exibe a hashtag #mulheresação em parede de tijolos' },
     { src: 'Incentivart/fotos-site/30689016738_50e02854d8_b.webp', alt: 'Projeção da vinheta do Centro Audiovisual Simone de Beauvoir na sala de cinema' },
     { src: 'Incentivart/fotos-site/44464278912_7938e41c68_b.webp', alt: 'Folhetos de programação do festival enfileirados com entrada franca' },
-    { src: 'Incentivart/fotos-site/30758748678_e7c9822772_b.webp', alt: 'Caixa de bótons do festival na mesa de credenciamento' },
+    { src: 'Incentivart/fotos-site/convite-seculo-xxi-mulheres-acao.webp', alt: 'Convite evento "Século XXI Mulheres, Ação!" com Produção de Ludmila Lorenzetto', w: 1098, h: 1600 },
     { src: 'Incentivart/fotos-site/43604194695_4f0b52e4dd_b.webp', alt: 'Adesivos e bótons roxos do festival organizados em caixa sobre mesa florida' },
     { src: 'Incentivart/fotos-site/44464054622_8d4b7493bc_b.webp', alt: "Participante segura sacola rosa do festival em jardim com espelho d'água" },
-    { src: 'Incentivart/fotos-site/44513888001_f8e875d8ef_b.webp', alt: 'Kit do festival em sacola rosa translúcida sobre o jardim' }
+    { src: 'Incentivart/fotos-site/44513888001_f8e875d8ef_b.webp', alt: 'Kit do festival em sacola rosa translúcida sobre o jardim' },
+    { src: 'Incentivart/fotos-site/filme-dolores-festival-do-rio-2016.webp', alt: 'Equipe do filme Dolores apresenta a sessão no Festival do Rio 2016 — foto: Cristina Granato', w: 1334, h: 1600 },
+    { src: 'Incentivart/fotos-site/bastidores-camarim-maquiagem.webp', alt: 'Atriz retoca a maquiagem no espelho iluminado do camarim nos bastidores de filmagem', w: 1600, h: 900 },
+    { src: 'Incentivart/fotos-site/projeto-amar-2025-em-ayrton-senna-01.webp', alt: 'Apresentação musical do projeto Arte de aMAR para as crianças da EM Ayrton Senna', w: 1600, h: 1067 },
+    { src: 'Incentivart/fotos-site/projeto-amar-2025-em-ayrton-senna-02.webp', alt: 'Crianças participam de jogo educativo do projeto Arte de aMAR na biblioteca da EM Ayrton Senna', w: 1600, h: 1067 },
+    { src: 'Incentivart/fotos-site/ideias-brasil-concurso-literario.webp', alt: 'Apresentação do concurso literário do projeto Ideias Brasil para estudantes em sala de aula', w: 1600, h: 900 },
+    { src: 'Incentivart/fotos-site/brasilidade-fashion-capacitacao-01.webp', alt: 'Turma da capacitação gratuita em moda sustentável do Brasilidade Fashion', w: 1600, h: 1067 },
+    { src: 'Incentivart/fotos-site/brasilidade-fashion-capacitacao-02.webp', alt: 'Instrutor do Brasilidade Fashion prepara tecidos de reaproveitamento na oficina de moda sustentável', w: 1600, h: 1067 },
+    { src: 'Incentivart/fotos-site/brasilidade-fashion-oficina-estamparia.webp', alt: 'Participantes pintam estampas em tecido na oficina de estamparia do Brasilidade Fashion', w: 1200, h: 1600 },
+    { src: 'Incentivart/fotos-site/desfile-brasilidade-fashion-01.webp', alt: 'Passarela do desfile Brasilidade Fashion montada no shopping — foto: Ariel Subira', w: 1600, h: 1067 },
+    { src: 'Incentivart/fotos-site/desfile-brasilidade-fashion-02.webp', alt: 'Modelo desfila look jeans autoral na passarela do Brasilidade Fashion — foto: Ariel Subira', w: 1600, h: 1067 },
+    { src: 'Incentivart/fotos-site/desfile-brasilidade-fashion-03.webp', alt: 'Modelo apresenta jaqueta jeans customizada no desfile Brasilidade Fashion — foto: Ariel Subira', w: 1600, h: 1067 },
+    { src: 'Incentivart/fotos-site/positivamente-2025-tenda-criativa.webp', alt: "Oficina de pintura na Tenda Criativa do Positiva'Mente — foto: Ariel Subira", w: 1600, h: 1067 },
+    { src: 'Incentivart/fotos-site/positivamente-2025-yoga.webp', alt: "Prática de yoga na tenda do Positiva'Mente com o Corcovado ao fundo — foto: Ariel Subira", w: 1600, h: 1067 },
+    { src: 'Incentivart/fotos-site/positivamente-2025-bate-papo.webp', alt: "Público acompanha o bate-papo do Positiva'Mente acomodado em puffs — foto: Ariel Subira", w: 1600, h: 1067 }
   ];
 
   const AUTOPLAY_MS = 5000;
@@ -45,8 +59,8 @@
       const img = document.createElement('img');
       img.src = foto.src;
       img.alt = foto.alt;
-      img.width = 1024;
-      img.height = 684;
+      img.width = foto.w || 1024;
+      img.height = foto.h || 684;
       img.decoding = 'async';
       img.draggable = false;
       if (i >= EAGER_CARDS) img.loading = 'lazy';
