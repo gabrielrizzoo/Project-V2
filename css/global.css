@@ -31,7 +31,7 @@
 
   /* Social Colors */
   --whatsapp: #25D366;
-  --linkedin: #0077b5;
+  --x-twitter: #ffffff;
   --instagram: #E1306C;
 
   /* Functional */
@@ -1576,10 +1576,11 @@ textarea:focus {
   transform: translateY(-3px);
 }
 
-.social-links-footer a[aria-label="LinkedIn"]:hover {
-  background: var(--linkedin);
-  border-color: var(--linkedin);
-  color: white;
+.social-links-footer a[aria-label="X (Twitter)"]:hover {
+  background: var(--x-twitter);
+  border-color: var(--x-twitter);
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
   transform: translateY(-3px);
 }
 

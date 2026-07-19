@@ -632,6 +632,60 @@ function initServicosClientes() {
     // área visível em qualquer tela (senão o loop mostraria um vão em branco)
     clientesContainer.innerHTML = buildCarouselTrack(CLIENTES_DATA, buildClienteChip, 2);
   }
+
+  // Marquee via requestAnimationFrame: velocidade constante em px/s (a animação
+  // CSS com duração fixa deixava o track de clientes ~2x mais rápido que o de
+  // parceiros), loop exato medido em pixels (sem salto no retorno) e pausa com
+  // desaceleração suave no hover/foco. Sem JS, o fallback é a animação CSS.
+  const initMarquee = (track, { speed = 55, reverse = false } = {}) => {
+    if (!track || !track.children.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const carousel = track.closest('.clients-carousel');
+    track.classList.add('clients-track--js');
+
+    let half = 0;
+    let pos = 0;
+    let current = speed; // velocidade atual, suavizada em direção ao alvo
+    let target = speed;
+    let last = performance.now();
+
+    const measure = () => {
+      half = track.scrollWidth / 2;
+      if (half > 0) pos %= half;
+    };
+
+    const step = (now) => {
+      // dt limitado para não "pular" ao voltar de uma aba em segundo plano
+      const dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      current += (target - current) * Math.min(1, dt * 5);
+      if (half > 0 && Math.abs(current) > 0.01) {
+        pos = (pos + current * dt) % half;
+        const offset = reverse ? pos - half : -pos;
+        track.style.transform = `translate3d(${offset}px, 0, 0)`;
+      }
+      requestAnimationFrame(step);
+    };
+
+    if (carousel) {
+      const pause = () => { target = 0; };
+      const resume = () => { target = speed; };
+      carousel.addEventListener('mouseenter', pause);
+      carousel.addEventListener('mouseleave', resume);
+      carousel.addEventListener('focusin', pause);
+      carousel.addEventListener('focusout', resume);
+    }
+
+    measure();
+    window.addEventListener('resize', measure);
+    requestAnimationFrame(step);
+  };
+
+  // Clientes roda um pouco mais lento (cards maiores pedem leitura) e em
+  // sentido contrário ao de parceiros
+  initMarquee(parceirosContainer, { speed: 55 });
+  initMarquee(clientesContainer, { speed: 42, reverse: true });
 }
 
 // Nota: Funcionalidade de portfólio (PORTFOLIO_DATA, filtros, lightbox)

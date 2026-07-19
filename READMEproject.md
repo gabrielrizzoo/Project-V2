@@ -30,8 +30,9 @@ Project-V2/
 ├── .htaccess                    Headers de segurança, compressão, cache, rewrites (Apache)
 ├── apple-touch-icon.png         Ícone para dispositivos Apple
 ├── README-backend.md            Documentação do enviar.php (validação, rate limiting, segurança)
+├── READMEjs.md                  Documentação dos arquivos JavaScript (script.js, portfolio.js, portfolio-data.js, hero-carousel.js)
 ├── DEPLOY-HOSTGATOR.md          Guia passo a passo de deploy no HostGator
-├── AUDITORIA.md                 Changelog da auditoria geral (jul/2026): achados, correções e pendências
+├── CHECKPROGRESS.md             Checklist do que falta para colocar o site em produção
 ├── css/
 │   ├── global.css                Design system, layout base, componentes e responsividade (usado em todas as páginas)
 │   ├── index.css                  Estilos específicos de index.html (card stack carousel do hero)
@@ -39,7 +40,7 @@ Project-V2/
 │   ├── servicos.css                Estilos específicos de servicos.html (inclui galeria de fotos)
 │   └── READMEcss.md               Documentação da pasta css/
 ├── assets/
-│   ├── favicon.ico, icon-192x192.png, icon-512x512.png, shield-icon.svg
+│   ├── favicon.ico, icon-192x192.png, icon-512x512.png, shield-icon.svg, og-image.jpg
 │   └── projetos/                  Imagens de projetos exibidas no portfólio (Arte de Amar, Ideias Brasil, etc.)
 ├── Incentivart/
 │   ├── Foto/                      Fotos da equipe (Lud, Rowena)
@@ -77,6 +78,8 @@ Ver detalhes completos em [css/READMEcss.md](css/READMEcss.md). Resumo:
 
 ## JavaScript
 
+Ver detalhes completos em [READMEjs.md](READMEjs.md). Resumo:
+
 - **[script.js](script.js):** script principal — navegação (menu/scroll), envio do formulário de contato (via `fetch` para `enviar.php`), animações/transições e os dados de configuração usados em `servicos.html`: `SERVICOS_DATA` (cards de serviços), `PARCEIROS_DATA` (carrossel de logos, com link opcional por parceiro) e `CLIENTES_DATA` (carrossel de cards foto + nome, com link opcional por cliente). Os dois carrosséis abrem o site/Instagram em nova guia ao clicar (itens sem link ficam sem clique). Também define o `ImageLightbox`, lightbox que amplia as fotos da galeria `#fotos` de `servicos.html`.
 - **[portfolio-data.js](portfolio-data.js):** define `window.PORTFOLIO_DATA`, array com os itens exibidos no portfólio (vídeos/imagens, título, descrição, link).
 - **[portfolio.js](portfolio.js):** consome `PORTFOLIO_DATA` para renderizar a grade do portfólio, filtros e o lightbox/modal de visualização.
@@ -90,22 +93,23 @@ Ordem de carregamento nas páginas que usam portfólio: `portfolio-data.js` → 
 
 ## Assets e Mídia
 
-- `assets/`: ícones do site (favicon, PWA icons, shield) e `assets/projetos/` com as imagens usadas no portfólio institucional.
+- `assets/`: ícones do site (favicon, PWA icons, shield), a imagem Open Graph (`og-image.jpg`, referenciada nas meta tags das páginas) e `assets/projetos/` com as imagens usadas no portfólio institucional.
 - `Incentivart/Foto/`: fotos da equipe usadas nas páginas institucionais.
 
 ## SEO e Infraestrutura
 
 - [robots.txt](robots.txt): libera indexação geral e aponta para o `sitemap.xml`.
 - [sitemap.xml](sitemap.xml): lista as URLs indexáveis do site (a política de privacidade fica de fora por ter `noindex`).
-- [.htaccess](.htaccess) (raiz): headers de segurança (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security`; CSP preparada, comentada), compressão (mod_deflate), cache de navegador (mod_expires), força HTTPS, URLs limpas sem `.html` e bloqueio de arquivos internos (`.git`, `.vscode`, `*.md` etc.).
+- [.htaccess](.htaccess) (raiz): headers de segurança (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security`, `Content-Security-Policy`), compressão (mod_deflate), cache de navegador (mod_expires), força HTTPS, URLs limpas sem `.html` e bloqueio de arquivos internos (`.git`, `.vscode`, `*.md` etc.).
 - [logs/.htaccess](logs/.htaccess): bloqueia acesso público ao diretório `logs/` (usado pelo rate limiting do `enviar.php`).
 
 ## Documentação Interna
 
 - [css/READMEcss.md](css/READMEcss.md): guia de uso dos arquivos CSS.
+- [READMEjs.md](READMEjs.md): guia de uso dos arquivos JavaScript.
 - [README-backend.md](README-backend.md): funcionamento e segurança do `enviar.php`.
 - [DEPLOY-HOSTGATOR.md](DEPLOY-HOSTGATOR.md): passo a passo de deploy no HostGator.
-- [AUDITORIA.md](AUDITORIA.md): changelog da auditoria geral de julho/2026.
+- [CHECKPROGRESS.md](CHECKPROGRESS.md): checklist do que falta para a produção.
 
 ## Convenções
 

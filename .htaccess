@@ -19,10 +19,14 @@ Options -MultiViews
     # Navegadores ignoram este header em conexões HTTP, então é seguro enviá-lo sempre.
     # Só surte efeito depois que o SSL estiver ativo no HostGator (ver DEPLOY-HOSTGATOR.md).
     Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
-    # Content-Security-Policy: preparada mas DESATIVADA — ativar somente após
-    # testar todas as páginas (portfólio carrega imagens/vídeos de domínios externos).
-    # Ver AUDITORIA.md (achado de segurança) antes de descomentar a linha abaixo.
-    # Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https://img.youtube.com https://i.ytimg.com https://br.web.img3.acsta.net https://www.cafecomfilme.com.br; frame-src https://www.youtube-nocookie.com https://drive.google.com; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+    # Content-Security-Policy: cobre todas as origens externas que o site usa —
+    # Font Awesome (cdnjs), Google Fonts, thumbnails YouTube/acsta/cafecomfilme
+    # e embeds de vídeo (YouTube nocookie, Google Drive). 'unsafe-inline' em
+    # style-src é necessário pelos <style> dos fallbacks <noscript> e pelo
+    # atributo style= de politica-de-privacidade.html.
+    # Se algo quebrar após o deploy, o console do navegador mostra a origem
+    # bloqueada; adicione-a aqui ou comente a linha para reverter.
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https://img.youtube.com https://i.ytimg.com https://br.web.img3.acsta.net https://www.cafecomfilme.com.br; frame-src https://www.youtube-nocookie.com https://drive.google.com; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
 </IfModule>
 
 # ================================

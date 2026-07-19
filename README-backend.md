@@ -18,13 +18,13 @@
 | `nome` | Sim | Não vazio, máx. 80 caracteres |
 | `sobrenome` | Sim | Não vazio, máx. 120 caracteres |
 | `email` | Sim | `FILTER_VALIDATE_EMAIL`, máx. 254 caracteres |
-| `telefone` | Sim | Só `0-9 + ( ) espaço -`, 10–13 dígitos |
+| `telefone` | Sim | Só `0-9 + ( ) espaço -`, 10–13 dígitos, máx. 30 caracteres |
 | `mensagem` | Sim | Não vazia, máx. 800 caracteres |
 | `consentimento` | Sim | Precisa vir marcado (LGPD) |
 | `segmento[]` | Não | Whitelist: `teatro`, `musica`, `audiovisual`, `outros` |
 | `website` | — | Honeypot: precisa vir **vazio** |
 
-A validação client-side (atributos `required`/`maxlength`/`pattern` em contato.html) é só usabilidade; toda regra crítica é reaplicada aqui no servidor.
+A validação client-side (atributos `required`/`maxlength`/`pattern` em contato.html) é só usabilidade; toda regra crítica é reaplicada aqui no servidor. Nuance conhecida: o `pattern` do telefone no cliente conta **caracteres** (10–30), enquanto o servidor exige **10–13 dígitos** — um telefone com 14+ dígitos passa no cliente e é rejeitado aqui (comportamento intencional, o servidor é a autoridade).
 
 ## Formato da resposta
 

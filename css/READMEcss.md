@@ -15,7 +15,7 @@ Use sempre `global.css` em todas as páginas e adicione o CSS específico da pá
 
 ```html
 <!-- Base do site -->
-<link rel="stylesheet" href="css/global.css?v=20260718-2" />
+<link rel="stylesheet" href="css/global.css?v=20260719-2" />
 
 <!-- Somente para a Home -->
 <link rel="stylesheet" href="css/index.css?v=20260718-2" />
@@ -60,10 +60,13 @@ Os valores usam `clamp()`, então escalam sozinhos no mobile — não crie overr
 - `.foto-zoom` (servicos.css): botão que envolve cada foto da galeria `#fotos` — clique amplia a foto no lightbox. Chips dos carrosséis com link continuam âncoras diretas (abrem site/Instagram em nova guia); sem link, o chip vira div estática.
 - `.client-chip-logo--sem-filtro` (servicos.css): exibe a logo do parceiro sempre em cores, sem o filtro grayscale do carrossel — para logos que ficam ilegíveis com o filtro (ex.: Pipoca Cultural). Aplicada via `semFiltro: true` no `PARCEIROS_DATA` de `script.js`.
 - `.img-lightbox` (global.css): lightbox da galeria de fotos de `servicos.html`, criado dinamicamente por `script.js`. Fade no backdrop + scale no conteúdo (classe `active`), legenda com o texto alternativo da foto. Transições desativadas com `prefers-reduced-motion`.
+- `.icon-circle--sm` (global.css): variante compacta do `.icon-circle` (36px), para ícones em listas densas — usada nas listas de missão/valores de `sobre.html`.
+- `.stat-pill` (global.css): pill de estatística (chip laranja translúcido) usada nos números-chave do hero de `servicos.html`; hover com elevação sutil.
+- `.service-badge-new` (global.css): selo "Novo" em âmbar, destaque exclusivo para serviços recém-lançados — renderizado por `script.js` quando o serviço tem `novo: true` nos dados. Assim como `.card--feature`, use no máximo em um card por grid.
 
 ## Animações
 
-As entradas (`[data-animate]`) recebem stagger automático via `script.js`: irmãos animados no mesmo contêiner entram em cascata (80ms por item). As classes `delay-100`…`delay-500` continuam existindo como fallback, mas não são mais necessárias em novos elementos (o stagger inline do JS as sobrepõe). Cada página com `[data-animate]` também inclui um `<noscript>` no `<head>` que força `opacity:1` — sem JS a classe `.in-view` nunca é aplicada e o conteúdo ficaria invisível.
+As entradas (`[data-animate]`) recebem stagger automático via `script.js`: irmãos animados no mesmo contêiner entram em cascata (80ms por item, limitado a 480ms). As classes `delay-100`…`delay-500` continuam existindo como fallback, mas não são mais necessárias em novos elementos (o stagger inline do JS as sobrepõe). Cada página com `[data-animate]` também inclui um `<noscript>` no `<head>` que força `opacity:1; transform:none` — sem JS a classe `.in-view` nunca é aplicada e o conteúdo ficaria invisível.
 
 ## Observação
 

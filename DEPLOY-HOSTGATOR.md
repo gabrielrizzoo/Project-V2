@@ -36,7 +36,7 @@ css/  assets/  Incentivart/  logs/  (incluindo logs/.htaccess)
 **NÃO subir:**
 
 - `.git/`, `.vscode/`
-- `*.md` (READMEs, AUDITORIA.md, este guia) — se subirem por engano, o `.htaccess` já bloqueia o acesso web a eles, mas o ideal é nem enviar
+- `*.md` (READMEs, este guia) — se subirem por engano, o `.htaccess` já bloqueia o acesso web a eles, mas o ideal é nem enviar
 - Arquivos de prompt/trabalho (`melhoria-*.md` etc.)
 
 **Atenção:** `.htaccess` e `logs/.htaccess` são arquivos ocultos — habilite "mostrar arquivos ocultos" no FileZilla/Gerenciador de Arquivos para confirmar que subiram. Sem o `logs/.htaccess`, os arquivos de rate limiting ficariam acessíveis publicamente.
@@ -57,7 +57,7 @@ Depois de subir, verifique:
 - `https://incentivart.com.br/sobre` abre (URL limpa sem `.html`) e `https://incentivart.com.br/sobre.html` redireciona para `/sobre`;
 - Uma URL inexistente mostra a página 404 customizada;
 - Os headers de segurança estão presentes (aba Network do navegador ou `curl -I https://incentivart.com.br`).
-- A **CSP** está preparada porém **comentada** no `.htaccess` — só descomente depois de testar todas as páginas (em especial o portfólio, que carrega imagens e vídeos de domínios externos). Se algo quebrar, o console do navegador mostra qual origem precisa ser adicionada à política.
+- A **CSP** está ativa no `.htaccess` e cobre todas as origens externas que o site usa (Font Awesome, Google Fonts, thumbnails do YouTube e embeds de vídeo). Ao testar as páginas, olhe o console do navegador: se algo for bloqueado, o erro indica a origem que precisa ser adicionada à política (ou comente a linha da CSP para reverter).
 
 ## 6. DNS / domínio
 

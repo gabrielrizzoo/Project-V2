@@ -569,8 +569,8 @@ body[data-page="servicos"] .clients-carousel {
   overflow: hidden;
   contain: layout paint style;
   isolation: isolate;
-  mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
 }
 
 body[data-page="servicos"] .clients-track {
@@ -609,7 +609,7 @@ body[data-page="servicos"] .client-chip::before {
 
 body[data-page="servicos"] .client-chip:hover {
   transform: translateY(-3px);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28), 0 0 24px rgba(222, 127, 86, 0.12);
   border-color: rgba(222, 127, 86, 0.28);
 }
 
@@ -697,9 +697,17 @@ body[data-page="servicos"] .cliente-chip-nome {
     transform: translateX(0);
   }
 
+  /* -50% menos metade do gap (1.25rem / 2): sem a compensação, o espaço entre
+     as duas metades do track deslocava o retorno e causava um salto no loop */
   to {
-    transform: translateX(-50%);
+    transform: translateX(calc(-50% - 0.625rem));
   }
+}
+
+/* Quando o marquee em JS assume (script.js), a animação CSS é desligada para
+   não disputar o transform — velocidade e pausa passam a ser controladas em JS */
+body[data-page="servicos"] .clients-track--js {
+  animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
