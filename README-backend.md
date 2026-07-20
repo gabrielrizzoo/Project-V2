@@ -46,6 +46,3 @@ HTTP: `200` sucesso · `400` validação · `405` método · `429` rate limit ·
 
 - Os arquivos `logs/rate_limit_*.log` não são apagados automaticamente (um por IP, poucos bytes cada). Se acumularem, podem ser removidos em massa sem efeito colateral — o pior caso é um IP ganhar uma janela nova.
 - Para trocar o destinatário ou os limites, edite as variáveis no topo de [enviar.php](enviar.php).
-
-
-.
