@@ -133,17 +133,21 @@ body[data-page="home"] .hero-stack-dots {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.4rem;
-  max-width: 220px;
+  gap: 0.15rem;
+  max-width: 280px;
 }
 
 body[data-page="home"] .hero-stack-dot {
   width: 8px;
   height: 8px;
-  padding: 0;
+  /* Círculo visível de 8px, mas área de toque ~22px: o padding transparente
+     amplia o alvo (background-clip mantém o preenchimento só no conteúdo) */
+  padding: 7px;
+  box-sizing: content-box;
   border: none;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.25);
+  background-clip: content-box;
   cursor: pointer;
   transition: background 0.25s ease, transform 0.25s ease;
 }

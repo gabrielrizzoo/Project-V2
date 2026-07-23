@@ -83,6 +83,12 @@ ErrorDocument 404 /404.html
     RewriteRule (^|/)(?:\.git|\.vscode)(?:/|$) - [F,L,NC]
     RewriteRule (^|/).+\.(?:md|sql|ya?ml|sh|bat|ps1)$ - [F,L,NC]
 
+    # Host canônico: remove o www e já aponta para HTTPS. Vem antes do bloco
+    # de HTTPS para resolver http+www em um único redirecionamento (evita
+    # conteúdo duplicado no SEO — incentivart.com.br é a forma canônica).
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
     # Força HTTPS (exceto em desenvolvimento local)
     RewriteCond %{HTTPS} off
     RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$ [NC]

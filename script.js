@@ -204,6 +204,20 @@ function escapeHtml(text) {
     .replace(/'/g, "&#039;");
 }
 
+/**
+ * Máscara de telefone no padrão brasileiro:
+ * (XX) XXXXX-XXXX (celular, 11 dígitos) ou (XX) XXXX-XXXX (fixo, 10 dígitos).
+ * Limita a 11 dígitos (DDD + número); o código do país não é digitado aqui.
+ */
+function maskTelefoneBR(value) {
+  const digits = value.replace(/\D/g, '').slice(0, 11);
+  if (digits.length === 0) return '';
+  if (digits.length <= 2) return `(${digits}`;
+  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+}
+
 // ================================
 // ANIMAÇÕES DE SCROLL (Intersection Observer)
 // ================================
@@ -502,6 +516,32 @@ function initForm() {
         counter.parentElement.style.color = 'inherit';
       }
     });
+  }
+
+  // Máscara e validação de telefone (padrão brasileiro)
+  const telefone = document.getElementById('telefone');
+  if (telefone) {
+    const validateTelefone = () => {
+      const digits = telefone.value.replace(/\D/g, '');
+      const isValid = telefone.value.trim() === '' || (digits.length >= 10 && digits.length <= 11);
+      telefone.classList.toggle('input--invalid', !isValid);
+      return isValid;
+    };
+
+    telefone.addEventListener('input', () => {
+      const atEnd = telefone.selectionStart === telefone.value.length;
+      telefone.value = maskTelefoneBR(telefone.value);
+      // Mantém o cursor no fim após a reformatação (caso comum: digitação sequencial)
+      if (atEnd) {
+        telefone.setSelectionRange(telefone.value.length, telefone.value.length);
+      }
+      // Se já estava sinalizado como inválido, revalida enquanto digita
+      if (telefone.classList.contains('input--invalid')) {
+        validateTelefone();
+      }
+    });
+
+    telefone.addEventListener('blur', validateTelefone);
   }
 }
 

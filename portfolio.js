@@ -184,8 +184,11 @@ function initPortfolio() {
       const imagem = escapeHtml(getPortfolioCardImageSource(item));
       const fallbackImage = escapeHtml(getPortfolioCardImageFallback(item));
       const link = escapeHtml(item.link);
+      // Fallback via data-attribute + addEventListener (abaixo): a CSP do site
+      // bloqueia handlers inline como onerror=, então o fallback precisa ser
+      // anexado por JS após a inserção no DOM.
       const fallbackAttr = fallbackImage && fallbackImage !== imagem
-        ? ` onerror="this.onerror=null;this.src='${fallbackImage}'"`
+        ? ` data-fallback="${fallbackImage}"`
         : '';
       const delayStyle = index > 0 ? `animation-delay: ${index * 0.06}s;` : '';
 
@@ -223,6 +226,18 @@ function initPortfolio() {
         </figure>
       `;
     }).join('');
+
+    // Fallback de imagem (thumbnail WebP → JPG) sem handler inline: substitui
+    // a fonte ao primeiro erro; { once: true } evita loop se o JPG também falhar.
+    portfolioContainer.querySelectorAll('.pf-card-image[data-fallback]').forEach(img => {
+      const applyFallback = () => {
+        const fb = img.getAttribute('data-fallback');
+        if (fb && img.src !== fb) img.src = fb;
+      };
+      img.addEventListener('error', applyFallback, { once: true });
+      // Caso o erro tenha ocorrido antes do listener ser anexado
+      if (img.complete && img.naturalWidth === 0) applyFallback();
+    });
   }
 
   // Configurar filtros

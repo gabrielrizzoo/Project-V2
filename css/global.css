@@ -12,7 +12,7 @@
    ================================ */
 :root {
   /* Colors - Premium Dark Theme */
-  color-scheme: light;
+  color-scheme: dark;
   --bg-body: #050505;
   --bg-surface: #0f0f0f;
   --bg-surface-hover: #1a1a1a;
@@ -89,7 +89,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 body {
@@ -1469,6 +1469,12 @@ textarea:focus {
   color: #ffffff;
   cursor: pointer;
   padding: 0.5rem;
+  /* Alvo de toque confortável (WCAG 2.5.5): a barra do hambúrguer e seus
+     pseudo-elementos não expandem a caixa do botão, então garantimos aqui */
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Telas grandes: navegação e leads um pouco maiores para não parecerem "miúdos" */
@@ -1556,8 +1562,8 @@ textarea:focus {
 }
 
 .social-links-footer a {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: #0f0f0f;
   display: flex;
@@ -2784,7 +2790,7 @@ textarea:focus {
   }
 
   .mobile-menu-toggle {
-    display: block;
+    display: flex;
     z-index: 1002;
   }
 
@@ -2793,7 +2799,9 @@ textarea:focus {
     top: 0;
     right: 0;
     width: 100%;
+    /* dvh acompanha a barra de endereço dinâmica no mobile; vh é o fallback */
     height: 100vh;
+    height: 100dvh;
     background: #050505;
     flex-direction: column;
     align-items: center;

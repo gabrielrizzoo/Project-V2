@@ -45,6 +45,13 @@ body[data-page="contato"] .label {
   -webkit-text-fill-color: #ffffff !important;
 }
 
+/* Feedback visual de campo inválido (ex.: telefone com dígitos insuficientes),
+   aplicado por script.js no blur/input do campo */
+body[data-page="contato"] .input--invalid {
+  border-color: var(--error) !important;
+  box-shadow: 0 0 0 2px rgba(255, 61, 0, 0.18);
+}
+
 /* Textarea com redimensionamento controlado */
 body[data-page="contato"] textarea {
   min-height: 140px;
